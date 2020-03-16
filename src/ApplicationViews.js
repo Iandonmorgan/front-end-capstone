@@ -1,8 +1,8 @@
 import { Route, Redirect } from "react-router-dom";
 import React from "react";
-import Dashboard from "./dashboard/Dashboard";
-import Login from "./src/components/users/Login";
-import CreateUser from "./src/components/users/CreateUser";
+import Dashboard from "./components/dashboard/Dashboard";
+import Login from "./components/users/Login";
+import CreateUser from "./components/users/CreateUser";
 
 const ApplicationViews = props => {
   const hasUser = props.hasUser;

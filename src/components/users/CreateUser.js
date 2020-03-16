@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./CreateUser.css";
 import APIManager from "../../modules/APIManager";
-import keys from "../../../keys";
+// import keys from "../../../keys/keys";
 
 const CreateUser = props => {
   const [credentials, setCredentials] = useState({
@@ -25,7 +25,7 @@ const CreateUser = props => {
   };
   const handleCreateAccountLogin = event => {
     event.preventDefault();
-    ApiManager.checkEmail("users", credentials.email).then(r => {
+    APIManager.checkEmail("users", credentials.email).then(r => {
       if (r.length > 0) {
         window.alert("This email is already taken");
       } else if(credentials.password !== credentials.confirmedPassword){
@@ -37,7 +37,7 @@ const CreateUser = props => {
           password: credentials.password,
           picUrl: "https://pecb.com/conferences/wp-content/uploads/2017/10/no-profile-picture.jpg"
         };
-        ApiManager.post('users',newUser).then(user=> {
+        APIManager.post('users',newUser).then(user=> {
             props.setUser(user, true)
         })
       } else if(isChecked===false && image.picUrl!==""){
@@ -47,7 +47,7 @@ const CreateUser = props => {
             password: credentials.password,
             picUrl: image.picUrl
           };
-          ApiManager.post('users', newUser).then(user=> {
+          APIManager.post('users', newUser).then(user=> {
               props.setUser(user, true)
           })
       }
@@ -70,7 +70,7 @@ const CreateUser = props => {
     data.append("upload_preset", "photoLab");
     setIsLoading(true);
     const res = await fetch(
-      `https://api.cloudinary.com/v1_1/${keys.cloudinary}/image/upload`,
+      `https://api.cloudinary.com/v1_1/commissioner-mordan/image/upload`,
       {
         method: "POST",
         body: data
