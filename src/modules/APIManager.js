@@ -12,44 +12,10 @@ export default {
         );
     },
     getLogin(component, email) {
-        return fetch(
-            `${remoteURL}/${component}?email=${email}`
-        ).then(result => result.json());
+        return fetch(`${remoteURL}/${component}?email=${email}`).then(result => result.json());
     },
-    checkEmail(component, email) {
-        return fetch(`${remoteURL}/${component}?email=${email}`).then(r =>
-            r.json()
-        );
-    },
-    getAllWithUserId(component, userId) {
-        return fetch(`${remoteURL}/${component}?userId=${userId}`).then(result =>
-            result.json()
-        );
-    },
-    getAllWithUserIdExpand(component, userId, expandItem) {
-        return fetch(
-            `${remoteURL}/${component}?userId=${userId}&_expand=${expandItem}`
-        ).then(result => result.json());
-    },
-    getWithEmbed(component, id, embedItem) {
-        return fetch(
-            `${remoteURL}/${component}/${id}?_embed=${embedItem}`
-        ).then(result => result.json());
-    },
-    getAllWithEmbed(component, embedItem) {
-        return fetch(`${remoteURL}/${component}?_embed=${embedItem}`).then(result =>
-            result.json()
-        );
-    },
-    getWithExpand(component, id, expandItem) {
-        return fetch(
-            `${remoteURL}/${component}/${id}?_expand=${expandItem}`
-        ).then(result => result.json());
-    },
-    getAllWithExpand(component, expandItem) {
-        return fetch(
-            `${remoteURL}/${component}?_expand=${expandItem}`
-        ).then(result => result.json());
+    getUsername(component, username) {
+        return fetch(`${remoteURL}/${component}?username=${username}`).then(result => result.json());
     },
     delete(component, id) {
         return fetch(`${remoteURL}/${component}/${id}`, {

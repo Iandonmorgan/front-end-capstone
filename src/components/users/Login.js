@@ -37,8 +37,8 @@ const Login = props => {
                 } else {
                     alert("Please type email address associated with your account, or create account.");
                 }
-            }
-        );
+
+            });
     };
 
     return (
@@ -49,13 +49,13 @@ const Login = props => {
             <fieldset className="form">
                 <p className="signInGreeting">Please Sign In</p>
                 <div className="form-grid">
-                    <label htmlFor="inputEmail">u:</label>
+                    <label htmlFor="inputEmail">email: </label>
                     <input
                         className="login-input"
                         onChange={handleFieldChange}
                         type="email"
                         id="email"
-                        placeholder="Email or Username"
+                        placeholder="Email"
                         required=""
                         autoFocus=""
                     />

@@ -24,44 +24,96 @@ const CreateUser = props => {
         setIsChecked(event.target.checked);
     };
     const handleCreateAccountLogin = event => {
-        event.preventDefault();
-        APIManager.checkEmail("users", credentials.email).then(r => {
-            if (r.length > 0) {
-                window.alert("This email is already taken");
-            } else if (credentials.password !== credentials.confirmedPassword) {
-                window.alert('The passwords dont match up')
-            } else if (isChecked === true && image.picUrl === "") {
-                const newUser = {
-                    email: credentials.email,
-                    username: credentials.username,
-                    password: credentials.password,
-                    picUrl: "https://pecb.com/conferences/wp-content/uploads/2017/10/no-profile-picture.jpg"
-                };
-                APIManager.post('users', newUser).then(user => {
-                    props.setUser(user, true)
-                })
-            } else if (isChecked === false && image.picUrl !== "") {
-                const newUser = {
-                    email: credentials.email,
-                    username: credentials.username,
-                    password: credentials.password,
-                    picUrl: image.picUrl
-                };
-                APIManager.post('users', newUser).then(user => {
-                    props.setUser(user, true)
-                })
-            }
-        });
-
-        props.setUser();
-        props.history.push("/");
-        if (isChecked === true) {
-            localStorage.setItem("credentials", JSON.stringify(credentials));
-            props.history.push("/");
+        if (credentials.email === "") {
+            window.alert("Please complete all input fields");
+        } else if (credentials.username === "") {
+            window.alert("Please complete all input fields");
         } else {
-            sessionStorage.setItem("credentials", JSON.stringify(credentials));
-            props.history.push("/");
-        }
+            event.preventDefault();
+            APIManager.getLogin("users", credentials.email).then(r => {
+                if (r.length > 0) {
+                    window.alert("This email is already taken");
+                } else {
+                    APIManager.getUsername("users", credentials.username).then(r => {
+                        if (r.length > 0) {
+                            window.alert("This username is already taken");
+                        } else if (isChecked === true && image.picUrl !== "") {
+                            const newUser = {
+                                email: credentials.email,
+                                username: credentials.username,
+                                picUrl: image.picUrl
+                            };
+                            APIManager.post('users', newUser).then(user => {
+                                props.setUser(user, true)
+                            })
+                            props.setUser();
+                            props.history.push("/");
+                            if (isChecked === true) {
+                                localStorage.setItem("credentials", JSON.stringify(credentials));
+                                props.history.push("/");
+                            } else {
+                                sessionStorage.setItem("credentials", JSON.stringify(credentials));
+                                props.history.push("/");
+                            }
+                        } else if (isChecked === false && image.picUrl !== "") {
+                            const newUser = {
+                                email: credentials.email,
+                                username: credentials.username,
+                                picUrl: image.picUrl
+                            };
+                            APIManager.post('users', newUser).then(user => {
+                                props.setUser(user, false)
+                            })
+                            props.setUser();
+                            props.history.push("/");
+                            if (isChecked === true) {
+                                localStorage.setItem("credentials", JSON.stringify(credentials));
+                                props.history.push("/");
+                            } else {
+                                sessionStorage.setItem("credentials", JSON.stringify(credentials));
+                                props.history.push("/");
+                            }
+                        } else if (image.picUrl === "" && isChecked === true) {
+                            const newUser = {
+                                email: credentials.email,
+                                username: credentials.username,
+                                picUrl: "https://pecb.com/conferences/wp-content/uploads/2017/10/no-profile-picture.jpg"
+                            };
+                            APIManager.post('users', newUser).then(user => {
+                                props.setUser(user, true)
+                            })
+                            props.setUser();
+                            props.history.push("/");
+                            if (isChecked === true) {
+                                localStorage.setItem("credentials", JSON.stringify(credentials));
+                                props.history.push("/");
+                            } else {
+                                sessionStorage.setItem("credentials", JSON.stringify(credentials));
+                                props.history.push("/");
+                            }
+                        } else {
+                            const newUser = {
+                                email: credentials.email,
+                                username: credentials.username,
+                                picUrl: "https://pecb.com/conferences/wp-content/uploads/2017/10/no-profile-picture.jpg"
+                            };
+                            APIManager.post('users', newUser).then(user => {
+                                props.setUser(user, false)
+                            })
+                            props.setUser();
+                            props.history.push("/");
+                            if (isChecked === true) {
+                                localStorage.setItem("credentials", JSON.stringify(credentials));
+                                props.history.push("/");
+                            } else {
+                                sessionStorage.setItem("credentials", JSON.stringify(credentials));
+                                props.history.push("/");
+                            }
+                        }
+                    });
+                };
+            });
+        };
     };
     const uploadImage = async e => {
         const files = e.target.files;
