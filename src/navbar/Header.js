@@ -10,19 +10,18 @@ const Header = props => {
           <h1 className="title">
             {"Commissioner Mordan"}
           </h1>
-          {/* <div className="userInfo">
-            <div className="deets">
+          <div className="userInfo">
+            <div className="userDetails">
               <h4 className="userName">{user.username}</h4>
               <picture className="image-cropper">
                 <img
                   src={user.picUrl}
                   className="profile-pic"
                   alt="prof-pic"
-                  onClick={() => (window.location = "/confirmAccount")}
                 />
               </picture>
             </div>
-          </div> */}
+          </div>
         </header>
       </>
     );
