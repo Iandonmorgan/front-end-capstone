@@ -1,8 +1,5 @@
 import React, { useState} from "react";
 import ApplicationViews from "../ApplicationViews";
-import NavBar from "../navbar/NavBar";
-import Header from "../navbar/Header";
-import "../navbar/NavBar.css";
 import "../commissionerMordan/CommissionerMordan.css";
 
 const CommissionerMordan = () => {
@@ -31,8 +28,6 @@ const CommissionerMordan = () => {
 
   return (
     <>
-      <Header  hasUser={userFromState}/>
-      {/* <NavBar hasUser={userFromState} clearUser={clearUser} setUser={setUser} /> */}
       <ApplicationViews hasUser={userFromState} setUser={setUser} />
     </>
   );

@@ -5,8 +5,8 @@
     
 }
 .main-form{
-    display: flex;
-    flex-direction: column;
+    display: flex wrap;
+    flex-direction: row wrap;
     align-items: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

@@ -1,4 +1,4 @@
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 import React from "react";
 import Dashboard from "./components/dashboard/Dashboard";
 import Login from "./components/users/Login";
