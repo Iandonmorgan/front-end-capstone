@@ -1,0 +1,26 @@
+.fs-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.main-form{
+    display: flex wrap;
+    flex-direction: row wrap;
+    align-items: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.create-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.create-btn{
+    align-self: center;
+}
+.create-buttons{
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    align-items: center;
+}

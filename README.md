@@ -1,4 +1,4 @@
-# Commissioner Mordan
+![Commissioner Mordan](./commissioner_mordan_header.png)
 
 A front-end capstone project from [Landon Morgan](https://github.com/Iandonmorgan) for [Nashville Software School C38](https://github.com/nss-day-cohort-38).
 
