@@ -7,8 +7,6 @@ const CreateUser = props => {
     const [credentials, setCredentials] = useState({
         email: "",
         username: "",
-        password: "",
-        confirmedPassword: "",
         picUrl: ""
     });
     const [isLoading, setIsLoading] = useState(false);
