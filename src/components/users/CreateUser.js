@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import "./CreateUser.css";
 import APIManager from "../../modules/APIManager";
-import keys from "../../keys/keys";
+
 
 
 const CreateUser = props => {
@@ -12,9 +11,9 @@ const CreateUser = props => {
         username: "",
         picUrl: ""
     });
-    
+
     const [isChecked, setIsChecked] = useState(false);
-    
+
     const handleInputFieldChange = event => {
         const stateToChange = { ...credentials };
         stateToChange[event.target.id] = event.target.value;
@@ -117,6 +116,10 @@ const CreateUser = props => {
     };
 
     return (
+        <>
+        <div className="logo">
+        <img src="https://i.ibb.co/HrvZrtw/logo512.png"/>
+        </div>
         <form className="main-form" onSubmit={handleCreateUserLogin}>
             <fieldset className="fs-form">
                 <p className="signInGreeting">create your account</p>
@@ -128,7 +131,7 @@ const CreateUser = props => {
                             onChange={handleInputFieldChange}
                             type="email"
                             id="email"
-                            placeholder="Enter Email Address"
+                            placeholder="email@email.com"
                             required=""
                             autoFocus=""
                         />
@@ -140,7 +143,7 @@ const CreateUser = props => {
                             onChange={handleInputFieldChange}
                             type="text"
                             id="username"
-                            placeholder="Enter username"
+                            placeholder="username"
                             required=""
                             autoFocus=""
                         />
@@ -152,7 +155,7 @@ const CreateUser = props => {
                             onChange={handleInputFieldChange}
                             type="text"
                             id="picUrl"
-                            placeholder="http://image.com/image.jpg"
+                            placeholder="http://"
                             required=""
                             autoFocus=""
                         />
@@ -161,25 +164,27 @@ const CreateUser = props => {
                 <div className="create-buttons">
                     <button className="create-btn" type="submit">
                         create account & login
-            </button>
-            <div>
-                        <input
-                            className="check-box"
-                            type="checkbox"
-                            onChange={handleSignInCheckBox}
-                        ></input>
-                        <label className="rememberMe">remember me</label>
-                    </div>
+                    </button>
                 </div>
-                <p
-                        id="haveAcctBtn"
-                        className="button"
-                        onClick={() => props.history.push("/login")}
+                <div className="check-box">
+                    <input
+                        className="option-checkbox"
+                        type="checkbox"
+                        onChange={handleSignInCheckBox}
                     >
-                        login using existing account
-                    </p>
+                    </input>
+                    <label className="rememberMe">remember me</label>
+                </div>
+                <div
+                    id="haveAcctLink"
+                    className="button"
+                    onClick={() => props.history.push("/login")}
+                >
+                    login using existing account
+                    </div>
             </fieldset>
         </form>
+        </>
     );
 };
 

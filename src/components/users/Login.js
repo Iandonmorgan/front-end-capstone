@@ -42,6 +42,10 @@ const Login = props => {
     };
 
     return (
+        <>
+        <div className="logo">
+        <img src="https://i.ibb.co/HrvZrtw/logo512.png"/>
+        </div>
         <form
             className="login-form"
             onSubmit={handleLogin}
@@ -67,15 +71,8 @@ const Login = props => {
                     >
                         sign in
                     </button>
-                    <button
-                        id="createUserBtn"
-                        className="button"
-                        onClick={() => props.history.push("/createuser")}
-                    >
-                        create account
-                    </button>
                 </div>
-                <div>
+                <div className="check-box">
                     <input
                         className="option-checkbox"
                         type="checkbox"
@@ -83,8 +80,15 @@ const Login = props => {
                     ></input>
                     <label className="rememberMe">remember me</label>
                 </div>
+                <div
+                        id="createUserLink"
+                        onClick={() => props.history.push("/createuser")}
+                    >
+                        create new account
+                    </div>
             </fieldset>
         </form>
+        </>
     );
 };
 
