@@ -25,7 +25,6 @@ const ApplicationViews = props => {
           if (hasUser) {
             return (
               <>
-                <NavBar hasUser={userFromState} clearUser={clearUser} setUser={setUser} />
                 <Dashboard {...props} hasUser={hasUser} />
               </>
             );

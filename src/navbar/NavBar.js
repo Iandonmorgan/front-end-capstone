@@ -1,7 +1,6 @@
 import React from "react";
-import { stack as Menu } from "react-burger-menu";
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { withRouter } from "react-router-dom";
-import "./NavBar.css";
 
 const NavBar = props => {
   const handleLogout = () => {
@@ -9,51 +8,20 @@ const NavBar = props => {
     props.history.push("/");
   };
   return (
-    <Menu>
-      {props.hasUser ? (
-        <a className="menu-item" href="/">
-          {" "}
-          Dashboard{""}
-        </a>
-      ) : null}
-
-      {props.hasUser ? (
-        <a className="menu-item" href="/artists">
-          Artists
-        </a>
-      ) : null}
-
-      {props.hasUser ? (
-        <a className="menu-item" href="/projects">
-          Projects
-        </a>
-      ) : null}
-
-      {props.hasUser ? (
-        <a className="menu-item" href="/contacts">
-          Contacts
-        </a>
-      ) : null}
-
-      {props.hasUser ? (
-        <a className="menu-item" href="/shoots">
-          Shoots
-        </a>
-      ) : null}
-
-      {props.hasUser ? (
-        <a className="menu-item" href="/edits">
-          Edits
-        </a>
-      ) : null}
-
-      {props.hasUser ? (
-        <a className="menu-item" onClick={handleLogout} href="/">
-          {" "}
-          Logout{" "}
-        </a>
-      ) : null}
-    </Menu>
+    <Navbar bg="dark" variant="dark" expand="md" sticky="top">
+      <Navbar.Brand href="/">Commissioner Mordan</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="/">Artists</Nav.Link>
+          <Nav.Link href="/">Projects</Nav.Link>
+          <Nav.Link href="/">Contacts</Nav.Link>
+          <Nav.Link href="/">Shoots</Nav.Link>
+          <Nav.Link href="/">Edits</Nav.Link>
+          <Nav.Link onClick={handleLogout} href="/">Logout</Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 export default withRouter(NavBar);

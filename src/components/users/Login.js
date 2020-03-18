@@ -55,14 +55,21 @@ const Login = props => {
                         onChange={handleFieldChange}
                         type="email"
                         id="email"
-                        placeholder="Email"
+                        placeholder="your@email.com"
                         required=""
                         autoFocus=""
                     />
                 </div>
                 <button className="login" type="submit">
                     Sign In
-        </button>
+                </button>
+                <button
+                    id="createUserBtn"
+                    className="button"
+                    onClick={() => props.history.push("/createuser")}
+                >
+                    Create Account
+                    </button>
                 <div>
                     <input
                         className="option-checkbox"
