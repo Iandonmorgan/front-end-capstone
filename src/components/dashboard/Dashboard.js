@@ -6,7 +6,7 @@ const Dashboard = props => {
         return (
             <>
                 <div className="dashboard-container">
-                    <div className="dashboard-picture">
+                    <div className="dashboard-artist">
                         <img
                             src="https://i.ibb.co/wcxDJFn/detective-512-298985.png"
                             alt="Commissioner Mordan"
