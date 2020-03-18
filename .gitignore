@@ -10,7 +10,7 @@
 
 #api
 /api
-/keys
+/src/keys
 
 # production
 /build

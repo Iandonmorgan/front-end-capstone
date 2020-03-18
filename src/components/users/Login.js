@@ -47,7 +47,7 @@ const Login = props => {
             onSubmit={handleLogin}
         >
             <fieldset className="form">
-                <p className="signInGreeting">Please Sign In</p>
+                <p className="signInGreeting">please sign in</p>
                 <div className="form-grid">
                     <label htmlFor="inputEmail">email: </label>
                     <input
@@ -60,23 +60,28 @@ const Login = props => {
                         autoFocus=""
                     />
                 </div>
-                <button className="login" type="submit">
-                    Sign In
-                </button>
-                <button
-                    id="createUserBtn"
-                    className="button"
-                    onClick={() => props.history.push("/createuser")}
-                >
-                    Create Account
+                <div className="button-container">
+                    <button 
+                        className="login"
+                        type="submit"
+                    >
+                        sign in
                     </button>
+                    <button
+                        id="createUserBtn"
+                        className="button"
+                        onClick={() => props.history.push("/createuser")}
+                    >
+                        create account
+                    </button>
+                </div>
                 <div>
                     <input
                         className="option-checkbox"
                         type="checkbox"
                         onChange={handleCheckBoxChange}
                     ></input>
-                    <label className="rememberMe">Remember Me</label>
+                    <label className="rememberMe">remember me</label>
                 </div>
             </fieldset>
         </form>
