@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import "./CreateUser.css";
 import APIManager from "../../modules/APIManager";
-// import keys from "../../../keys/keys";
+
+
 
 const CreateUser = props => {
+    // const [isLoading, setIsLoading] = useState(false);
+    // const [image, setImage] = useState({});
     const [credentials, setCredentials] = useState({
         email: "",
         username: "",
-        password: "",
-        confirmedPassword: "",
         picUrl: ""
     });
-    const [isLoading, setIsLoading] = useState(false);
-    const [image, setImage] = useState({});
+
     const [isChecked, setIsChecked] = useState(false);
 
     const handleInputFieldChange = event => {
@@ -23,7 +22,7 @@ const CreateUser = props => {
     const handleSignInCheckBox = event => {
         setIsChecked(event.target.checked);
     };
-    const handleCreateAccountLogin = event => {
+    const handleCreateUserLogin = event => {
         if (credentials.email === "") {
             window.alert("Please complete all input fields");
         } else if (credentials.username === "") {
@@ -37,11 +36,11 @@ const CreateUser = props => {
                     APIManager.getUsername("users", credentials.username).then(r => {
                         if (r.length > 0) {
                             window.alert("This username is already taken");
-                        } else if (isChecked === true && image.picUrl !== "") {
+                        } else if (isChecked === true && credentials.picUrl !== "") {
                             const newUser = {
                                 email: credentials.email,
                                 username: credentials.username,
-                                picUrl: image.picUrl
+                                picUrl: credentials.picUrl
                             };
                             APIManager.post('users', newUser).then(user => {
                                 props.setUser(user, true)
@@ -55,11 +54,11 @@ const CreateUser = props => {
                                 sessionStorage.setItem("credentials", JSON.stringify(credentials));
                                 props.history.push("/");
                             }
-                        } else if (isChecked === false && image.picUrl !== "") {
+                        } else if (isChecked === false && credentials.picUrl !== "") {
                             const newUser = {
                                 email: credentials.email,
                                 username: credentials.username,
-                                picUrl: image.picUrl
+                                picUrl: credentials.picUrl
                             };
                             APIManager.post('users', newUser).then(user => {
                                 props.setUser(user, false)
@@ -73,11 +72,11 @@ const CreateUser = props => {
                                 sessionStorage.setItem("credentials", JSON.stringify(credentials));
                                 props.history.push("/");
                             }
-                        } else if (image.picUrl === "" && isChecked === true) {
+                        } else if (credentials.picUrl === "" && isChecked === true) {
                             const newUser = {
                                 email: credentials.email,
                                 username: credentials.username,
-                                picUrl: "https://pecb.com/conferences/wp-content/uploads/2017/10/no-profile-picture.jpg"
+                                picUrl: "https://i.pinimg.com/originals/0e/ca/cf/0ecacf1245c5e8c723414ea1a19407cf.jpg"
                             };
                             APIManager.post('users', newUser).then(user => {
                                 props.setUser(user, true)
@@ -95,7 +94,7 @@ const CreateUser = props => {
                             const newUser = {
                                 email: credentials.email,
                                 username: credentials.username,
-                                picUrl: "https://pecb.com/conferences/wp-content/uploads/2017/10/no-profile-picture.jpg"
+                                picUrl: "https://i.pinimg.com/originals/0e/ca/cf/0ecacf1245c5e8c723414ea1a19407cf.jpg"
                             };
                             APIManager.post('users', newUser).then(user => {
                                 props.setUser(user, false)
@@ -115,94 +114,77 @@ const CreateUser = props => {
             });
         };
     };
-    const uploadImage = async e => {
-        const files = e.target.files;
-        const data = new FormData();
-        data.append("file", files[0]);
-        data.append("upload_preset", "photoLab");
-        setIsLoading(true);
-        const res = await fetch(
-            `https://api.cloudinary.com/v1_1/commissioner-mordan/image/upload`,
-            {
-                method: "POST",
-                body: data
-            }
-        );
-        const file = await res.json();
-        setImage({ picUrl: file.secure_url });
-        setIsLoading(false);
-    };
 
     return (
-        <form className="main-form" onSubmit={handleCreateAccountLogin}>
+        <>
+        <div className="logo">
+        <img src="https://i.ibb.co/HrvZrtw/logo512.png"/>
+        </div>
+        <form className="main-form" onSubmit={handleCreateUserLogin}>
             <fieldset className="fs-form">
-                <p className="signInGreeting">Create Your Account</p>
+                <p className="signInGreeting">create your account</p>
                 <div className="create-form">
                     <div className="create-form-input">
-                        <label htmlFor="inputEmail">e: </label>
+                        <label htmlFor="inputEmail">email: </label>
                         <input
                             className="input"
                             onChange={handleInputFieldChange}
                             type="email"
                             id="email"
-                            placeholder="Enter Email Address"
+                            placeholder="email@email.com"
                             required=""
                             autoFocus=""
                         />
                     </div>
                     <div className="create-form-input">
-                        <label htmlFor="inputUsername">u: </label>
+                        <label htmlFor="inputUsername">username: </label>
                         <input
                             className="input"
                             onChange={handleInputFieldChange}
                             type="text"
                             id="username"
-                            placeholder="Enter username"
+                            placeholder="username"
                             required=""
                             autoFocus=""
                         />
                     </div>
                     <div className="create-form-input">
-                        <label htmlFor="eventImage">Please upload a profile picture</label>
-                    </div>
-                    <div className="create-form-input">
+                        <label htmlFor="inputPicUrl">image URL: </label>
                         <input
-                            name="file"
+                            className="input"
+                            onChange={handleInputFieldChange}
+                            type="text"
                             id="picUrl"
-                            type="file"
-                            className="file-upload"
-                            placeholder="Upload an Image"
-                            data-cloudinary-field="image_id"
-                            onChange={uploadImage}
-                            data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"
+                            placeholder="http://"
+                            required=""
+                            autoFocus=""
                         />
                     </div>
                 </div>
                 <div className="create-buttons">
-                    <div>
-                        <label className="rememberMe">Remember Me</label>
-                        <input
-                            className="check-box"
-                            type="checkbox"
-                            onChange={handleSignInCheckBox}
-                        ></input>
-                    </div>
-                    <div className="newPhoto">
-                        {isLoading ? (
-                            <h3> Loading...</h3>
-                        ) : (
-                                <>
-                                    <img src={image.picUrl} style={{ width: '300px' }} alt="upload-photos" />
-                                </>
-                            )}
-                    </div>
                     <button className="create-btn" type="submit">
-                        Join
-            </button>
-
+                        create account & login
+                    </button>
                 </div>
+                <div className="check-box">
+                    <input
+                        className="option-checkbox"
+                        type="checkbox"
+                        onChange={handleSignInCheckBox}
+                    >
+                    </input>
+                    <label className="rememberMe">remember me</label>
+                </div>
+                <div
+                    id="haveAcctLink"
+                    className="button"
+                    onClick={() => props.history.push("/login")}
+                >
+                    login using existing account
+                    </div>
             </fieldset>
         </form>
+        </>
     );
 };
 

@@ -1,12 +1,20 @@
-import { Route } from "react-router-dom";
-import React from "react";
+import { Route, Redirect } from "react-router-dom";
+import React, { useState} from "react";
 import Dashboard from "./components/dashboard/Dashboard";
 import Login from "./components/users/Login";
 import CreateUser from "./components/users/CreateUser";
+import NavBar from "./navbar/NavBar";
 
 const ApplicationViews = props => {
   const hasUser = props.hasUser;
   const setUser = props.setUser;
+  const isAuthenticated = () => sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null;
+  const [userFromState, setHasUser] = useState(isAuthenticated());
+  const clearUser = () => {
+    sessionStorage.clear();
+    localStorage.clear();
+    setHasUser(isAuthenticated());
+  };
 
   return (
     <React.Fragment>
@@ -14,7 +22,16 @@ const ApplicationViews = props => {
         exact
         path="/"
         render={props => {
-          return <Dashboard {...props} hasUser={hasUser} />;
+          if (hasUser) {
+            return (
+              <>
+                <Dashboard {...props} hasUser={hasUser} />
+              </>
+            );
+            return ;
+          } else {
+            return <Redirect to="/login" />;
+          }
         }}
       />
 
