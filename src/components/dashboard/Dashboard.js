@@ -1,19 +1,42 @@
-import React from "react";
-import "./Dashboard.css";
+import React, { useState, useEffect } from "react";
+import APIManager from "../../modules/APIManager";
+import DashboardCard from "./DashboardCard";
 
-const Dashboard = props => {
+
+
+const DashboardList = (props) => {
+    const [artists, setArtists] = useState([]);
+    const [projects, setProjects] = useState([]);
+    
+    const getProjectsAndArtists = () => {
+        return APIManager.getAll("projects").then(projectsFromAPI => {
+            setProjects(projectsFromAPI)
+        }
+        ).then(APIManager.getAll("artists").then(artistsFromAPI => {
+            setArtists(artistsFromAPI)
+        })
+        ).then(console.log(artists, projects));
+    };
+
+    useEffect(() => {
+        getProjectsAndArtists();
+    }, []);
+
     if (props.hasUser) {
         return (
             <>
-                <div className="dashboard-container">
-                    <div className="dashboard-picture">
-                        <img
-                            src="https://i.ibb.co/wcxDJFn/detective-512-298985.png"
-                            alt="Commissioner Mordan"
-                            className="dashboard-photo"
-                        />
+                <section className="artist-section">
+                    <div className="artist-name">
+                        {artists.sort().map(artist => (
+                            <DashboardCard
+                                key={artist.id}
+                                artist={artist}
+                                projects={projects}
+                                {...props}
+                            />
+                        ))}
                     </div>
-                </div>
+                </section >
             </>
         )
     } else {
@@ -22,9 +45,9 @@ const Dashboard = props => {
                 <div className="dashboard-container">
                     <div className="dashboard-picture">
                         <img
-                            src="https://i.ibb.co/wcxDJFn/detective-512-298985.png"
-                            alt="Commissioner Mordan"
-                            className="dashboard-photo"
+                            src="https://i.ibb.co/HrvZrtw/logo512.png"
+                            alt="Commissioner Mordan Logo"
+                            className="logo"
                         />
                     </div>
                     <div className="button-container">
@@ -53,5 +76,6 @@ const Dashboard = props => {
             </>
         );
     };
-}
-export default Dashboard;
+};
+
+export default DashboardList;

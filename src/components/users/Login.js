@@ -40,54 +40,53 @@ const Login = props => {
 
             });
     };
-
     return (
         <>
-        <div className="logo">
-        <img src="https://i.ibb.co/HrvZrtw/logo512.png"/>
-        </div>
-        <form
-            className="login-form"
-            onSubmit={handleLogin}
-        >
-            <fieldset className="form">
-                <p className="signInGreeting">please sign in</p>
-                <div className="form-grid">
-                    <label htmlFor="inputEmail">email: </label>
-                    <input
-                        className="login-input"
-                        onChange={handleFieldChange}
-                        type="email"
-                        id="email"
-                        placeholder="your@email.com"
-                        required=""
-                        autoFocus=""
-                    />
-                </div>
-                <div className="button-container">
-                    <button 
-                        className="login"
-                        type="submit"
-                    >
-                        sign in
+            <div className="logo">
+                <img src="https://i.ibb.co/HrvZrtw/logo512.png" alt="Commissioner Mordan logo" />
+            </div>
+            <form
+                className="login-form"
+                onSubmit={handleLogin}
+            >
+                <fieldset className="form">
+                    <p className="signInGreeting">please sign in</p>
+                    <div className="form-grid">
+                        <label htmlFor="inputEmail">email: </label>
+                        <input
+                            className="login-input"
+                            onChange={handleFieldChange}
+                            type="email"
+                            id="email"
+                            placeholder="your@email.com"
+                            required=""
+                            autoFocus=""
+                        />
+                    </div>
+                    <div className="button-container">
+                        <button
+                            className="login"
+                            type="submit"
+                        >
+                            sign in
                     </button>
-                </div>
-                <div className="check-box">
-                    <input
-                        className="option-checkbox"
-                        type="checkbox"
-                        onChange={handleCheckBoxChange}
-                    ></input>
-                    <label className="rememberMe">remember me</label>
-                </div>
-                <div
+                    </div>
+                    <div className="check-box">
+                        <input
+                            className="option-checkbox"
+                            type="checkbox"
+                            onChange={handleCheckBoxChange}
+                        ></input>
+                        <label className="rememberMe">remember me</label>
+                    </div>
+                    <div
                         id="createUserLink"
                         onClick={() => props.history.push("/createuser")}
                     >
                         create new account
                     </div>
-            </fieldset>
-        </form>
+                </fieldset>
+            </form>
         </>
     );
 };

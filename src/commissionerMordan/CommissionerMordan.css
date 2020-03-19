@@ -31,23 +31,22 @@ form {
     justify-content: center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
-.userDetails{
+/* .userDetails{
     display: flex;
     flex-direction: row;
-    margin-right: 2% !important;
-}
+    margin-right: 2%;
+} */
 
 .rememberMe {
     font-size: .3em;
 }
 #createUserLink {
-    color: blue;
+    color: #0E34A0;
     text-decoration: underline;
     font-size: .4em;
     text-align: center;
 }
 #createUserLink:hover {
-    color: darkblue;
     opacity: 0.8;
     cursor: pointer;
 }
@@ -60,26 +59,25 @@ button:hover{
     opacity: 0.8;
     cursor: pointer;
 } 
-.userInfo {
+/* .userInfo {
     width: 100%;
     height: 50px;
     display: flex;
     justify-content: flex-end;
     margin: 10px;
    
-}
+} */
 .image-cropper{
-    width: 50px;
+    width: 200px;
     height: 50px;
-  position: relative;
-  margin-left: 5%;
-  /* overflow: hidden; */
-    border-radius:50%;
+    position: top;
+    margin-left: 5%;
+    border-radius:5%;
 }
 .profile-pic {
-  width: 50px;
-  height: 50px;
-  border-radius:50%;
+    width: 50px;
+    height: 50px;
+    border-radius:5%;
   
 }
 .profile-pic:hover{
@@ -138,6 +136,50 @@ button:hover{
     opacity: 0.8;
     cursor: pointer;
 }
+
+/* DASHBOARD */
+
+/* .dashboard-container {
+    background-color: linear-gradient(white, #D3D4D9);
+} */
+.dashboardGradient {
+    background-image: linear-gradient(white, black);
+}
+.artistImage{
+    width: 100%;
+    position: top;
+    /* margin: 5%; */
+}
+.artistImage:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+.dashboardProjectItem {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+.dashboardProjectItem:nth-child(even) {
+    background: #FFFFFF
+}
+.dashboardProjectItem:nth-child(odd) {
+    background: #D3D4D9
+}
+.dashboardCardTitle {
+    color: #3E000C;
+    font-size: 3em;
+    font-family: sans-serif, "Helvetica Neue", "Lucida Grande", Arial;
+    font-weight: bolder;
+    font-stretch: ultra-expanded;
+    /* margin: 20px 0 10px 0; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+
 
   @media only screen and (max-width: 800px) {
       

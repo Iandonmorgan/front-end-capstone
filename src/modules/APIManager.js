@@ -11,6 +11,14 @@ export default {
             result.json()
         );
     },
+    getAllWithExpand(component, expand) {
+        return fetch(`${remoteURL}/${component}?_expand=${expand}`).then(result =>
+            result.json()
+        );
+    },
+    getById(component, id) {
+        return fetch(`${remoteURL}/${component}?id=${id}`).then(result => result.json());
+    },
     getLogin(component, email) {
         return fetch(`${remoteURL}/${component}?email=${email}`).then(result => result.json());
     },
