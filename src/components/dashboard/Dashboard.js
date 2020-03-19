@@ -7,7 +7,7 @@ import DashboardCard from "./DashboardCard";
 const DashboardList = (props) => {
     const [artists, setArtists] = useState([]);
     const [projects, setProjects] = useState([]);
-
+    
     const getArtists = () => {
         return APIManager.getAll("artists").then(artistsFromAPI => {
             setArtists(artistsFromAPI)
@@ -27,18 +27,18 @@ const DashboardList = (props) => {
     if (props.hasUser) {
         return (
             <>
-            <section className="artist-section">
-                <div className="artist-name">
-                    {artists.sort().map(artist =>
-                        <DashboardCard
-                            key={artist.id}
-                            artist={artist}
-                            projects={projects}
-                            {...props}
-                        />
-                    )};
+                <section className="artist-section">
+                    <div className="artist-name">
+                        {artists.sort().map(artist =>
+                            <DashboardCard
+                                key={artist.id}
+                                artist={artist}
+                                projects={projects}
+                                {...props}
+                            />
+                        )};
                     </div>
-            </section >
+                </section >
             </>
         )
     } else {

@@ -1,6 +1,6 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { useState} from "react";
-import Dashboard from "./components/dashboard/Dashboard";
+import DashboardList from "./components/dashboard/Dashboard";
 import Login from "./components/users/Login";
 import CreateUser from "./components/users/CreateUser";
 import NavBar from "./navbar/NavBar";
@@ -25,7 +25,7 @@ const ApplicationViews = props => {
           if (hasUser) {
             return (
               <>
-                <Dashboard {...props} hasUser={hasUser} />
+                <DashboardList {...props} hasUser={hasUser} />
               </>
             );
             return ;
