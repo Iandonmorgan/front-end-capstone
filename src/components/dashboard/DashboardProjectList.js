@@ -4,23 +4,17 @@ import APIManager from "../../modules/APIManager";
 const DashboardProjectList = (props) => {
     const [artistProject, setArtistProject] = useState([]);
 
-    const getArtistProjects = () => {
+    const getArtistProjects = (props) => {
         let artistProjects = [];
-        return APIManager.getAll("artistProjects").then(projects => {
-            for (let i = 0; i < projects.length; i++) {
-                if (projects[i].artistId === props.artist.id) {
-                    APIManager.getAllWithExpand("projects", projects[i].artistId, "project").then(projects => {
-                        artistProjects.push(projects.flat());
-                    })
-                }
-            }
-            setArtistProject(artistProjects.flat());
+        APIManager.getAllWithExpand("artistProjects", "project").then(artistProjectz => {
+            artistProjects = artistProjectz.filter(project => project.artistId === props.artist.id);
+            setArtistProject(artistProjects);
         });
     };
 
     useEffect(() => {
-        getArtistProjects();
-    }, [props.artist.id]);
+        getArtistProjects(props);
+    }, []);
 
     return (
         <>

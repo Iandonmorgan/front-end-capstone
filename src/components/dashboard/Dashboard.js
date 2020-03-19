@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import APIManager from "../../modules/APIManager";
-import "./Dashboard.css";
 import DashboardCard from "./DashboardCard";
 
 
