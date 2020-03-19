@@ -18,9 +18,8 @@ const DashboardProjectList = (props) => {
 
     return (
         <>
-            <div className="dashboardProjectItem">
                 {artistProject.map(artistProject => (
-                    <>
+                <div className="dashboardProjectItem">
                     <div className="dashboardProjectItemName">
                         {(artistProject.project.name)}
                     </div>
@@ -33,11 +32,10 @@ const DashboardProjectList = (props) => {
                     <div className="dashboardProjectItemStatus">
                         {(artistProject.project.statusId)}
                     </div>
-                    </>
+                    </div>
                 )
                 )
-                }
-            </div>
+            }
         </>
     )
 };
