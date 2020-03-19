@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DashboardProjectList from "./DashboardProjectList";
 
 const allCaps = (str) => {
@@ -15,7 +15,7 @@ const DashboardCard = (props) => {
             <div className="dashboardCard">
                 <div className="dashboardCardContent">
                     <div className="dashboardCardTitle">
-                        <img src={(props.artist.picUrl)} />
+                        <img src={(props.artist.picUrl)} alt={(props.artist.name)} />
                         {allCaps(props.artist.name)}
                     </div>
                         <DashboardProjectList

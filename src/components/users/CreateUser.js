@@ -4,8 +4,6 @@ import APIManager from "../../modules/APIManager";
 
 
 const CreateUser = props => {
-    // const [isLoading, setIsLoading] = useState(false);
-    // const [image, setImage] = useState({});
     const [credentials, setCredentials] = useState({
         email: "",
         username: "",
@@ -76,7 +74,7 @@ const CreateUser = props => {
                             const newUser = {
                                 email: credentials.email,
                                 username: credentials.username,
-                                picUrl: "https://i.pinimg.com/originals/0e/ca/cf/0ecacf1245c5e8c723414ea1a19407cf.jpg"
+                                picUrl: "https://i.ibb.co/wQHtN4h/batman.jpg"
                             };
                             APIManager.post('users', newUser).then(user => {
                                 props.setUser(user, true)
@@ -94,7 +92,7 @@ const CreateUser = props => {
                             const newUser = {
                                 email: credentials.email,
                                 username: credentials.username,
-                                picUrl: "https://i.pinimg.com/originals/0e/ca/cf/0ecacf1245c5e8c723414ea1a19407cf.jpg"
+                                picUrl: "https://i.ibb.co/wQHtN4h/batman.jpg"
                             };
                             APIManager.post('users', newUser).then(user => {
                                 props.setUser(user, false)
@@ -118,7 +116,7 @@ const CreateUser = props => {
     return (
         <>
         <div className="logo">
-        <img src="https://i.ibb.co/HrvZrtw/logo512.png"/>
+        <img src="https://i.ibb.co/HrvZrtw/logo512.png" alt="Commissioner Mordan Logo"/>
         </div>
         <form className="main-form" onSubmit={handleCreateUserLogin}>
             <fieldset className="fs-form">

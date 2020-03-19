@@ -44,7 +44,7 @@ const Login = props => {
     return (
         <>
         <div className="logo">
-        <img src="https://i.ibb.co/HrvZrtw/logo512.png"/>
+        <img src="https://i.ibb.co/HrvZrtw/logo512.png" alt="Commissioner Mordan logo"/>
         </div>
         <form
             className="login-form"

@@ -4,24 +4,23 @@ import "./Dashboard.css";
 import DashboardCard from "./DashboardCard";
 
 
+
 const DashboardList = (props) => {
     const [artists, setArtists] = useState([]);
     const [projects, setProjects] = useState([]);
     
-    const getArtists = () => {
-        return APIManager.getAll("artists").then(artistsFromAPI => {
-            setArtists(artistsFromAPI)
-        });
-    };
-    const getProjects = () => {
+    const getProjectsAndArtists = () => {
         return APIManager.getAll("projects").then(projectsFromAPI => {
             setProjects(projectsFromAPI)
-        });
+        }
+        ).then(APIManager.getAll("artists").then(artistsFromAPI => {
+            setArtists(artistsFromAPI)
+        })
+        ).then(console.log(artists, projects));
     };
 
     useEffect(() => {
-        getArtists();
-        getProjects();
+        getProjectsAndArtists();
     }, []);
 
     if (props.hasUser) {
@@ -29,14 +28,14 @@ const DashboardList = (props) => {
             <>
                 <section className="artist-section">
                     <div className="artist-name">
-                        {artists.sort().map(artist =>
+                        {artists.sort().map(artist => (
                             <DashboardCard
                                 key={artist.id}
                                 artist={artist}
                                 projects={projects}
                                 {...props}
                             />
-                        )};
+                        ))}
                     </div>
                 </section >
             </>
@@ -47,9 +46,9 @@ const DashboardList = (props) => {
                 <div className="dashboard-container">
                     <div className="dashboard-picture">
                         <img
-                            src="https://i.ibb.co/wcxDJFn/detective-512-298985.png"
-                            alt="Commissioner Mordan"
-                            className="dashboard-photo"
+                            src="https://i.ibb.co/HrvZrtw/logo512.png"
+                            alt="Commissioner Mordan Logo"
+                            className="logo"
                         />
                     </div>
                     <div className="button-container">

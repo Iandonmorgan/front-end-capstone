@@ -7,8 +7,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 ReactDOM.render(
+  <>
   <Router>
     <CommissionerMordan />
-  </Router>,
+  </Router>
+  </>,
   document.getElementById("root")
 );
