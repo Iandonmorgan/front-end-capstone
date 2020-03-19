@@ -26,7 +26,12 @@ const ApplicationViews = props => {
           }
         }}
       />
-
+      <Route
+        path="/dashboard"
+        render={props => {
+          return <DashboardList {...props} hasUser={hasUser} />;
+        }}
+      />
       <Route
         path="/login"
         render={props => {

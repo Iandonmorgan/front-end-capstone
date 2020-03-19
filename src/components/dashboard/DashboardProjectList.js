@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import APIManager from "../../modules/APIManager";
 
+let statusArray = [];
+
 const DashboardProjectList = (props) => {
     const [artistProject, setArtistProject] = useState([]);
 
@@ -19,7 +21,7 @@ const DashboardProjectList = (props) => {
     return (
         <>
                 {artistProject.map(artistProject => (
-                <div className="dashboardProjectItem">
+                <div className="dashboardProjectItem" key={artistProject.id.toString()}>
                     <div className="dashboardProjectItemName">
                         {(artistProject.project.name)}
                     </div>

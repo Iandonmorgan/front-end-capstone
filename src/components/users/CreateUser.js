@@ -26,6 +26,13 @@ const CreateUser = props => {
         } else if (credentials.username === "") {
             window.alert("Please complete all input fields");
         } else {
+            /*                                           */
+            /*                                           */
+            /*                                           */            
+            /* A LOT OF CODE TO CLEAN UP IN THIS SECTION */
+            /*                                           */
+            /*                                           */
+            /*                                           */
             event.preventDefault();
             APIManager.getLogin("users", credentials.email).then(r => {
                 if (r.length > 0) {
@@ -47,10 +54,10 @@ const CreateUser = props => {
                             props.history.push("/");
                             if (isChecked === true) {
                                 localStorage.setItem("credentials", JSON.stringify(credentials));
-                                props.history.push("/");
+                                props.history.push("/dashboard");
                             } else {
                                 sessionStorage.setItem("credentials", JSON.stringify(credentials));
-                                props.history.push("/");
+                                props.history.push("/dashboard");
                             }
                         } else if (isChecked === false && credentials.picUrl !== "") {
                             const newUser = {
@@ -62,13 +69,13 @@ const CreateUser = props => {
                                 props.setUser(user, false)
                             })
                             props.setUser();
-                            props.history.push("/");
+                            props.history.push("/dashboard");
                             if (isChecked === true) {
                                 localStorage.setItem("credentials", JSON.stringify(credentials));
-                                props.history.push("/");
+                                props.history.push("/dashboard");
                             } else {
                                 sessionStorage.setItem("credentials", JSON.stringify(credentials));
-                                props.history.push("/");
+                                props.history.push("/dashboard");
                             }
                         } else if (credentials.picUrl === "" && isChecked === true) {
                             const newUser = {
@@ -80,13 +87,13 @@ const CreateUser = props => {
                                 props.setUser(user, true)
                             })
                             props.setUser();
-                            props.history.push("/");
+                            props.history.push("/dashboard");
                             if (isChecked === true) {
                                 localStorage.setItem("credentials", JSON.stringify(credentials));
-                                props.history.push("/");
+                                props.history.push("/dashboard");
                             } else {
                                 sessionStorage.setItem("credentials", JSON.stringify(credentials));
-                                props.history.push("/");
+                                props.history.push("/dashboard");
                             }
                         } else {
                             const newUser = {
@@ -112,6 +119,13 @@ const CreateUser = props => {
             });
         };
     };
+
+    /*                                           */
+    /*                                           */
+    /*                 CLEAN IT UP!              */
+    /*                                           */
+    /*                                           */
+
 
     return (
         <>
