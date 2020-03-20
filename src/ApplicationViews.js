@@ -4,6 +4,10 @@ import React from "react";
 import DashboardList from "./components/dashboard/Dashboard";
 import Login from "./components/users/Login";
 import CreateUser from "./components/users/CreateUser";
+import ArtistsList from "./artists/ArtistsList";
+import ArtistsDetail from "./artists/ArtistsDetail";
+import ArtistsEditForm from "./artists/ArtistsEditForm";
+import ArtistsForm from "./artists/ArtistsForm";
 
 const ApplicationViews = props => {
   const hasUser = props.hasUser;
@@ -42,6 +46,53 @@ const ApplicationViews = props => {
         path="/createuser"
         render={props => {
           return <CreateUser setUser={setUser} {...props} />;
+        }}
+      />
+      <Route
+        exact
+        path="/artists"
+        render={props => {
+          if (hasUser) {
+            return <ArtistsList {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+      />
+      <Route
+        exact
+        path="/artists/:artistId(\d+)"
+        render={props => {
+          if (hasUser) {
+            return (
+              <ArtistsDetail
+                artistId={parseInt(props.match.params.artistId)}
+                {...props}
+              />
+            );
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+      />
+      <Route
+        path="/artists/:artistsId(\d+)/edit"
+        render={props => {
+          if (hasUser) {
+            return <ArtistsEditForm {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+      />
+      <Route
+        path="/artists/new"
+        render={props => {
+          if (hasUser) {
+            return <ArtistsForm {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
         }}
       />
     </React.Fragment>
