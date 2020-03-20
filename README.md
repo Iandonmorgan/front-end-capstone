@@ -44,12 +44,10 @@ This app is a project management tool for video content creation. When a user lo
 
 This project utilizes the following:
 * This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-* [Semantic UI](https://semantic-ui.com/) for buttons, icons, data-tooltips
-* [React Burger Menu](https://github.com/negomi/react-burger-menu) for the 'burger' nav menu
+* [Semantic UI](https://react.semantic-ui.com/) for buttons, icons, data-tooltips
 * [React Confirm Alert](https://www.npmjs.com/package/react-confirm-alert) for confirm alerts
 * [React Router](https://reacttraining.com/react-router/) for page routing
-* [React-bootstrap](https://react-bootstrap.github.io/) because why not
-* [Cloudinary](https://cloudinary.com/documentation/react_image_and_video_upload)
+* [React-bootstrap](https://react-bootstrap.github.io/) for menu, flexible formatting
 
 ## Skills Utilized
 
