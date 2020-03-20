@@ -66,7 +66,7 @@ const ApplicationViews = props => {
           if (hasUser) {
             return (
               <ArtistsDetail
-                artistId={parseInt(props.match.params.artistId)}
+                artist={props.artist}
                 {...props}
               />
             );

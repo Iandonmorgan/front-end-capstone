@@ -28,7 +28,7 @@ const ArtistsDetail = props => {
     };
 
     useEffect(() => {
-        APIManager.get("artists", props.artistId).then(artist => {
+        APIManager.get("artists", props.artist.id).then(artist => {
             setArtist({
                 name: artist.name,
                 picUrl: artist.picUrl,

@@ -35,8 +35,8 @@ const ArtistsCard = (props) => {
                         <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} />
                     <p><a href={props.artist.url}>view website</a></p>
                     <div align="right">
-                        <span data-tooltip="DETAILS"><i className="big file alternate icon artistFileIcon" onClick={() => props.history.push(`/artists/${props.artistId}`)}></i></span>
-                        <span data-tooltip="EDIT"><i className="big edit icon artistDetailIcon" onClick={() => props.history.push(`/artists/${props.artistId}/edit`)}></i></span>
+                        <span data-tooltip="DETAILS"><i className="big file alternate icon artistFileIcon" onClick={() => props.history.push(`/artists/${props.artist.id}`)}></i></span>
+                        <span data-tooltip="EDIT"><i className="big edit icon artistDetailIcon" onClick={() => props.history.push(`/artists/${props.artist.id}/edit`)}></i></span>
                         <span data-tooltip="DELETE"><i className="big trash alternate icon artistTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
                     </div>
                 </div>
