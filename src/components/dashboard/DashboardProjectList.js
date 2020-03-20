@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import APIManager from "../../modules/APIManager";
+import DateManager from "../../modules/DateManager";
 
 const DashboardProjectList = (props) => {
     const [artistProject, setArtistProject] = useState([]);
@@ -34,13 +35,13 @@ const DashboardProjectList = (props) => {
                 {artistProject.map(artistProject => (
                 <div className="dashboardProjectItem" key={artistProject.id.toString()}>
                     <div className="dashboardProjectItemName">
-                        {(artistProject.project.name)}
+                        {(artistProject.project.name.toUpperCase())}
                     </div>
                     <div className="dashboardProjectItemDescription">
                         {(artistProject.project.description)}
                     </div>
                     <div className="dashboardProjectItemDeadline">
-                        {(artistProject.project.expectedCompletion)}
+                        {(DateManager.monthDayYear(artistProject.project.expectedCompletion))}
                     </div>
                     <div className="dashboardProjectItemStatus">
                         {(statusArray[artistProject.project.statusId - 1])}
