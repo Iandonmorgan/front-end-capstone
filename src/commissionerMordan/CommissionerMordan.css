@@ -139,19 +139,25 @@ button:hover{
 
 /* DASHBOARD */
 
-/* .dashboard-container {
-    background-color: linear-gradient(white, #D3D4D9);
-} */
-/* .dashboardGradient {
-    background-image: linear-gradient(white, black);
-} */
+.dashboardCard {
+    border: 2px black solid;
+    border-radius: 5px;
+    padding: 1px;
+    margin: 10px;
+}
+.dashboardCardTitle {
+    background-image: linear-gradient(#D3D4D9, white);
+}
 .artistImage{
     width: 100%;
     position: top;
     /* margin: 5%; */
 }
 .artistImage:hover {
-    opacity: 0.8;
+    opacity: 0.9;
+    cursor: pointer;
+}
+.dashboardCardTitle:hover {
     cursor: pointer;
 }
 .dashboardProjectItem {

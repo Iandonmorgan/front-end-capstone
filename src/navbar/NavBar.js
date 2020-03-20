@@ -21,11 +21,11 @@ const NavBar = props => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/">Artists</Nav.Link>
-          <Nav.Link href="/">Projects</Nav.Link>
-          <Nav.Link href="/">Contacts</Nav.Link>
-          <Nav.Link href="/">Shoots</Nav.Link>
-          <Nav.Link href="/">Edits</Nav.Link>
+          <Nav.Link href="/artists">Artists</Nav.Link>
+          <Nav.Link href="/projects">Projects</Nav.Link>
+          <Nav.Link href="/contacts">Contacts</Nav.Link>
+          <Nav.Link href="/shoots">Shoots</Nav.Link>
+          <Nav.Link href="/edits">Edits</Nav.Link>
           <Nav.Link onClick={handleLogout} href="/">Logout</Nav.Link>
         </Nav>
       </Navbar.Collapse>

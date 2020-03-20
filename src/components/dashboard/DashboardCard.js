@@ -1,20 +1,10 @@
 import React from "react";
 import DashboardProjectList from "./DashboardProjectList";
 
-// const allCaps = (str) => {
-//     let caps = "";
-//     for (let i = 0; i < str.split("").length; i++) {
-//         caps += str.split("")[i].toUpperCase();
-//     }
-//     return caps;
-// }
-
 const DashboardCard = (props) => {
     return (
         <>
             <div className="dashboardCard">
-                <span className="dashboardGradient" height="100%">
-                </span>
                 <div className="dashboardCardContent">
                     <div className="dashboardCardTitle">
                         {props.artist.name}
@@ -27,7 +17,6 @@ const DashboardCard = (props) => {
                         {...props}
                     />
                 </div>
-                <hr />
             </div>
         </>
     )

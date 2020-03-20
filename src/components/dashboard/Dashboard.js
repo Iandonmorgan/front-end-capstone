@@ -10,12 +10,23 @@ const DashboardList = (props) => {
     
     const getProjectsAndArtists = () => {
         return APIManager.getAll("projects").then(projectsFromAPI => {
-            setProjects(projectsFromAPI)
+            setProjects(projectsFromAPI);
         }
         ).then(APIManager.getAll("artists").then(artistsFromAPI => {
-            setArtists(artistsFromAPI)
+            // this .sort() method puts artists in alphabetical order on dashboard.
+            setArtists(artistsFromAPI.sort(function(a, b) {
+                var nameA = a.name.toUpperCase();
+                var nameB = b.name.toUpperCase(); 
+                if (nameA < nameB) {
+                  return -1;
+                }
+                if (nameA > nameB) {
+                  return 1;
+                }
+                return 0;
+              }));
         })
-        ).then(console.log(artists, projects));
+        );
     };
 
     useEffect(() => {
