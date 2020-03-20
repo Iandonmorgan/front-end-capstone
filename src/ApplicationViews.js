@@ -4,10 +4,10 @@ import React from "react";
 import DashboardList from "./components/dashboard/Dashboard";
 import Login from "./components/users/Login";
 import CreateUser from "./components/users/CreateUser";
-import ArtistsList from "./artists/ArtistsList";
-import ArtistsDetail from "./artists/ArtistsDetail";
-import ArtistsEditForm from "./artists/ArtistsEditForm";
-import ArtistsForm from "./artists/ArtistsForm";
+import ArtistsList from "./components/artists/ArtistsList";
+import ArtistsDetail from "./components/artists/ArtistsDetail";
+import ArtistsEditForm from "./components/artists/ArtistsEditForm";
+import ArtistsForm from "./components/artists/ArtistsForm";
 
 const ApplicationViews = props => {
   const hasUser = props.hasUser;
