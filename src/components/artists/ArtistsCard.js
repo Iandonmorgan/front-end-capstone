@@ -33,7 +33,7 @@ const ArtistsCard = (props) => {
                         {props.artist.name.toUpperCase()}
                     </span></h3>
                         <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} />
-                    <p>Synopsis: {props.news.synopsis}</p>
+                    <p><a href={props.artist.url}>view website</a></p>
                     <div align="right">
                         <span data-tooltip="DETAILS"><i className="big file alternate icon artistFileIcon" onClick={() => props.history.push(`/artists/${props.artistId}`)}></i></span>
                         <span data-tooltip="EDIT"><i className="big edit icon artistDetailIcon" onClick={() => props.history.push(`/artists/${props.artistId}/edit`)}></i></span>
@@ -44,4 +44,4 @@ const ArtistsCard = (props) => {
         );
 }
 
-export default NewsCard;
+export default ArtistsCard;
