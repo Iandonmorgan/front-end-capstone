@@ -48,6 +48,7 @@ This project utilizes the following:
 * [React Confirm Alert](https://www.npmjs.com/package/react-confirm-alert) for confirm alerts
 * [React Router](https://reacttraining.com/react-router/) for page routing
 * [React-bootstrap](https://react-bootstrap.github.io/) for menu, flexible formatting
+* [React-PopUp](https://www.npmjs.com/package/reactjs-popup) for form pop-ups
 
 ## Skills Utilized
 

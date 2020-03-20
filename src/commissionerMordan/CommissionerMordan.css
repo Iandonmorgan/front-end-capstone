@@ -197,10 +197,10 @@ button:hover{
 .dashboardCardTitle {
     color: #3E000C;
     font-size: 3em;
+    padding: 20px 0;
     font-family: sans-serif, "Helvetica Neue", "Lucida Grande", Arial;
     font-weight: bolder;
     font-stretch: ultra-expanded;
-    /* margin: 20px 0 10px 0; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -208,12 +208,16 @@ button:hover{
 }
 
 
-/* ARTIST PAGE */
+/* ARTIST PAGES */
 
 .container-cards {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+}
+.formgridItem {
+    display: flex;
+    align-items: center;
 }
 
   @media only screen and (max-width: 800px) {

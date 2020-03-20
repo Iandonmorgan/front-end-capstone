@@ -42,18 +42,17 @@ const ArtistForm = (props) => {
     return (
         <>
             <div className="icon-container">
-                <i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/news')}></i>
+                <i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i>
             </div>
             <form>
                 <fieldset className="artistsEditForm">
                     <div className="formgrid">
-                        <div>
+                        <div className="formgridItem">
                             <label htmlFor="name">Artist: </label>
                             <p>
                                 <textarea
                                     type="text"
-                                    rows="2"
-                                    cols="40"
+                                    cols="20"
                                     required
                                     className="form-control"
                                     onChange={handleFieldChange}
@@ -62,12 +61,12 @@ const ArtistForm = (props) => {
                                 />
                             </p>
                         </div>
-                        <div>
+                        <div className="formgridItem">
                             <label htmlFor="picUrl">picUrl: </label>
                             <p>
                                 <textarea
                                     type="text"
-                                    rows="6"
+                                    rows="1"
                                     cols="50"
                                     required
                                     className="form-control"
@@ -77,7 +76,7 @@ const ArtistForm = (props) => {
                                 />
                             </p>
                         </div>
-                        <div>
+                        <div className="formgridItem">
                             <label htmlFor="url">URL: </label>
                             <p>
                                 <textarea
@@ -92,7 +91,7 @@ const ArtistForm = (props) => {
                                 />
                             </p>
                         </div>
-                        <div>
+                        <div className="formgridItem">
                             <label htmlFor="availabilityNotes">Availability Notes: </label>
                             <p>
                                 <textarea
