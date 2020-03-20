@@ -30,7 +30,7 @@ const ArtistsCard = (props) => {
             <div className="artistsCard">
                 <div className="artistsCardContent">
                     <h3><span className="artistsCardTitle">
-                        {props.artist.name.toUpperCase()}
+                        {props.artist.name}
                     </span></h3>
                         <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} />
                     <p><a href={props.artist.url}>view website</a></p>

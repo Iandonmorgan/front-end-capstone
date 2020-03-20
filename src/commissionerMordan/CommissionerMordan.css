@@ -208,7 +208,13 @@ button:hover{
 }
 
 
+/* ARTIST PAGE */
 
+.container-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
 
   @media only screen and (max-width: 800px) {
       
