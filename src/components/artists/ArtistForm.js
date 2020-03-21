@@ -14,74 +14,75 @@ const ArtistForm = (props) => {
         setArtist(stateToChange);
     };
 
-const createNewArtist = evt => {
-    evt.preventDefault()
-    setIsLoading(true);
+    const createNewArtist = evt => {
+        evt.preventDefault()
+        setIsLoading(true);
 
-    let dateTime = new Date().toLocaleString('en-GB', { timeZone: 'UTC' });
+        let dateTime = new Date().toLocaleString('en-GB', { timeZone: 'UTC' });
 
-    const newArtist = {
-        name: artist.name,
-        picUrl: artist.picUrl,
-        url: artist.url,
-        availabilityNotes: artist.availabilityNotes,
-        createdByUserId: activeUser.id,
-        timestamp: dateTime
+        const newArtist = {
+            name: artist.name,
+            picUrl: artist.picUrl,
+            url: artist.url,
+            availabilityNotes: artist.availabilityNotes,
+            createdByUserId: activeUser.id,
+            timestamp: dateTime
+        };
+
+        if (artist.name === "" || artist.picUrl === "" || artist.url === "") {
+            window.alert("Please input a name, picUrl, and URL for your Artist.");
+        } else {
+            setIsLoading(true);
+            APIManager.post("artists", newArtist)
+                .then(() => props.history.push("/artists"))
+        }
     };
 
-    if (artist.name === "" || artist.picUrl === "" || artist.url === "") {
-        window.alert("Please input a name, picUrl, and URL for your Artist.");
-    } else {
-        setIsLoading(true);
-        APIManager.post("artists", newArtist)
-            .then(() => props.history.push("/artists"))
-    }
-};
-
-return (
-    <>
+    return (
+        <>
             <div className="icon-container">
                 <i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i>
             </div>
             <form>
                 <fieldset className="artistsEditForm">
                     <div className="formgrid">
-                        <div className="formgridItem">
+                        <div>
                             <label htmlFor="name">Artist: </label>
                             <p>
-                                <textarea
+                                <input
                                     type="text"
-                                    cols="20"
+                                    rows="1"
+                                    cols="30"
                                     required
                                     className="form-control"
+                                    value={artist.name}
                                     onChange={handleFieldChange}
                                     id="name"
-                                    value={artist.name}
                                 />
                             </p>
                         </div>
-                        <div className="formgridItem">
+                        <div>
                             <label htmlFor="picUrl">picUrl: </label>
                             <p>
-                                <textarea
+                                <input
                                     type="text"
                                     rows="1"
-                                    cols="50"
+                                    cols="80"
                                     required
                                     className="form-control"
+                                    value={artist.picUrl}
                                     onChange={handleFieldChange}
                                     id="picUrl"
-                                    value={artist.picUrl}
                                 />
                             </p>
                         </div>
-                        <div className="formgridItem">
+                        <div>
                             <label htmlFor="url">URL: </label>
                             <p>
-                                <textarea
+                                <input
                                     type="text"
                                     rows="1"
-                                    cols="60"
+                                    cols="80"
                                     required
                                     className="form-control"
                                     onChange={handleFieldChange}
@@ -90,12 +91,12 @@ return (
                                 />
                             </p>
                         </div>
-                        <div className="formgridItem">
+                        <div>
                             <label htmlFor="availabilityNotes">Availability Notes: </label>
                             <p>
                                 <textarea
                                     type="text"
-                                    rows="1"
+                                    rows="3"
                                     cols="60"
                                     required
                                     className="form-control"
@@ -116,8 +117,8 @@ return (
                     </div>
                 </fieldset>
             </form>
-    </>
-);
+        </>
+    );
 }
 
 export default ArtistForm

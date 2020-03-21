@@ -7,11 +7,13 @@ const ArtistEditForm = (props) => {
     const [artist, setArtist] = useState({ name: "", picUrl: "", url: "", availabilityNotes: "" });
     const [isLoading, setIsLoading] = useState(false);
 
-    APIManager.getById("artists", parseInt(props.match.params.artistId))
+    const getArtist = () => {
+        APIManager.getById("artists", parseInt(props.match.params.artistId))
             .then(artist => {
                 setArtist(artist);
                 setIsLoading(false);
             });
+    };
 
     const handleFieldChange = evt => {
         const stateToChange = { ...artist };
@@ -24,6 +26,7 @@ const ArtistEditForm = (props) => {
         setIsLoading(true);
 
         let dateTime = new Date().toLocaleString('en-GB', { timeZone: 'UTC' });
+
 
         const editedArtist = {
             id: artist[0].id,
@@ -40,6 +43,7 @@ const ArtistEditForm = (props) => {
     }
 
     useEffect(() => {
+        getArtist();
     }, []);
 
     if (artist[0] !== undefined) {
@@ -60,7 +64,7 @@ const ArtistEditForm = (props) => {
                                         cols="30"
                                         required
                                         className="form-control"
-                                        value={artist[0].name}
+                                        defaultValue={artist[0].name}
                                         onChange={handleFieldChange}
                                         id="name"
                                     />

@@ -4,7 +4,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const ArtistsDetail = props => {
-    const [artist, setArtist] = useState({ name: "", picUrl: "", url: "", url: "", availabilityNotes: "" });
+    const [artist, setArtist] = useState({ name: "", picUrl: "", url: "", availabilityNotes: "" });
     const [isLoading, setIsLoading] = useState(true);
 
     const handleDelete = () => {
@@ -38,7 +38,7 @@ const ArtistsDetail = props => {
             });
             setIsLoading(false);
         });
-    }, [props.artistId]);
+    });
 
     if (artist.name !== undefined && artist.picUrl !== undefined && artist.url !== undefined) {
         return (

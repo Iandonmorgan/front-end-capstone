@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Navbar, Nav } from 'react-bootstrap';
 import { withRouter } from "react-router-dom";
 
 
 const NavBar = props => {
-  const isAuthenticated = () => sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null;
-  const [userFromState, setHasUser] = useState(isAuthenticated());
   const clearUser = () => {
     sessionStorage.clear();
     localStorage.clear();
-    setHasUser(isAuthenticated());
   };
   const handleLogout = () => {
     clearUser();

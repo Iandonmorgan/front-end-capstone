@@ -223,7 +223,7 @@ button:hover{
 }
 .formgridItem {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 .artist-header {
     display: flex;
