@@ -52,8 +52,8 @@ const ArtistsDetail = props => {
                         {artist.name}
                     </span></h3>
                         <img className="artistImageCard" src={(artist.picUrl)} alt={(artist.name)} />
-                    <p><a href={artist.url}>view website</a></p>
-                    <div align="right">
+                    <p><a href={artist.url}>{artist.url}</a></p>
+                    <div align="right" className="subIcon-container">
                         <span data-tooltip="EDIT"><i className="big edit icon artistsDetailsEditIcon" onClick={() => props.history.push(`/artists/${artist.id}/edit`)}></i></span>
                         <span data-tooltip="DELETE"><i className="big trash alternate icon artistsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
                     </div>
