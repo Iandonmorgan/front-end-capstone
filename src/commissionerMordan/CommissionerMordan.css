@@ -19,8 +19,19 @@ header {
     display: flex;
     justify-content: center;
     margin-top: 10px;
+    align-items: flex-start;
 }
-
+.option-checkbox {
+    display: flex;
+    align-self: flex-start;
+    margin-top: 3px;
+}
+.rememberMe {
+    font-size: .6em;
+    flex-direction: column;
+    display: flex;
+    align-self: flex-start;
+}
 .button-container {
     display: flex;
     justify-content: space-around;
@@ -37,13 +48,10 @@ form {
     margin-right: 2%;
 } */
 
-.rememberMe {
-    font-size: .3em;
-}
 #createUserLink {
     color: #0E34A0;
     text-decoration: underline;
-    font-size: .4em;
+    font-size: .8em;
     text-align: center;
 }
 #createUserLink:hover {
@@ -57,6 +65,8 @@ form {
 }
 button:hover{
     opacity: 0.8;
+    background-color: #D3D4D9;
+    border-radius: 5px;
     cursor: pointer;
 } 
 /* .userInfo {
@@ -128,11 +138,10 @@ button:hover{
 #haveAcctLink {
     color: #0E34A0;
     text-decoration: underline;
-    font-size: .4em;
+    font-size: .8em;
     text-align: center;
 }
 #haveAcctLink:hover {
-    color: #0E34A0;
     opacity: 0.8;
     cursor: pointer;
 }
@@ -210,45 +219,51 @@ button:hover{
 
 /* ARTIST PAGES */
 
+.artistDetail {
+    margin: 0 100px;
+        
+}
+.artistDetailsImage {
+    width: 100%;
+}
 .container-cards {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 .artistsCard {
-    margin: 0 50px;
-    border: 1px dashed black;
+    margin: 0 10px;
         
 }
 .artistsCardTitle {
     font-weight: bolder;
     font-size: 2em;
     margin: 20px 0 6px;
-        
+}
+.subcardLink {
+    font-weight: bolder;
+    font-size: .8em;
+    margin-left: 2px;
 }
 .formgridItem {
     display: flex;
     flex-direction: column;
 }
 .artist-header {
-    display: flex;
-    align-items: center;
+    margin: auto;
 }
 .subIcon-container {
     display: flex;
-    margin: 0 20px 0 100px;
-    align-items: flex-end;
+    margin: 20px 20px 0 100px;
+    align-items: center;
     justify-content: flex-end;
 }
 .icon-container {
-    display: flex;
-    margin: 50px 20px 0 100px;
-    align-items: flex-end;
-    justify-content: flex-end;
+    margin: auto;
 }
 .icon-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin: 50px 20px 0 100px;
     align-items: center;
 }

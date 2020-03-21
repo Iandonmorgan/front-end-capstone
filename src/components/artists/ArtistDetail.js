@@ -42,7 +42,7 @@ const ArtistsDetail = props => {
 
     if (artist.name !== undefined && artist.picUrl !== undefined && artist.url !== undefined) {
         return (
-            <div className="artistsCard">
+            <div className="artistDetail">
                 <div className="icon-container">
                     <span data-tooltip="BACK"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
                     <span data-tooltip="ADD"><i className="big plus square outline icon" id="plusIcon" onClick={() => props.history.push('/artists/new')}></i></span>
@@ -51,8 +51,9 @@ const ArtistsDetail = props => {
                 <h3><span className="artistsCardTitle">
                         {artist.name}
                     </span></h3>
-                        <img className="artistImageCard" src={(artist.picUrl)} alt={(artist.name)} />
+                        <img className="artistDetailsImage" src={(artist.picUrl)} alt={(artist.name)} />
                     <p><a href={artist.url}>{artist.url}</a></p>
+                    <div className="artistDetailsAvailability">Availability Notes: {artist.availabilityNotes}</div>
                     <div align="right" className="subIcon-container">
                         <span data-tooltip="EDIT"><i className="big edit icon artistsDetailsEditIcon" onClick={() => props.history.push(`/artists/${artist.id}/edit`)}></i></span>
                         <span data-tooltip="DELETE"><i className="big trash alternate icon artistsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>

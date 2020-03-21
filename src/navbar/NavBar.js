@@ -20,9 +20,9 @@ const NavBar = props => {
         <Nav className="mr-auto">
           <Nav.Link href="/artists">Artists</Nav.Link>
           <Nav.Link href="/projects">Projects</Nav.Link>
-          <Nav.Link href="/contacts">Contacts</Nav.Link>
-          <Nav.Link href="/shoots">Shoots</Nav.Link>
-          <Nav.Link href="/edits">Edits</Nav.Link>
+          <Nav.Link href="/contacts" className="disabled">Contacts</Nav.Link>
+          <Nav.Link href="/shoots" className="disabled">Shoots</Nav.Link>
+          <Nav.Link href="/edits" className="disabled">Edits</Nav.Link>
           <Nav.Link onClick={handleLogout} href="/">Logout</Nav.Link>
         </Nav>
       </Navbar.Collapse>

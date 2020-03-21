@@ -31,7 +31,7 @@ const ArtistsCard = (props) => {
                         {props.artist.name}
                     </div>
                         <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} width="200px" />
-                    <p><a href={props.artist.url} target="_new">view website</a></p>
+                    <p className="subcardLink"><a href={props.artist.url} target="_new">view website</a></p>
                     <div align="right">
                         <span data-tooltip="DETAILS"><i className="big file alternate icon artistFileIcon" onClick={() => props.history.push(`/artists/${props.artist.id}`)}></i></span>
                         <span data-tooltip="EDIT"><i className="big edit icon artistDetailIcon" onClick={() => props.history.push(`/artists/${props.artist.id}/edit`)}></i></span>
