@@ -2,11 +2,11 @@
 header {
     display: flex;
     justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .title {
     font-size: 2em;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     /* margin: 3%; */
 }
 
@@ -19,17 +19,28 @@ header {
     display: flex;
     justify-content: center;
     margin-top: 10px;
+    align-items: flex-start;
 }
-
+.option-checkbox {
+    display: flex;
+    align-self: flex-start;
+    margin-top: 3px;
+}
+.rememberMe {
+    font-size: .6em;
+    flex-direction: column;
+    display: flex;
+    align-self: flex-start;
+}
 .button-container {
     display: flex;
     justify-content: space-around;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 form {
     display: flex;
     justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 /* .userDetails{
     display: flex;
@@ -37,13 +48,10 @@ form {
     margin-right: 2%;
 } */
 
-.rememberMe {
-    font-size: .3em;
-}
 #createUserLink {
     color: #0E34A0;
     text-decoration: underline;
-    font-size: .4em;
+    font-size: .8em;
     text-align: center;
 }
 #createUserLink:hover {
@@ -57,6 +65,8 @@ form {
 }
 button:hover{
     opacity: 0.8;
+    background-color: #D3D4D9;
+    border-radius: 5px;
     cursor: pointer;
 } 
 /* .userInfo {
@@ -126,38 +136,66 @@ button:hover{
     align-items: center;
 }
 #haveAcctLink {
-    color: blue;
+    color: #0E34A0;
     text-decoration: underline;
-    font-size: .4em;
+    font-size: .8em;
     text-align: center;
 }
 #haveAcctLink:hover {
-    color: darkblue;
     opacity: 0.8;
     cursor: pointer;
 }
 
 /* DASHBOARD */
 
-/* .dashboard-container {
-    background-color: linear-gradient(white, #D3D4D9);
-} */
-.dashboardGradient {
-    background-image: linear-gradient(white, black);
+.dashboardCard {
+}
+.dashboardCardTitle {
+    background-image: linear-gradient(#D3D4D9, white);
 }
 .artistImage{
     width: 100%;
     position: top;
     /* margin: 5%; */
 }
-.artistImage:hover{
-    opacity: 0.8;
+.artistImage:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+.dashboardCardTitle:hover {
     cursor: pointer;
 }
 .dashboardProjectItem {
     display: flex;
+    margin: 0 2px;
     justify-content: space-around;
     flex-direction: row;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.dashboardProjectItemName {
+    width: 20%;
+    font-weight: bolder;
+    font-size: .5em;
+}
+.dashboardProjectItemDescription {
+    width: 50%;
+    font-size: .5em;
+}
+.dashboardProjectItemDeadline {
+    width: 10%;
+    font-size: .4em;
+}
+.dashboardProjectItemStatus {
+    width: 20%;
+    font-size: .8em;
+}
+.dashboardProjectItem:nth-child(even):hover {
+    background-color: #E5ECFF;
+    cursor: pointer;
+}
+.dashboardProjectItem:nth-child(odd):hover {
+    background-color: #E5ECFF;
+    cursor: pointer;
 }
 .dashboardProjectItem:nth-child(even) {
     background: #FFFFFF
@@ -168,10 +206,10 @@ button:hover{
 .dashboardCardTitle {
     color: #3E000C;
     font-size: 3em;
+    padding: 20px 0;
     font-family: sans-serif, "Helvetica Neue", "Lucida Grande", Arial;
     font-weight: bolder;
     font-stretch: ultra-expanded;
-    /* margin: 20px 0 10px 0; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -179,7 +217,56 @@ button:hover{
 }
 
 
+/* ARTIST PAGES */
 
+.artistDetail {
+    margin: 0 100px;
+        
+}
+.artistDetailsImage {
+    width: 100%;
+}
+.container-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.artistsCard {
+    margin: 0 10px;
+        
+}
+.artistsCardTitle {
+    font-weight: bolder;
+    font-size: 2em;
+    margin: 20px 0 6px;
+}
+.subcardLink {
+    font-weight: bolder;
+    font-size: .8em;
+    margin-left: 2px;
+}
+.formgridItem {
+    display: flex;
+    flex-direction: column;
+}
+.artist-header {
+    margin: auto;
+}
+.subIcon-container {
+    display: flex;
+    margin: 20px 20px 0 100px;
+    align-items: center;
+    justify-content: flex-end;
+}
+.icon-container {
+    margin: auto;
+}
+.icon-header {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 50px 20px 0 100px;
+    align-items: center;
+}
 
   @media only screen and (max-width: 800px) {
       
