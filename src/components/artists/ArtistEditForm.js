@@ -30,7 +30,7 @@ const ArtistEditForm = (props) => {
 
         const editedArtist = {
             id: artist[0].id,
-            name: artist.title,
+            name: artist.name,
             picUrl: artist.picUrl,
             url: artist.url,
             availabilityNotes: artist.availabilityNotes,
@@ -79,7 +79,7 @@ const ArtistEditForm = (props) => {
                                         cols="80"
                                         required
                                         className="form-control"
-                                        value={artist[0].picUrl}
+                                        defaultValue={artist[0].picUrl}
                                         onChange={handleFieldChange}
                                         id="picUrl"
                                     />
@@ -96,7 +96,7 @@ const ArtistEditForm = (props) => {
                                         className="form-control"
                                         onChange={handleFieldChange}
                                         id="url"
-                                        value={artist[0].url}
+                                        defaultValue={artist[0].url}
                                     />
                                 </p>
                             </div>
@@ -111,7 +111,7 @@ const ArtistEditForm = (props) => {
                                         className="form-control"
                                         onChange={handleFieldChange}
                                         id="availabilityNotes"
-                                        value={artist[0].availabilityNotes}
+                                        defaultValue={artist[0].availabilityNotes}
                                     />
                                 </p>
                             </div>
