@@ -29,10 +29,10 @@ const ArtistsCard = (props) => {
         return (
             <div className="artistsCard">
                 <div className="artistsCardContent">
-                    <h3><span className="artistsCardTitle">
+                    <div className="artistsCardTitle">
                         {props.artist.name}
-                    </span></h3>
-                        <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} />
+                    </div>
+                        <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} width="200px" />
                     <p><a href={props.artist.url}>view website</a></p>
                     <div align="right">
                         <span data-tooltip="DETAILS"><i className="big file alternate icon artistFileIcon" onClick={() => props.history.push(`/artists/${props.artist.id}`)}></i></span>

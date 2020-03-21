@@ -7,6 +7,11 @@ const ArtistEditForm = (props) => {
     const [artist, setArtist] = useState({ name: "", picUrl: "", url: "", availabilityNotes: "" });
     const [isLoading, setIsLoading] = useState(false);
 
+    APIManager.getById("artists", parseInt(props.match.params.artistsId))
+            .then(artist => {
+                setArtist(artist);
+                setIsLoading(false);
+            });
 
     const handleFieldChange = evt => {
         const stateToChange = { ...artist };
@@ -20,8 +25,8 @@ const ArtistEditForm = (props) => {
 
         let dateTime = new Date().toLocaleString('en-GB', { timeZone: 'UTC' });
 
-        const editedArtists = {
-            id: props.match.params.artistId,
+        const editedArtist = {
+            id: artist[0].id,
             name: artist.title,
             picUrl: artist.picUrl,
             url: artist.url,
@@ -30,99 +35,98 @@ const ArtistEditForm = (props) => {
             timestamp: dateTime
         };
 
-        APIManager.update("artists", editedArtists)
+        APIManager.update("artists", editedArtist)
             .then(() => props.history.push("/artists"))
     }
 
     useEffect(() => {
-        APIManager.get("artists", props.match.params.artistId)
-            .then(artist => {
-                setArtist(artist);
-                setIsLoading(false);
-            });
-    }, [props.match.params.artistId]);
+    }, []);
 
-    return (
-        <>
-            <div className="icon-container">
-            <span data-tooltip="BACK"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
-            </div>
-            <form>
-                <fieldset className="artistsEditForm">
-                    <div className="formgrid">
-                        <div>
-                            <label htmlFor="name">Artist: </label>
-                            <p>
-                                <textarea
-                                    type="text"
-                                    rows="2"
-                                    cols="40"
-                                    required
-                                    className="form-control"
-                                    onChange={handleFieldChange}
-                                    id="name"
-                                    value={artist.name}
-                                />
-                            </p>
+    if (artist[0] !== undefined) {
+        return (
+            <>
+                <div className="icon-container">
+                    <span data-tooltip="BACK"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
+                </div>
+                <form>
+                    <fieldset className="artistsEditForm">
+                        <div className="formgrid">
+                            <div>
+                                <label htmlFor="name">Artist: </label>
+                                <p>
+                                    <input
+                                        type="text"
+                                        rows="1"
+                                        cols="30"
+                                        required
+                                        className="form-control"
+                                        value={artist[0].name}
+                                        onChange={handleFieldChange}
+                                        id="name"
+                                    />
+                                </p>
+                            </div>
+                            <div>
+                                <label htmlFor="picUrl">picUrl: </label>
+                                <p>
+                                    <input
+                                        type="text"
+                                        rows="1"
+                                        cols="80"
+                                        required
+                                        className="form-control"
+                                        value={artist[0].picUrl}
+                                        onChange={handleFieldChange}
+                                        id="picUrl"
+                                    />
+                                </p>
+                            </div>
+                            <div>
+                                <label htmlFor="url">URL: </label>
+                                <p>
+                                    <input
+                                        type="text"
+                                        rows="1"
+                                        cols="80"
+                                        required
+                                        className="form-control"
+                                        onChange={handleFieldChange}
+                                        id="url"
+                                        value={artist[0].url}
+                                    />
+                                </p>
+                            </div>
+                            <div>
+                                <label htmlFor="availabilityNotes">Availability Notes: </label>
+                                <p>
+                                    <textarea
+                                        type="text"
+                                        rows="3"
+                                        cols="60"
+                                        required
+                                        className="form-control"
+                                        onChange={handleFieldChange}
+                                        id="availabilityNotes"
+                                        value={artist[0].availabilityNotes}
+                                    />
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <label htmlFor="picUrl">picUrl: </label>
-                            <p>
-                                <textarea
-                                    type="text"
-                                    rows="6"
-                                    cols="50"
-                                    required
-                                    className="form-control"
-                                    onChange={handleFieldChange}
-                                    id="picUrl"
-                                    value={artist.picUrl}
-                                />
-                            </p>
+                        <div className="alignRight">
+                            <button
+                                type="button" disabled={isLoading}
+                                onClick={updateExistingArtist}
+                                id="artistEditFormBtn"
+                                className="ui blue basic button"
+                            >Submit</button>
                         </div>
-                        <div>
-                            <label htmlFor="url">URL: </label>
-                            <p>
-                                <textarea
-                                    type="text"
-                                    rows="1"
-                                    cols="60"
-                                    required
-                                    className="form-control"
-                                    onChange={handleFieldChange}
-                                    id="url"
-                                    value={artist.url}
-                                />
-                            </p>
-                        </div>
-                        <div>
-                            <label htmlFor="availabilityNotes">Availability Notes: </label>
-                            <p>
-                                <textarea
-                                    type="text"
-                                    rows="1"
-                                    cols="60"
-                                    required
-                                    className="form-control"
-                                    onChange={handleFieldChange}
-                                    id="availabilityNotes"
-                                    value={artist.availabilityNotes}
-                                />
-                            </p>
-                        </div>
-                    </div>
-                    <div className="alignRight">
-                        <button
-                            type="button" disabled={isLoading}
-                            onClick={updateExistingArtist}
-                            id="artistEditFormBtn"
-                            className="ui blue basic button"
-                        >Submit</button>
-                    </div>
-                </fieldset>
-            </form>
-        </>
-    );
+                    </fieldset>
+                </form>
+            </>
+        );
+    } else {
+        return "";
+    };
 }
 
 export default ArtistEditForm

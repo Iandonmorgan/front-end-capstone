@@ -14,33 +14,32 @@ const ArtistForm = (props) => {
         setArtist(stateToChange);
     };
 
-    const createNewArtist = evt => {
-        evt.preventDefault()
-        setIsLoading(true);
+const createNewArtist = evt => {
+    evt.preventDefault()
+    setIsLoading(true);
 
-        let dateTime = new Date().toLocaleString('en-GB', { timeZone: 'UTC' });
+    let dateTime = new Date().toLocaleString('en-GB', { timeZone: 'UTC' });
 
-        const newArtist = {
-            id: props.match.params.artistId,
-            name: artist.name,
-            picUrl: artist.picUrl,
-            url: artist.url,
-            availabilityNotes: artist.availabilityNotes,
-            createdByUserId: activeUser.id,
-            timestamp: dateTime
-        };
-
-        if (artist.name === "" || artist.picUrl === "" || artist.url === "") {
-            window.alert("Please input a name, picUrl, and URL for your Artist.");
-        } else {
-            setIsLoading(true);
-            APIManager.post("artists", newArtist)
-                .then(() => props.history.push("/artists"))
-        }
+    const newArtist = {
+        name: artist.name,
+        picUrl: artist.picUrl,
+        url: artist.url,
+        availabilityNotes: artist.availabilityNotes,
+        createdByUserId: activeUser.id,
+        timestamp: dateTime
     };
 
-    return (
-        <>
+    if (artist.name === "" || artist.picUrl === "" || artist.url === "") {
+        window.alert("Please input a name, picUrl, and URL for your Artist.");
+    } else {
+        setIsLoading(true);
+        APIManager.post("artists", newArtist)
+            .then(() => props.history.push("/artists"))
+    }
+};
+
+return (
+    <>
             <div className="icon-container">
                 <i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i>
             </div>
@@ -117,8 +116,8 @@ const ArtistForm = (props) => {
                     </div>
                 </fieldset>
             </form>
-        </>
-    );
+    </>
+);
 }
 
 export default ArtistForm

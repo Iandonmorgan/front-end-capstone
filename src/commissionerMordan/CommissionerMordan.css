@@ -215,8 +215,30 @@ button:hover{
     justify-content: space-around;
     flex-wrap: wrap;
 }
+.artistsCardTitle {
+    font-weight: bolder;
+    font-size: 2em;
+    margin: 20px 0 6px;
+
+}
 .formgridItem {
     display: flex;
+    align-items: center;
+}
+.artist-header {
+    display: flex;
+    align-items: center;
+}
+.icon-container {
+    display: flex;
+    margin: 50px 20px 0 100px;
+    align-items: right;
+    justify-content: flex-end;
+}
+.icon-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 20px 0 100px;
     align-items: center;
 }
 
