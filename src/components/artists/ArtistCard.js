@@ -3,8 +3,6 @@ import APIManager from "../../modules/APIManager";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
-
 const ArtistsCard = (props) => {
     const [isLoading, setIsLoading] = useState(true);
         const handleDelete = () => {
@@ -15,7 +13,7 @@ const ArtistsCard = (props) => {
                 buttons: [
                     {
                         label: 'Yes',
-                        onClick: () => APIManager.delete("artists", props.artists.id).then(() =>
+                        onClick: () => APIManager.delete("artists", props.artist.id).then(() =>
                             props.getArtists()
                         )
                     },

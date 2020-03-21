@@ -28,7 +28,7 @@ const ArtistsDetail = props => {
     };
 
     useEffect(() => {
-        APIManager.get("artists", props.artist.id).then(artist => {
+        APIManager.get("artists", props.match.params.artistId).then(artist => {
             setArtist({
                 name: artist.name,
                 picUrl: artist.picUrl,
@@ -49,10 +49,10 @@ const ArtistsDetail = props => {
                 </div>
                 <div className="artistsCardContent">
                 <h3><span className="artistsCardTitle">
-                        {props.artist.name.toUpperCase()}
+                        {artist.name}
                     </span></h3>
-                        <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} />
-                    <p><a href={props.artist.url}>view website</a></p>
+                        <img className="artistImageCard" src={(artist.picUrl)} alt={(artist.name)} />
+                    <p><a href={artist.url}>view website</a></p>
                     <div align="right">
                         <span data-tooltip="EDIT"><i className="big edit icon artistsDetailsEditIcon" onClick={() => props.history.push(`/artists/${artist.id}/edit`)}></i></span>
                         <span data-tooltip="DELETE"><i className="big trash alternate icon artistsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>

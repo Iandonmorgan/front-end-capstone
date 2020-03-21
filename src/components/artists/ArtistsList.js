@@ -37,6 +37,7 @@ const ArtistsList = (props) => {
                         <ArtistCard
                             key={artistItem.id}
                             artist={artistItem}
+                            getArtists={getArtists}
                             {...props}
                         />)}
                 </div>

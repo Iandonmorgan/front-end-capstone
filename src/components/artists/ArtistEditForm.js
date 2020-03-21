@@ -7,7 +7,7 @@ const ArtistEditForm = (props) => {
     const [artist, setArtist] = useState({ name: "", picUrl: "", url: "", availabilityNotes: "" });
     const [isLoading, setIsLoading] = useState(false);
 
-    APIManager.getById("artists", parseInt(props.match.params.artistsId))
+    APIManager.getById("artists", parseInt(props.match.params.artistId))
             .then(artist => {
                 setArtist(artist);
                 setIsLoading(false);

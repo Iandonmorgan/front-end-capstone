@@ -7,7 +7,6 @@ import ArtistsList from "./components/artists/ArtistsList";
 import ArtistsDetail from "./components/artists/ArtistDetail";
 import ArtistsEditForm from "./components/artists/ArtistEditForm";
 import ArtistsForm from "./components/artists/ArtistForm";
-import APIManager from "./modules/APIManager";
 
 const ApplicationViews = props => {
   const hasUser = props.hasUser;
@@ -76,7 +75,7 @@ const ApplicationViews = props => {
         }}
       />
       <Route
-        path="/artists/:artistsId(\d+)/edit"
+        path="/artists/:artistId(\d+)/edit"
         render={props => {
           if (hasUser) {
               return <ArtistsEditForm 
