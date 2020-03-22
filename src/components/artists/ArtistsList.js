@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ArtistCard from './ArtistCard';
-import ArtistForm from './ArtistForm';
 import APIManager from '../../modules/APIManager';
 
 const ArtistsList = (props) => {

@@ -30,7 +30,6 @@ const DashboardList = (props) => {
     };
 
     useEffect(() => {
-        getProjectsAndArtists();
     }, []);
 
     if (props.hasUser) {
