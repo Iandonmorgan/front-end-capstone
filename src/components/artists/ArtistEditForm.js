@@ -44,7 +44,7 @@ const ArtistEditForm = (props) => {
 
     useEffect(() => {
         getArtist();
-    });
+    }, []);
 
     if (artist[0] !== undefined) {
         return (
