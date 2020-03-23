@@ -7,6 +7,10 @@ import ArtistsList from "./components/artists/ArtistsList";
 import ArtistsDetail from "./components/artists/ArtistDetail";
 import ArtistsEditForm from "./components/artists/ArtistEditForm";
 import ArtistsForm from "./components/artists/ArtistForm";
+import ProjectsList from "./components/projects/ProjectsList";
+import ProjectDetail from "./components/projects/ProjectDetail";
+import ProjectEditForm from "./components/projects/ProjectEditForm";
+import ProjectForm from "./components/projects/ProjectForm";
 
 const ApplicationViews = props => {
   const hasUser = props.hasUser;
@@ -92,6 +96,56 @@ const ApplicationViews = props => {
         render={props => {
           if (hasUser) {
             return <ArtistsForm {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+      />
+      <Route
+        exact
+        path="/projects"
+        render={props => {
+          if (hasUser) {
+            return <ProjectsList {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+      />
+      <Route
+        exact
+        path="/projects/:projectId(\d+)"
+        render={props => {
+          if (hasUser) {
+            return (
+              <ProjectDetail
+                project={props.project}
+                {...props}
+              />
+            );
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+      />
+      <Route
+        path="/projects/:projectId(\d+)/edit"
+        render={props => {
+          if (hasUser) {
+              return <ProjectEditForm 
+              projectId={props.match.params.projectId}
+              {...props}
+              />;
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+      />
+      <Route
+        path="/projects/new"
+        render={props => {
+          if (hasUser) {
+            return <ProjectForm {...props} />;
           } else {
             return <Redirect to="/login" />;
           }
