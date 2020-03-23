@@ -18,9 +18,8 @@ const ArtistsList = (props) => {
     return (
         <div>
             <section className="section-content">
-                <div className="icon-header">
-                    <div></div>
-                    <div className="artist-header">
+                <div className="artists-list-icon-header">
+                    <div className="artists-header">
                         <h1 className="artists">ARTISTS</h1>
                     </div>
                     <div className="icon-container">
