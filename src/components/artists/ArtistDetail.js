@@ -38,7 +38,7 @@ const ArtistsDetail = props => {
             });
             setIsLoading(false);
         });
-    });
+    }, [props.match.params.artistId]);
 
     if (artist.name !== undefined && artist.picUrl !== undefined && artist.url !== undefined) {
         return (

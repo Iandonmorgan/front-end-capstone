@@ -28,7 +28,7 @@ const DashboardProjectList = (props) => {
     useEffect(() => {
         getArtistProjects(props);
         getStatuses();
-    });
+    }, []);
 
     return (
         <>
