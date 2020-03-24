@@ -9,7 +9,7 @@ const ArtistConnectCard = (props) => {
         setIsLoading(true);
         confirmAlert({
             title: 'Confirm to delete',
-            message: 'Are you sure you want to remove the connection to this artist?',
+            message: 'Are you sure you want to remove the project connection to this artist?',
             buttons: [
                 {
                     label: 'Yes',
@@ -29,12 +29,12 @@ const ArtistConnectCard = (props) => {
             <div className="artistConnectCard">
                 <div className="artistConnectCardContent">
                     <img className="artistConnectImageCard" src={(props.connect.artist.picUrl)} alt={(props.connect.artist.name)} width="200px" onClick={() => props.history.push(`/artists/${props.connect.artist.id}`)} />
-                    <div className="artistConnectCardTitle" onClick={() => props.history.push(`/artists/${props.connect.artist.id}`)}>
-                        {props.connect.artist.name}
-                    </div>
                     <div className="subArtistConnectCard">
-                        <p className="subcardConnectLink"><a href={props.connect.artist.url} target="_new">view website</a></p>
-                        <span data-tooltip="DELETE"><i className="small trash alternate icon artistTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
+                        <div className="artistConnectCardTitle" onClick={() => props.history.push(`/artists/${props.connect.artist.id}`)}>
+                            {props.connect.artist.name}
+                        </div>
+                        {/* <p className="subcardConnectLink"><a href={props.connect.artist.url} target="_new">view website</a></p> */}
+                        <span data-tooltip="REMOVE FROM PROJECT"><i className="small minus square icon red artistRemoveConnectIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
                     </div>
                 </div>
             </div>

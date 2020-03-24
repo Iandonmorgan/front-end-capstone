@@ -4,8 +4,8 @@ import DashboardProjectList from "./DashboardProjectList";
 const DashboardCard = (props) => {
     return (
         <>
-            <div className="dashboardCard" onClick={ () => props.history.push(`/artists/${props.artist.id}`) }  >
-                <div className="dashboardCardContent">
+            <div className="dashboardCard">
+                <div className="dashboardCardContent" onClick={ () => props.history.push(`/artists/${props.artist.id}`) } >
                     <div className="dashboardCardTitle">
                         {props.artist.name}
                     </div>

@@ -396,6 +396,17 @@ button:hover{
 #projectEditFormBtn {
     margin-top: 10px;
 }
+.subArtistConnectCard {
+    display: flex;
+    justify-content: space-between;
+}
+.artistConnectCardContent {
+    width: 200px;
+}
+.artistRemoveConnectIcon {
+    display: flex;
+    align-content: center;
+}
 
   @media only screen and (max-width: 800px) {
       
