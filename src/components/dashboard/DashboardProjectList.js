@@ -9,11 +9,11 @@ const DashboardProjectList = (props) => {
     const getArtistProjects = (props) => {
         let artistProjects = [];
         APIManager.getAllWithExpand("artistProjects", "project").then(artistProjectz => {
-            artistProjects = artistProjectz.sort(function(a, b){return new Date(a.project.expectedCompletion) - new Date (b.project.expectedCompletion)}).filter(project => project.artistId === props.artist.id);
+            artistProjects = artistProjectz.sort(function (a, b) { return new Date(a.project.expectedCompletion) - new Date(b.project.expectedCompletion) }).filter(project => project.artistId === props.artist.id);
             setArtistProject(artistProjects);
         });
     };
-    
+
     const getStatuses = () => {
         let statuses = [];
         const statusFunction = (status) => {
@@ -32,23 +32,25 @@ const DashboardProjectList = (props) => {
 
     return (
         <>
-                {artistProject.map(artistProject => (
-                <div className="dashboardProjectItem" key={artistProject.id.toString()} onClick={ () => props.history.push(`/projects/${artistProject.projectId}`)} >
-                    <div className="dashboardProjectItemName">
-                        {(artistProject.project.name.toUpperCase())}
+            {artistProject.map(artistProject => (
+                <div className="dashboardProjectLine" key={artistProject.id.toString()} >
+                    <div className="dashboardProjectItem" onClick={() => props.history.push(`/projects/${artistProject.projectId}`)} >
+                        <div className="projectItemName">
+                            {(artistProject.project.name.toUpperCase())}
+                        </div>
+                        <div className="projectItemDescription">
+                            {(artistProject.project.description)}
+                        </div>
+                        <div className="projectItemDeadline">
+                            {(DateManager.monthDayYear(artistProject.project.expectedCompletion))}
+                        </div>
+                        <div className="projectItemStatus">
+                            {(statusArray[artistProject.project.statusId - 1])}
+                        </div>
                     </div>
-                    <div className="dashboardProjectItemDescription">
-                        {(artistProject.project.description)}
-                    </div>
-                    <div className="dashboardProjectItemDeadline">
-                        {(DateManager.monthDayYear(artistProject.project.expectedCompletion))}
-                    </div>
-                    <div className="dashboardProjectItemStatus">
-                        {(statusArray[artistProject.project.statusId - 1])}
-                    </div>
-                    </div>
-                )
-                )
+                </div>
+            )
+            )
             }
         </>
     )
