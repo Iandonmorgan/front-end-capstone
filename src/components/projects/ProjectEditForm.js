@@ -40,7 +40,7 @@ const ProjectEditForm = (props) => {
         };
 
         APIManager.update("projects", editedProject)
-            .then(() => props.history.push("/projects"))
+            .then(() => props.history.push(`/projects/${editedProject.id}`))
     }
 
     useEffect(() => {
