@@ -16,6 +16,11 @@ export default {
             result.json()
         );
     },
+    getAllWithUserId(component, userId) {
+        return fetch(`${remoteURL}/${component}?userId=${userId}`).then(result =>
+            result.json()
+        );
+    },
     getAllWithExpand(component, expand) {
         return fetch(`${remoteURL}/${component}?_expand=${expand}`).then(result =>
             result.json()

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import APIManager from "../../modules/APIManager";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
+const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
+
 const ArtistsCard = (props) => {
+    const [userFollows, setUserFollows] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const handleDelete = () => {
         setIsLoading(true);
@@ -24,20 +27,42 @@ const ArtistsCard = (props) => {
             ]
         });
     };
+    const getUserFollows = () => {
+        let userArtists = [];
+        return APIManager.getAllWithUserId("userFollows", activeUser.id).then(follows => {
+            for (let i = 0; i < follows.length; i++) {
+                APIManager.getById("artists", follows[i].artistId).then(fArtist => {
+                    userArtists.push(fArtist.flat());
+                    setUserFollows(userArtists.flat());
+                })
+            }
+        });
+    };
+
+    useEffect(() => {
+        getUserFollows();
+    }, []);
+
     return (
         <div className="artistsCard">
             <div className="artistsCardContent">
-                <div className="artistsCardTitle" onClick={ () => props.history.push(`/artists/${props.artist.id}`) }>
+                <div className="artistsCardTitle" onClick={() => props.history.push(`/artists/${props.artist.id}`)}>
                     {props.artist.name}
                 </div>
-                <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} width="200px" onClick={ () => props.history.push(`/artists/${props.artist.id}`) }/>
+                <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} width="200px" onClick={() => props.history.push(`/artists/${props.artist.id}`)} />
                 <div className="subArtistCard">
                     <p className="subcardLink"><a href={props.artist.url} target="_new">view website</a></p>
-                    <div align="right">
-                        <span data-tooltip="DETAILS"><i className="small file alternate icon artistFileIcon" onClick={() => props.history.push(`/artists/${props.artist.id}`)}></i></span>
-                        <span data-tooltip="EDIT"><i className="small edit icon artistDetailIcon" onClick={() => props.history.push(`/artists/${props.artist.id}/edit`)}></i></span>
-                        <span data-tooltip="DELETE"><i className="small trash alternate icon artistTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
-                    </div>
+                    {userFollows.map(userFollow => {
+                        if (userFollow.id === props.artist.id) {
+                            return <div align="right">
+                                <span data-tooltip="DETAILS"><i className="small file alternate icon artistFileIcon" onClick={() => props.history.push(`/artists/${props.artist.id}`)}></i></span>
+                                <span data-tooltip="EDIT"><i className="small edit icon artistDetailIcon" onClick={() => props.history.push(`/artists/${props.artist.id}/edit`)}></i></span>
+                                <span data-tooltip="DELETE"><i className="small trash alternate icon artistTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
+                            </div>
+                        } else {
+
+                        }
+                    })}
                 </div>
             </div>
         </div>
