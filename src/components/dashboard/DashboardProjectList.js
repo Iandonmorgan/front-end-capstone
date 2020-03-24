@@ -28,12 +28,12 @@ const DashboardProjectList = (props) => {
     useEffect(() => {
         getArtistProjects(props);
         getStatuses();
-    }, []);
+    }, [props]);
 
     return (
         <>
                 {artistProject.map(artistProject => (
-                <div className="dashboardProjectItem" key={artistProject.id.toString()}>
+                <div className="dashboardProjectItem" key={artistProject.id.toString()} onClick={ () => props.history.push(`/projects/${artistProject.projectId}`)} >
                     <div className="dashboardProjectItemName">
                         {(artistProject.project.name.toUpperCase())}
                     </div>

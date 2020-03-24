@@ -5,41 +5,43 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const ArtistsCard = (props) => {
     const [isLoading, setIsLoading] = useState(true);
-        const handleDelete = () => {
-            setIsLoading(true);
-            confirmAlert({
-                title: 'Confirm to delete',
-                message: 'Are you sure you want to delete this?',
-                buttons: [
-                    {
-                        label: 'Yes',
-                        onClick: () => APIManager.delete("artists", props.artist.id).then(() =>
-                            props.getArtists()
-                        )
-                    },
-                    {
-                        label: 'No',
-                        onClick: () => ""
-                    }
-                ]
-            });
-        };
-        return (
-            <div className="artistsCard">
-                <div className="artistsCardContent">
-                    <div className="artistsCardTitle">
-                        {props.artist.name}
-                    </div>
-                        <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} width="200px" />
+    const handleDelete = () => {
+        setIsLoading(true);
+        confirmAlert({
+            title: 'Confirm to delete',
+            message: 'Are you sure you want to delete this?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => APIManager.delete("artists", props.artist.id).then(() =>
+                        props.getArtists()
+                    )
+                },
+                {
+                    label: 'No',
+                    onClick: () => ""
+                }
+            ]
+        });
+    };
+    return (
+        <div className="artistsCard">
+            <div className="artistsCardContent">
+                <div className="artistsCardTitle" onClick={ () => props.history.push(`/artists/${props.artist.id}`) }>
+                    {props.artist.name}
+                </div>
+                <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} width="200px" onClick={ () => props.history.push(`/artists/${props.artist.id}`) }/>
+                <div className="subArtistCard">
                     <p className="subcardLink"><a href={props.artist.url} target="_new">view website</a></p>
                     <div align="right">
-                        <span data-tooltip="DETAILS"><i className="big file alternate icon artistFileIcon" onClick={() => props.history.push(`/artists/${props.artist.id}`)}></i></span>
-                        <span data-tooltip="EDIT"><i className="big edit icon artistDetailIcon" onClick={() => props.history.push(`/artists/${props.artist.id}/edit`)}></i></span>
-                        <span data-tooltip="DELETE"><i className="big trash alternate icon artistTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
+                        <span data-tooltip="DETAILS"><i className="small file alternate icon artistFileIcon" onClick={() => props.history.push(`/artists/${props.artist.id}`)}></i></span>
+                        <span data-tooltip="EDIT"><i className="small edit icon artistDetailIcon" onClick={() => props.history.push(`/artists/${props.artist.id}/edit`)}></i></span>
+                        <span data-tooltip="DELETE"><i className="small trash alternate icon artistTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
                     </div>
                 </div>
             </div>
-        );
+        </div>
+    );
 }
 
 export default ArtistsCard;

@@ -1,3 +1,6 @@
+/* GLOBAL */
+
+
 /* HEADER */
 header {
     display: flex;
@@ -42,11 +45,6 @@ form {
     justify-content: center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-/* .userDetails{
-    display: flex;
-    flex-direction: row;
-    margin-right: 2%;
-} */
 
 #createUserLink {
     color: #0E34A0;
@@ -69,14 +67,6 @@ button:hover{
     border-radius: 5px;
     cursor: pointer;
 } 
-/* .userInfo {
-    width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: flex-end;
-    margin: 10px;
-   
-} */
 .image-cropper{
     width: 200px;
     height: 50px;
@@ -148,11 +138,6 @@ button:hover{
 
 /* DASHBOARD */
 
-.dashboardCard {
-}
-.dashboardCardTitle {
-    background-image: linear-gradient(#D3D4D9, white);
-}
 .artistImage{
     width: 100%;
     position: top;
@@ -160,9 +145,6 @@ button:hover{
 }
 .artistImage:hover {
     opacity: 0.9;
-    cursor: pointer;
-}
-.dashboardCardTitle:hover {
     cursor: pointer;
 }
 .dashboardProjectItem {
@@ -173,17 +155,18 @@ button:hover{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .dashboardProjectItemName {
-    width: 20%;
-    font-weight: bolder;
+    width: 25%;
+    font-weight: bold;
     font-size: .5em;
+    margin-right: 10px;
 }
 .dashboardProjectItemDescription {
     width: 50%;
-    font-size: .5em;
+    font-size: .8em;
 }
 .dashboardProjectItemDeadline {
     width: 10%;
-    font-size: .4em;
+    font-size: .8em;
 }
 .dashboardProjectItemStatus {
     width: 20%;
@@ -204,7 +187,7 @@ button:hover{
     background: #D3D4D9
 }
 .dashboardCardTitle {
-    color: #3E000C;
+    background-image: linear-gradient(white, #D3D4D9);
     font-size: 3em;
     padding: 20px 0;
     font-family: sans-serif, "Helvetica Neue", "Lucida Grande", Arial;
@@ -216,12 +199,38 @@ button:hover{
     justify-content: space-around;
 }
 
-
 /* ARTIST PAGES */
 
+.artists {
+    font-size: 5em;
+}
+.icon-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 50px 25px 0 0;
+}
 .artistDetail {
-    margin: 0 100px;
+    margin: 50px 100px;
         
+}
+.artistsCardHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.artists-list-icon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 10px 20px 20px;
+}
+.artistCardTitle {
+
+}
+.subArtistCard {
+    display: flex;
+    justify-content: space-between;
+    /* margin: 50px 20px 20px; */
 }
 .artistDetailsImage {
     width: 100%;
@@ -238,10 +247,15 @@ button:hover{
 .artistsCardTitle {
     font-weight: bolder;
     font-size: 2em;
-    margin: 20px 0 6px;
+    margin-bottom: 10px;
+}
+.artistsCardDetailTitle {
+    font-weight: bolder;
+    font-size: 2em;
+    margin-bottom: 10px;
 }
 .subcardLink {
-    font-weight: bolder;
+    font-weight: bold;
     font-size: .8em;
     margin-left: 2px;
 }
@@ -249,17 +263,11 @@ button:hover{
     display: flex;
     flex-direction: column;
 }
-.artist-header {
-    margin: auto;
-}
 .subIcon-container {
     display: flex;
     margin: 20px 20px 0 100px;
     align-items: center;
     justify-content: flex-end;
-}
-.icon-container {
-    margin: auto;
 }
 .icon-header {
     display: flex;
@@ -267,11 +275,23 @@ button:hover{
     margin: 50px 20px 0 100px;
     align-items: center;
 }
+#artistEditFormBtn {
+    margin-top: 10px;
+}
+
 /* PROJECT PAGES */
 
+.projects {
+    font-size: 5em;
+}
 .projectDetail {
     margin: 0 100px;
         
+}
+.project-editForm-icon-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 50px 25px 0 0;
 }
 .projectDetailsImage {
     width: 100%;
@@ -301,34 +321,36 @@ button:hover{
 .project-icon-header {
     display: flex;
     justify-content: space-between;
-    margin-top: 50px;
+    margin: 10px 25px 0;
+    align-items: baseline;
 }
-/* .dashboardCardTitle {
-    background-image: linear-gradient(#D3D4D9, white);
-} */
 .artistImage{
     width: 100%;
     position: top;
     /* margin: 5%; */
 }
-.artistImage:hover {
+.artistImage:hover, .artistImageCard:hover, .icon:hover {
     opacity: 0.9;
     cursor: pointer;
 }
-.dashboardCardTitle:hover {
+.dashboardCardTitle:hover, .artistsCardTitle:hover, .icon:hover {
     cursor: pointer;
+}
+.artistsCardDetailTitle:hover, .artists:hover {
+    cursor: default;
 }
 .projectItem {
     display: flex;
-    margin: 0 2px;
+    margin: 0 25px;
     justify-content: space-around;
     flex-direction: row;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .projectItemName {
-    width: 20%;
+    width: 25%;
     font-weight: bolder;
     font-size: .5em;
+    margin-right: 10px;
 }
 .projectItemDescription {
     width: 50%;
@@ -343,12 +365,13 @@ button:hover{
 .projectItemStatus {
     width: 20%;
     font-size: .8em;
+    padding: 0 10px;
 }
-.projectItem:nth-child(even):hover {
+.projectsCard:nth-child(even):hover {
     background-color: #E5ECFF;
     cursor: pointer;
 }
-.projectItem:nth-child(odd):hover {
+.projectsCard:nth-child(odd):hover {
     background-color: #E5ECFF;
     cursor: pointer;
 }
@@ -366,10 +389,14 @@ button:hover{
     display: flex;
     align-items: center;
 }
-.project-section-content {
-    margin: 0 35px;
+.projectCardHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
 }
-
+#projectEditFormBtn {
+    margin-top: 10px;
+}
 
   @media only screen and (max-width: 800px) {
       

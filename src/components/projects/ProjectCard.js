@@ -50,7 +50,7 @@ const ProjectCard = (props) => {
         <>
             <div className="projectsCard">
                 <div className="projectItem">
-                    <div className="projectsCardContent" key={props.project.id.toString()}>
+                    <div className="projectsCardContent" key={props.project.id.toString()} onClick={ () => props.history.push(`/projects/${props.project.id}`) } >
                         <div className="projectItemName">
                             {(props.project.name.toUpperCase())}
                         </div>

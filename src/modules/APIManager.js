@@ -6,6 +6,11 @@ export default {
             result.json()
         );
     },
+    getWithExpand(component, id, expand) {
+        return fetch(`${remoteURL}/${component}/${id}?_expand=${expand}`).then(result =>
+            result.json()
+        );
+    },
     getAll(component) {
         return fetch(`${remoteURL}/${component}`).then(result =>
             result.json()

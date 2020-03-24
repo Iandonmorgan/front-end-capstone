@@ -43,15 +43,16 @@ const ArtistsDetail = props => {
     if (artist.name !== undefined && artist.picUrl !== undefined && artist.url !== undefined) {
         return (
             <div className="artistDetail">
-                <div className="icon-container">
-                    <span data-tooltip="BACK"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
-                    <span data-tooltip="ADD"><i className="big plus square outline icon" id="plusIcon" onClick={() => props.history.push('/artists/new')}></i></span>
-                </div>
-                <div className="artistsCardContent">
-                <h3><span className="artistsCardTitle">
+                <div className="artistsCardHeader">
+                    <h3><span className="artistsCardDetailTitle">
                         {artist.name}
                     </span></h3>
-                        <img className="artistDetailsImage" src={(artist.picUrl)} alt={(artist.name)} />
+                    <div className="artist-detail-icon-container">
+                        <span data-tooltip="TO ARTISTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
+                    </div>
+                </div>
+                <div className="artistsCardContent">
+                    <img className="artistDetailsImage" src={(artist.picUrl)} alt={(artist.name)} />
                     <p><a href={artist.url}>{artist.url}</a></p>
                     <div className="artistDetailsAvailability">Availability Notes: {artist.availabilityNotes}</div>
                     <div align="right" className="subIcon-container">

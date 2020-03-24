@@ -22,15 +22,16 @@ const ProjectForm = (props) => {
 
         const newProject = {
             name: project.name,
-            picUrl: project.picUrl,
-            url: project.url,
-            availabilityNotes: project.availabilityNotes,
+            estimatedCompletion: project.estimatedCompletion,
+            description: project.description,
+            streetAddress: project.streetAddress,
+            status: project.statusId,
             createdByUserId: activeUser.id,
             timestamp: dateTime
         };
 
-        if (project.name === "" || project.picUrl === "" || project.url === "") {
-            window.alert("Please input a name, picUrl, and URL for your project.");
+        if (project.name === "" || project.description === "" || project.estimatedCompletion === "") {
+            window.alert("Please input a name, description, and estimated completion date for your project.");
         } else {
             setIsLoading(true);
             APIManager.post("projects", newProject)
@@ -65,7 +66,7 @@ const ProjectForm = (props) => {
                                 <label htmlFor="estimatedCompletion">Target Deadline: </label>
                                 <p>
                                     <input
-                                        type="text"
+                                        type="date"
                                         rows="1"
                                         cols="20"
                                         required
@@ -103,21 +104,6 @@ const ProjectForm = (props) => {
                                         onChange={handleFieldChange}
                                         id="streetAddress"
                                         defaultValue={project.streetAddress}
-                                    />
-                                </p>
-                            </div>
-                            <div>
-                                <label htmlFor="status">Status: </label>
-                                <p>
-                                    <textarea
-                                        type="text"
-                                        rows="1"
-                                        cols="20"
-                                        required
-                                        className="form-control"
-                                        onChange={handleFieldChange}
-                                        id="status"
-                                        defaultValue={project.statusId}
                                     />
                                 </p>
                             </div>
