@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import APIManager from "../../modules/APIManager";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import ArtistConnectCard from '../artistProjects/ArtistConnectCard';
 
 const ProjectDetail = props => {
     const [project, setProject] = useState({ name: "", picUrl: "", url: "", availabilityNotes: "" });
     const [isLoading, setIsLoading] = useState(true);
+    const [artistProjects, setArtistProjects] = useState([]);
 
     const handleDelete = () => {
         setIsLoading(true);
@@ -27,7 +29,12 @@ const ProjectDetail = props => {
         });
     };
 
-    useEffect(() => {
+    const getArtistProjects = () => {
+        APIManager.getAllWithExpand("artistProjects", "artist").then(artistProjects => {
+            setArtistProjects(artistProjects);
+        });
+    };
+    const getProjects = () => {
         APIManager.getWithExpand("projects", props.match.params.projectId, "status").then(project => {
             setProject({
                 name: project.name,
@@ -40,7 +47,12 @@ const ProjectDetail = props => {
             });
             setIsLoading(false);
         });
-    }, [props.match.params.projectId]);
+    };
+
+    useEffect(() => {
+        getArtistProjects();
+        getProjects();
+    }, []);
 
     if (project.name !== undefined && project.description !== undefined && project.expectedCompletion !== undefined) {
         return (
@@ -60,17 +72,28 @@ const ProjectDetail = props => {
                     <span data-tooltip="EDIT"><i className="big edit icon projectsDetailsEditIcon" onClick={() => props.history.push(`/projects/${project.id}/edit`)}></i></span>
                     <span data-tooltip="DELETE"><i className="big trash alternate icon projectsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
                 </div>
+                <div className="projectDetailsConnectedArtists">
+                    <div className="projectDetailsConnectedArtistsTitle">This project is connected to:</div>
+                    {artistProjects.map(connectItem =>
+                        <ArtistConnectCard
+                            key={connectItem.id}
+                            projectId={project.id}
+                            connect={connectItem}
+                            getArtistProjects={getArtistProjects}
+                            {...props}
+                        />)}
+                </div>
             </div>
         );
     } else {
-    return (
-        <div className="projectCard">
-            <div className="projectCardContent">
-                <center><h3>PROJECT CARD NOT FOUND</h3></center>
+        return (
+            <div className="projectCard">
+                <div className="projectCardContent">
+                    <center><h3>PROJECT CARD NOT FOUND</h3></center>
+                </div>
             </div>
-        </div>
-    )
-}
+        )
+    }
 };
 
 export default ProjectDetail;
