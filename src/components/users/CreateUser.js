@@ -43,7 +43,7 @@ const CreateUser = props => {
                             APIManager.post('users', newUser).then(user => {
                                 props.setUser(user, isChecked)
                             })
-                            props.history.push("/dashboard");
+                            props.history.push("/artists");
                         } else if (credentials.picUrl === "") {
                             const newUser = {
                                 email: credentials.email,
@@ -53,7 +53,7 @@ const CreateUser = props => {
                             APIManager.post('users', newUser).then(user => {
                                 props.setUser(user, isChecked)
                             })
-                            props.history.push("/dashboard");
+                            props.history.push("/artists");
                         }
                     });
                 };
