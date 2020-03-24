@@ -50,7 +50,7 @@ const ArtistEditForm = (props) => {
         return (
             <>
                 <div className="icon-container">
-                    <span data-tooltip="BACK"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
+                <span data-tooltip="BACK"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push(`/artists/${artist[0].id}`)}></i></span>
                 </div>
                 <form>
                     <fieldset className="artistsEditForm">
@@ -116,12 +116,11 @@ const ArtistEditForm = (props) => {
                                 </p>
                             </div>
                         </div>
-                        <div className="alignRight">
+                        <div className="artistEditFormBtn">
                             <button
                                 type="button" disabled={isLoading}
                                 onClick={updateExistingArtist}
                                 id="artistEditFormBtn"
-                                className="ui blue basic button"
                             >Submit</button>
                         </div>
                     </fieldset>

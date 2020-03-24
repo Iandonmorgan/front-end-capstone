@@ -4,7 +4,7 @@ import APIManager from '../../modules/APIManager';
 const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
 
 const ProjectEditForm = (props) => {
-    const [project, setProject] = useState({ name: "", picUrl: "", url: "", availabilityNotes: "" });
+    const [project, setProject] = useState({ name: "", expectedCompletion: "", description: "", streetAddress: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const getProject = () => {
@@ -31,7 +31,7 @@ const ProjectEditForm = (props) => {
         const editedProject = {
             id: project[0].id,
             name: project.name,
-            estimatedCompletion: project.expectedCompletion,
+            expectedCompletion: project.expectedCompletion,
             description: project.description,
             streetAddress: project.streetAddress,
             lastUpdatedByUserId: activeUser.id,
@@ -50,8 +50,8 @@ const ProjectEditForm = (props) => {
     if (project[0] !== undefined) {
         return (
             <>
-                <div className="icon-container">
-                    <span data-tooltip="BACK"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/projects')}></i></span>
+                <div className="project-editForm-icon-container">
+                    <span data-tooltip="BACK"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push(`/projects/${project[0].id}`)}></i></span>
                 </div>
                 <form>
                     <fieldset className="projectsEditForm">
@@ -72,24 +72,24 @@ const ProjectEditForm = (props) => {
                                 </p>
                             </div>
                             <div>
-                                <label htmlFor="estimatedCompletion">Target Deadline: </label>
+                                <label htmlFor="expectedCompletion">Target Deadline: </label>
                                 <p>
                                     <input
-                                        type="text"
+                                        type="date"
                                         rows="1"
                                         cols="20"
                                         required
                                         className="form-control"
                                         defaultValue={project[0].expectedCompletion}
                                         onChange={handleFieldChange}
-                                        id="estimatedCompletion"
+                                        id="expectedCompletion"
                                     />
                                 </p>
                             </div>
                             <div>
                                 <label htmlFor="description">Description: </label>
                                 <p>
-                                    <input
+                                    <textarea
                                         type="text"
                                         rows="3"
                                         cols="80"
@@ -126,7 +126,7 @@ const ProjectEditForm = (props) => {
                                         required
                                         className="form-control"
                                         onChange={handleFieldChange}
-                                        id="status"
+                                        id="statusId"
                                         defaultValue={project[0].statusId}
                                     />
                                 </p>
@@ -137,7 +137,6 @@ const ProjectEditForm = (props) => {
                                 type="button" disabled={isLoading}
                                 onClick={updateExistingProject}
                                 id="projectEditFormBtn"
-                                className="ui blue basic button"
                             >Submit</button>
                         </div>
                     </fieldset>

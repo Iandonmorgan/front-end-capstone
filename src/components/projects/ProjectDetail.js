@@ -28,14 +28,14 @@ const ProjectDetail = props => {
     };
 
     useEffect(() => {
-        APIManager.get("projects", props.match.params.projectId).then(project => {
+        APIManager.getWithExpand("projects", props.match.params.projectId, "status").then(project => {
             setProject({
                 name: project.name,
                 description: project.description,
                 expectedCompletion: project.expectedCompletion,
                 id: project.id,
                 streetAddress: project.streetAddress,
-                statusId: project.statusId,
+                status: project.status.name,
                 isComplete: project.isComplete
             });
             setIsLoading(false);
@@ -45,33 +45,32 @@ const ProjectDetail = props => {
     if (project.name !== undefined && project.description !== undefined && project.expectedCompletion !== undefined) {
         return (
             <div className="projectDetail">
-                <div className="icon-container">
-                    <span data-tooltip="BACK"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
-                    <span data-tooltip="ADD"><i className="big plus square outline icon" id="plusIcon" onClick={() => props.history.push('/artists/new')}></i></span>
-                </div>
-                <div className="projectsCardContent">
-                <h3><span className="projectsCardTitle">
+                <div className="projectCardHeader">
+                    <h3><span className="projectCardTitle">
                         {project.name}
                     </span></h3>
-                        <img className="projectDetailsImage" src={(project.picUrl)} alt={(project.name)} />
-                    <p><a href={project.url}>{project.url}</a></p>
-                    <div className="projectDetailsAvailability">Availability Notes: {project.availabilityNotes}</div>
-                    <div align="right" className="subIcon-container">
-                        <span data-tooltip="EDIT"><i className="big edit icon projectsDetailsEditIcon" onClick={() => props.history.push(`/projects/${project.id}/edit`)}></i></span>
-                        <span data-tooltip="DELETE"><i className="big trash alternate icon projectsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
+                    <div className="project-detail-icon-container">
+                        <span data-tooltip="TO PROJECTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/projects')}></i></span>
                     </div>
                 </div>
-            </div >
-        );
-    } else {
-        return (
-            <div className="projectsCard">
-                <div className="projectsCardContent">
-                    <center><h3>PROJECTS CARD NOT FOUND</h3></center>
+                <div className="projectDetailsExpectedCompletion">Expected Completion: {project.expectedCompletion}</div>
+                <div className="projectDetailsAvailability">Description: {project.description}</div>
+                <div className="projectDetailsAvailability">Status: {project.status}</div>
+                <div align="right" className="subIcon-container">
+                    <span data-tooltip="EDIT"><i className="big edit icon projectsDetailsEditIcon" onClick={() => props.history.push(`/projects/${project.id}/edit`)}></i></span>
+                    <span data-tooltip="DELETE"><i className="big trash alternate icon projectsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
                 </div>
             </div>
-        )
-    }
+        );
+    } else {
+    return (
+        <div className="projectCard">
+            <div className="projectCardContent">
+                <center><h3>PROJECT CARD NOT FOUND</h3></center>
+            </div>
+        </div>
+    )
+}
 };
 
 export default ProjectDetail;

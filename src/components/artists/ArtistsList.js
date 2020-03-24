@@ -23,7 +23,7 @@ const ArtistsList = (props) => {
                         <h1 className="artists">ARTISTS</h1>
                     </div>
                     <div className="icon-container">
-                        <span data-tooltip="BACK" data-placement="bottom"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/')}></i></span>
+                        <span data-tooltip="TO DASHBOARD" data-placement="bottom"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/')}></i></span>
                         <span data-tooltip="ADD" data-placement="top"><i className="big plus square outline icon" id="plusIcon" onClick={() => props.history.push('/artists/new')}></i></span>
                     </div>
                 </div>

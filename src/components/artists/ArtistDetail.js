@@ -44,12 +44,11 @@ const ArtistsDetail = props => {
         return (
             <div className="artistDetail">
                 <div className="artistsCardHeader">
-                    <h3><span className="artistsCardTitle">
+                    <h3><span className="artistsCardDetailTitle">
                         {artist.name}
                     </span></h3>
                     <div className="artist-detail-icon-container">
-                        <span data-tooltip="BACK"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
-                        <span data-tooltip="ADD"><i className="big plus square outline icon" id="plusIcon" onClick={() => props.history.push('/artists/new')}></i></span>
+                        <span data-tooltip="TO ARTISTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
                     </div>
                 </div>
                 <div className="artistsCardContent">
