@@ -207,7 +207,6 @@ button:hover{
 .icon-container {
     display: flex;
     justify-content: flex-end;
-    margin: 50px 25px 0 0;
 }
 .artistDetail {
     margin: 50px 100px;
@@ -321,7 +320,7 @@ button:hover{
 .project-icon-header {
     display: flex;
     justify-content: space-between;
-    margin: 10px 25px 0;
+    margin: 10px 20px 20px;
     align-items: baseline;
 }
 .artistImage{
