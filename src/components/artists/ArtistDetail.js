@@ -3,14 +3,15 @@ import APIManager from "../../modules/APIManager";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
 
 const ArtistsDetail = props => {
+    const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
     const [artist, setArtist] = useState({ name: "", picUrl: "", url: "", availabilityNotes: "" });
     const [isLoading, setIsLoading] = useState(true);
     const [userFollows, setUserFollows] = useState([]);
     const [isFollowing, setIsFollowing] = useState(false);
     const [artists, setArtists] = useState([]);
+    const [editAbility, setEditAbility] = useState(false);
 
     const handleDelete = () => {
         setIsLoading(true);
@@ -41,19 +42,32 @@ const ArtistsDetail = props => {
     const getUserFollows = () => {
         let userArtists = [];
         return APIManager.getAllWithUserId("userFollows", activeUser.id).then(follows => {
+            console.log(follows);
             for (let i = 0; i < follows.length; i++) {
                 APIManager.getById("artists", follows[i].artistId).then(fArtist => {
                     userArtists.push(fArtist.flat());
                     setUserFollows(userArtists.flat());
                 })
             }
-        });
+
+        }).then(() => {
+            for (let i = 0; i < userFollows.length; i++) {
+                if (userFollows[i].id === artist.id) {
+                    console.log("USERFOLLOWS", userFollows);
+                    console.log(userFollows[i].id, artist.id, "SET TO TRUE")
+                    setIsFollowing(true);
+                } else {
+
+                }
+            }
+        })
     };
     const getFollowingStatus = () => {
         return APIManager.getByUserIdAndArtistId("userFollows", activeUser.id, artist.id).then(follows => {
             follows.map(follow => {
                 if (activeUser.id === follow.userId && follow.artistId === artist.id) {
                     setIsFollowing(true);
+                    setEditAbility(true);
                 }
             })
         });
@@ -67,6 +81,7 @@ const ArtistsDetail = props => {
                 {
                     label: 'Yes',
                     onClick: () => APIManager.post("userFollows", userFollowObject).then(() =>
+                        setIsFollowing(true),
                         getArtists()
                     )
                 },
@@ -80,15 +95,17 @@ const ArtistsDetail = props => {
     const unfollowArtist = (userId, artistId) => {
         setIsLoading(true);
         confirmAlert({
-            title: 'Confirm to follow',
-            message: 'Are you sure you want to connect with this artist?',
+            title: 'Confirm to unfollow',
+            message: 'Are you sure you want to remove your connection with this artist?',
             buttons: [
                 {
                     label: 'Yes',
                     onClick: () => APIManager.getByUserIdAndArtistId("userFollows", userId, artistId).then(unfollowTarget => unfollowTarget.map(target => {
                         if (target.userId === userId && target.artistId === artistId) {
-                            APIManager.delete("userFollows", target.id).then(() =>
+                            APIManager.delete("userFollows", target.id).then(() => {
+                                setIsFollowing(false)
                                 getArtists()
+                            }
                             )
                         }
                     })
@@ -103,8 +120,6 @@ const ArtistsDetail = props => {
     }
 
     useEffect(() => {
-        getUserFollows();
-        getFollowingStatus();
         APIManager.get("artists", props.match.params.artistId).then(artist => {
             setArtist({
                 name: artist.name,
@@ -112,10 +127,13 @@ const ArtistsDetail = props => {
                 url: artist.url,
                 id: artist.id,
                 availabilityNotes: artist.availabilityNotes
-            });
-            setIsLoading(false);
-        });
-    }, [props.match.params.artistId]);
+            })
+        }).then(() => {
+                getUserFollows();
+                getFollowingStatus();
+                setIsLoading(false);
+                })
+    }, []);
 
     let followArtisty = {
         "userId": activeUser.id,
@@ -123,7 +141,8 @@ const ArtistsDetail = props => {
     }
 
     if (artist.name !== undefined && artist.picUrl !== undefined && artist.url !== undefined) {
-        if (userFollows.isFollowing) {
+        getFollowingStatus();
+        if (isFollowing) {
             return (
                 <>
                     <div className="artistDetail">
@@ -142,10 +161,10 @@ const ArtistsDetail = props => {
                             <div align="right" className="subIcon-container">
                                 <span data-tooltip="EDIT"><i className="big edit icon artistsDetailsEditIcon" onClick={() => props.history.push(`/artists/${artist.id}/edit`)}></i></span>
                                 <span data-tooltip="DELETE"><i className="big trash alternate icon artistsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
+                                <span data-tooltip="UNFOLLOW"><i className="big minus square red icon artistUnFollowIcon" disabled={isLoading} onClick={() => unfollowArtist(activeUser.id, artist.id)}></i></span>
                             </div>
                         </div>
                     </div >
-                    <span data-tooltip="UNFOLLOW"><i className="big minus square red icon artistUnFollowIcon" disabled={isLoading} onClick={() => unfollowArtist(activeUser.id, artist.id)}></i></span>
                 </>
             )
         } else {

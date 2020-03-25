@@ -10,25 +10,7 @@ const ArtistsCard = (props) => {
     const [userFollows, setUserFollows] = useState([]);
     const [isFollowing, setIsFollowing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const handleDelete = () => {
-        setIsLoading(true);
-        confirmAlert({
-            title: 'Confirm to delete',
-            message: 'Are you sure you want to delete this?',
-            buttons: [
-                {
-                    label: 'Yes',
-                    onClick: () => APIManager.delete("artists", props.artist.id).then(() =>
-                        props.getArtists()
-                    )
-                },
-                {
-                    label: 'No',
-                    onClick: () => ""
-                }
-            ]
-        });
-    };
+
     const getUserFollows = () => {
         let userArtists = [];
         return APIManager.getAllWithUserId("userFollows", activeUser.id).then(follows => {
@@ -57,8 +39,10 @@ const ArtistsCard = (props) => {
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => APIManager.post("userFollows", userFollowObject).then(() =>
+                    onClick: () => APIManager.post("userFollows", userFollowObject).then(() => {
+                        getFollowingStatus()
                         props.getArtists()
+                    }
                     )
                 },
                 {
@@ -71,15 +55,18 @@ const ArtistsCard = (props) => {
     const unfollowArtist = (userId, artistId) => {
         setIsLoading(true);
         confirmAlert({
-            title: 'Confirm to follow',
-            message: 'Are you sure you want to connect with this artist?',
+            title: 'Confirm to unfollow',
+            message: 'Are you sure you want to remove your connection with this artist?',
             buttons: [
                 {
                     label: 'Yes',
                     onClick: () => APIManager.getByUserIdAndArtistId("userFollows", userId, artistId).then(unfollowTarget => unfollowTarget.map(target => {
                         if (target.userId === userId && target.artistId === artistId) {
-                            APIManager.delete("userFollows", target.id).then(() =>
+                            APIManager.delete("userFollows", target.id).then(() => {
+                                getFollowingStatus()
                                 props.getArtists()
+                                setIsFollowing(false)
+                            }
                             )
                         }
                     })
@@ -111,8 +98,11 @@ const ArtistsCard = (props) => {
                         <span data-tooltip="DETAILS"><i className="small file alternate icon artistFileIcon" onClick={() => props.history.push(`/artists/${props.artist.id}`)}></i></span>
                         <ArtistCardIcons
                             isFollowing={isFollowing}
+                            isLoading={isLoading}
                             followArtist={followArtist}
                             unfollowArtist={unfollowArtist}
+                            setIsFollowing={setIsFollowing}
+                            artist={props.artist}
                             {...props}
                         />
                     </div>
