@@ -3,9 +3,14 @@ import APIManager from "../../modules/APIManager";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
+const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
+
 const ArtistsDetail = props => {
     const [artist, setArtist] = useState({ name: "", picUrl: "", url: "", availabilityNotes: "" });
     const [isLoading, setIsLoading] = useState(true);
+    const [userFollows, setUserFollows] = useState([]);
+    const [isFollowing, setIsFollowing] = useState(false);
+    const [artists, setArtists] = useState([]);
 
     const handleDelete = () => {
         setIsLoading(true);
@@ -27,7 +32,79 @@ const ArtistsDetail = props => {
         });
     };
 
+    const getArtists = () => {
+        APIManager.getAll("artists").then(artistsFromAPI => {
+            setArtists(artistsFromAPI);
+        });
+    };
+
+    const getUserFollows = () => {
+        let userArtists = [];
+        return APIManager.getAllWithUserId("userFollows", activeUser.id).then(follows => {
+            for (let i = 0; i < follows.length; i++) {
+                APIManager.getById("artists", follows[i].artistId).then(fArtist => {
+                    userArtists.push(fArtist.flat());
+                    setUserFollows(userArtists.flat());
+                })
+            }
+        });
+    };
+    const getFollowingStatus = () => {
+        return APIManager.getByUserIdAndArtistId("userFollows", activeUser.id, artist.id).then(follows => {
+            follows.map(follow => {
+                if (activeUser.id === follow.userId && follow.artistId === artist.id) {
+                    setIsFollowing(true);
+                }
+            })
+        });
+    };
+    const followArtist = (userFollowObject) => {
+        setIsLoading(true);
+        confirmAlert({
+            title: 'Confirm to follow',
+            message: 'Are you sure you want to connect with this artist?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => APIManager.post("userFollows", userFollowObject).then(() =>
+                        getArtists()
+                    )
+                },
+                {
+                    label: 'No',
+                    onClick: () => ""
+                }
+            ]
+        });
+    }
+    const unfollowArtist = (userId, artistId) => {
+        setIsLoading(true);
+        confirmAlert({
+            title: 'Confirm to follow',
+            message: 'Are you sure you want to connect with this artist?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => APIManager.getByUserIdAndArtistId("userFollows", userId, artistId).then(unfollowTarget => unfollowTarget.map(target => {
+                        if (target.userId === userId && target.artistId === artistId) {
+                            APIManager.delete("userFollows", target.id).then(() =>
+                                getArtists()
+                            )
+                        }
+                    })
+                    )
+                },
+                {
+                    label: 'No',
+                    onClick: () => ""
+                }
+            ]
+        });
+    }
+
     useEffect(() => {
+        getUserFollows();
+        getFollowingStatus();
         APIManager.get("artists", props.match.params.artistId).then(artist => {
             setArtist({
                 name: artist.name,
@@ -40,35 +117,70 @@ const ArtistsDetail = props => {
         });
     }, [props.match.params.artistId]);
 
+    let followArtisty = {
+        "userId": activeUser.id,
+        "artistId": artist.id
+    }
+
     if (artist.name !== undefined && artist.picUrl !== undefined && artist.url !== undefined) {
-        return (
-            <div className="artistDetail">
-                <div className="artistsCardHeader">
-                    <h3><span className="artistsCardDetailTitle">
-                        {artist.name}
-                    </span></h3>
-                    <div className="artist-detail-icon-container">
-                        <span data-tooltip="TO ARTISTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
-                    </div>
-                </div>
-                <div className="artistsCardContent">
-                    <img className="artistDetailsImage" src={(artist.picUrl)} alt={(artist.name)} />
-                    <p><a href={artist.url}>{artist.url}</a></p>
-                    <div className="artistDetailsAvailability">Availability Notes: {artist.availabilityNotes}</div>
-                    <div align="right" className="subIcon-container">
-                        <span data-tooltip="EDIT"><i className="big edit icon artistsDetailsEditIcon" onClick={() => props.history.push(`/artists/${artist.id}/edit`)}></i></span>
-                        <span data-tooltip="DELETE"><i className="big trash alternate icon artistsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
-                    </div>
-                </div>
-            </div >
-        );
+        if (userFollows.isFollowing) {
+            return (
+                <>
+                    <div className="artistDetail">
+                        <div className="artistsCardHeader">
+                            <h3><span className="artistsCardDetailTitle">
+                                {artist.name}
+                            </span></h3>
+                            <div className="artist-detail-icon-container">
+                                <span data-tooltip="TO ARTISTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
+                            </div>
+                        </div>
+                        <div className="artistsCardContent">
+                            <img className="artistDetailsImage" src={(artist.picUrl)} alt={(artist.name)} />
+                            <p><a href={artist.url}>{artist.url}</a></p>
+                            <div className="artistDetailsAvailability">Availability Notes: {artist.availabilityNotes}</div>
+                            <div align="right" className="subIcon-container">
+                                <span data-tooltip="EDIT"><i className="big edit icon artistsDetailsEditIcon" onClick={() => props.history.push(`/artists/${artist.id}/edit`)}></i></span>
+                                <span data-tooltip="DELETE"><i className="big trash alternate icon artistsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
+                            </div>
+                        </div>
+                    </div >
+                    <span data-tooltip="UNFOLLOW"><i className="big minus square red icon artistUnFollowIcon" disabled={isLoading} onClick={() => unfollowArtist(activeUser.id, artist.id)}></i></span>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <div className="artistDetail">
+                        <div className="artistsCardHeader">
+                            <h3><span className="artistsCardDetailTitle">
+                                {artist.name}
+                            </span></h3>
+                            <div className="artist-detail-icon-container">
+                                <span data-tooltip="TO ARTISTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
+                            </div>
+                        </div>
+                        <div className="artistsCardContent">
+                            <img className="artistDetailsImage" src={(artist.picUrl)} alt={(artist.name)} />
+                            <p><a href={artist.url}>{artist.url}</a></p>
+                            <div className="artistDetailsAvailability">Availability Notes: {artist.availabilityNotes}</div>
+                            <div align="right" className="subIcon-container">
+                                <span data-tooltip="FOLLOW"><i className="big plus square green icon artistFollowIcon" disabled={isLoading} onClick={() => followArtist(followArtisty)}></i></span>
+                            </div>
+                        </div>
+                    </div >
+                </>
+            )
+        }
     } else {
         return (
-            <div className="artistsCard">
-                <div className="artistsCardContent">
-                    <center><h3>ARTISTS CARD NOT FOUND</h3></center>
+            <>
+                <div className="artistsCard">
+                    <div className="artistsCardContent">
+                        <center><h3>ARTISTS CARD NOT FOUND</h3></center>
+                    </div>
                 </div>
-            </div>
+            </>
         )
     }
 };

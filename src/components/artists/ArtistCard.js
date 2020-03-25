@@ -107,12 +107,15 @@ const ArtistsCard = (props) => {
                 <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} width="200px" onClick={() => props.history.push(`/artists/${props.artist.id}`)} />
                 <div className="subArtistCard">
                     <p className="subcardLink"><a href={props.artist.url} target="_new">view website</a></p>
-                    <ArtistCardIcons
-                        isFollowing={isFollowing}
-                        followArtist={followArtist}
-                        unfollowArtist={unfollowArtist}
-                        {...props}
-                    />
+                    <div className="subcardLinkIcons">
+                        <span data-tooltip="DETAILS"><i className="small file alternate icon artistFileIcon" onClick={() => props.history.push(`/artists/${props.artist.id}`)}></i></span>
+                        <ArtistCardIcons
+                            isFollowing={isFollowing}
+                            followArtist={followArtist}
+                            unfollowArtist={unfollowArtist}
+                            {...props}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

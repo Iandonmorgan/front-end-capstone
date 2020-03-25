@@ -27,15 +27,14 @@ const ArtistEditForm = (props) => {
 
         let dateTime = new Date().toLocaleString('en-GB', { timeZone: 'UTC' });
 
-
         const editedArtist = {
             id: artist[0].id,
             name: artist.name,
             picUrl: artist.picUrl,
             url: artist.url,
             availabilityNotes: artist.availabilityNotes,
-            createdByUserId: activeUser.id,
-            timestamp: dateTime
+            updatedByUserId: activeUser.id,
+            updated_timestamp: dateTime
         };
 
         APIManager.update("artists", editedArtist)

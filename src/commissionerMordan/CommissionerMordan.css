@@ -1,5 +1,15 @@
 /* GLOBAL */
 
+/* WELCOME */
+.welcomeMessage {
+    display: flex;
+    justify-content: center;
+    margin: 0 100px;
+    flex-direction: column;
+}
+.welcomeMessageChild {
+    align-self: center;
+}
 
 /* HEADER */
 header {

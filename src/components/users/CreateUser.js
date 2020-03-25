@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import APIManager from "../../modules/APIManager";
 
-
-
 const CreateUser = props => {
     const [credentials, setCredentials] = useState({
         email: "",
@@ -42,8 +40,8 @@ const CreateUser = props => {
                             };
                             APIManager.post('users', newUser).then(user => {
                                 props.setUser(user, isChecked)
+                                props.history.push("/welcome")
                             })
-                            props.history.push("/artists");
                         } else if (credentials.picUrl === "") {
                             const newUser = {
                                 email: credentials.email,
@@ -52,8 +50,8 @@ const CreateUser = props => {
                             };
                             APIManager.post('users', newUser).then(user => {
                                 props.setUser(user, isChecked)
+                                props.history.push("/welcome")
                             })
-                            props.history.push("/artists");
                         }
                     });
                 };
