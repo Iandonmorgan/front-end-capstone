@@ -7,7 +7,7 @@ import DashboardCard from "./DashboardCard";
 const DashboardList = (props) => {
     const [artists, setArtists] = useState([]);
     const [projects, setProjects] = useState([]);
-    
+
     const getProjectsAndArtists = () => {
         return APIManager.getAll("projects").then(projectsFromAPI => {
             setProjects(projectsFromAPI);
@@ -28,7 +28,6 @@ const DashboardList = (props) => {
         })
         );
     };
-
     useEffect(() => {
         getProjectsAndArtists();
     }, []);

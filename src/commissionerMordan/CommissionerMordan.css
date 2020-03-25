@@ -1,5 +1,15 @@
 /* GLOBAL */
 
+/* WELCOME */
+.welcomeMessage {
+    display: flex;
+    justify-content: center;
+    margin: 0 100px;
+    flex-direction: column;
+}
+.welcomeMessageChild {
+    align-self: center;
+}
 
 /* HEADER */
 header {
@@ -149,7 +159,7 @@ button:hover{
 }
 .dashboardProjectItem {
     display: flex;
-    margin: 0 2px;
+    margin: 0 25px;
     justify-content: space-around;
     flex-direction: row;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -172,18 +182,18 @@ button:hover{
     width: 20%;
     font-size: .8em;
 }
-.dashboardProjectItem:nth-child(even):hover {
+.dashboardProjectLine:nth-child(even):hover {
     background-color: #E5ECFF;
     cursor: pointer;
 }
-.dashboardProjectItem:nth-child(odd):hover {
+.dashboardProjectLine:nth-child(odd):hover {
     background-color: #E5ECFF;
     cursor: pointer;
 }
-.dashboardProjectItem:nth-child(even) {
+.dashboardProjectLine:nth-child(even) {
     background: #FFFFFF
 }
-.dashboardProjectItem:nth-child(odd) {
+.dashboardProjectLine:nth-child(odd) {
     background: #D3D4D9
 }
 .dashboardCardTitle {
@@ -204,12 +214,11 @@ button:hover{
 .artists {
     font-size: 5em;
 }
-.icon-container {
+.artist-edit-icon-container {
     display: flex;
     justify-content: flex-end;
-    margin: 50px 25px 0 0;
 }
-.artistDetail {
+.artistDetail, .artistEdit {
     margin: 50px 100px;
         
 }
@@ -321,7 +330,7 @@ button:hover{
 .project-icon-header {
     display: flex;
     justify-content: space-between;
-    margin: 10px 25px 0;
+    margin: 10px 20px 20px;
     align-items: baseline;
 }
 .artistImage{
@@ -396,6 +405,17 @@ button:hover{
 }
 #projectEditFormBtn {
     margin-top: 10px;
+}
+.subArtistConnectCard {
+    display: flex;
+    justify-content: space-between;
+}
+.artistConnectCardContent {
+    width: 200px;
+}
+.artistRemoveConnectIcon {
+    display: flex;
+    align-content: center;
 }
 
   @media only screen and (max-width: 800px) {

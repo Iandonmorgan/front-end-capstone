@@ -2,32 +2,19 @@ import React, { useState, useEffect } from "react";
 import APIManager from "../../modules/APIManager";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import ArtistConnectCard from '../artistProjects/ArtistConnectCard';
 
 const ProjectDetail = props => {
     const [project, setProject] = useState({ name: "", picUrl: "", url: "", availabilityNotes: "" });
     const [isLoading, setIsLoading] = useState(true);
+    const [artistProjects, setArtistProjects] = useState([]);
 
-    const handleDelete = () => {
-        setIsLoading(true);
-        confirmAlert({
-            title: 'Confirm to delete',
-            message: 'Are you sure you want to delete this?',
-            buttons: [
-                {
-                    label: 'Yes',
-                    onClick: () => APIManager.delete("projects", props.projectId).then(() =>
-                        props.history.push("/projects")
-                    )
-                },
-                {
-                    label: 'No',
-                    onClick: () => ""
-                }
-            ]
+    const getArtistProjects = () => {
+        APIManager.getAllWithExpand("artistProjects", "artist").then(artistProjects => {
+            setArtistProjects(artistProjects);
         });
     };
-
-    useEffect(() => {
+    const getProject = () => {
         APIManager.getWithExpand("projects", props.match.params.projectId, "status").then(project => {
             setProject({
                 name: project.name,
@@ -40,7 +27,43 @@ const ProjectDetail = props => {
             });
             setIsLoading(false);
         });
-    }, [props.match.params.projectId]);
+    };
+    const handleDelete = () => {
+        setIsLoading(true);
+        getArtistProjects();
+        confirmAlert({
+            title: 'Confirm to delete',
+            message: 'Are you sure you want to delete this project?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => 
+                        artistProjects.map(artistProject => {
+                            if (artistProject.projectId === project.id) {
+                                APIManager.delete("artistProjects", artistProject.id).then(APIManager.delete("projects", project.id).then(() =>
+                                props.history.push("/projects")))
+                            }}
+                    )
+                },
+                {
+                    label: 'No',
+                    onClick: () => ""
+                }
+            ]
+        });
+    };
+
+    useEffect(() => {
+        getArtistProjects();
+        getProject();
+    }, []);
+
+    let artistConnectHeader = "";
+    if (artistProjects.filter(artistProject => artistProject.projectId === project.id).length > 0) {
+        artistConnectHeader = <div className="projectDetailsConnectedArtistsHeader">This project is connected to:</div>
+    } else {
+        artistConnectHeader = "";
+    }
 
     if (project.name !== undefined && project.description !== undefined && project.expectedCompletion !== undefined) {
         return (
@@ -60,17 +83,28 @@ const ProjectDetail = props => {
                     <span data-tooltip="EDIT"><i className="big edit icon projectsDetailsEditIcon" onClick={() => props.history.push(`/projects/${project.id}/edit`)}></i></span>
                     <span data-tooltip="DELETE"><i className="big trash alternate icon projectsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
                 </div>
+                <div className="projectDetailsConnectedArtists">
+                    {artistConnectHeader}
+                    {artistProjects.map(connectItem =>
+                        <ArtistConnectCard
+                            key={connectItem.id}
+                            projectId={project.id}
+                            connect={connectItem}
+                            getArtistProjects={getArtistProjects}
+                            {...props}
+                        />)}
+                </div>
             </div>
         );
     } else {
-    return (
-        <div className="projectCard">
-            <div className="projectCardContent">
-                <center><h3>PROJECT CARD NOT FOUND</h3></center>
+        return (
+            <div className="projectCard">
+                <div className="projectCardContent">
+                    <center><h3>PROJECT CARD NOT FOUND</h3></center>
+                </div>
             </div>
-        </div>
-    )
-}
+        )
+    }
 };
 
 export default ProjectDetail;

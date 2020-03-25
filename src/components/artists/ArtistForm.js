@@ -26,7 +26,7 @@ const ArtistForm = (props) => {
             url: artist.url,
             availabilityNotes: artist.availabilityNotes,
             createdByUserId: activeUser.id,
-            timestamp: dateTime
+            created_timestamp: dateTime
         };
 
         if (artist.name === "" || artist.picUrl === "" || artist.url === "") {

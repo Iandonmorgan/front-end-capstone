@@ -28,7 +28,7 @@ const ProjectsList = (props) => {
                     </div>
                 </div>
                 <div className="project-container-cards">
-                    {projects.map(projectItem =>
+                    {projects.sort(function (a, b) { return new Date(a.expectedCompletion) - new Date(b.expectedCompletion) }).map(projectItem =>
                         <ProjectCard
                             key={projectItem.id}
                             project={projectItem}

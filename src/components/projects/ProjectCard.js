@@ -50,7 +50,7 @@ const ProjectCard = (props) => {
         <>
             <div className="projectsCard">
                 <div className="projectItem">
-                    <div className="projectsCardContent" key={props.project.id.toString()} onClick={ () => props.history.push(`/projects/${props.project.id}`) } >
+                    <div className="projectsCardContent" key={props.project.id.toString()} onClick={() => props.history.push(`/projects/${props.project.id}`)} >
                         <div className="projectItemName">
                             {(props.project.name.toUpperCase())}
                         </div>
@@ -64,11 +64,11 @@ const ProjectCard = (props) => {
                             {(statusArray[props.project.statusId - 1])}
                         </div>
                     </div>
-                    <div align="right" className="projectCardSubIcons">
+                    {/* <div align="right" className="projectCardSubIcons">
                         <span data-tooltip="DETAILS"><i className="small file alternate icon projectFileIcon" onClick={() => props.history.push(`/projects/${props.project.id}`)}></i></span>
                         <span data-tooltip="EDIT"><i className="small edit icon projectDetailIcon" onClick={() => props.history.push(`/projects/${props.project.id}/edit`)}></i></span>
                         <span data-tooltip="DELETE"><i className="small trash alternate icon projectTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

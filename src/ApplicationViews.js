@@ -11,6 +11,7 @@ import ProjectsList from "./components/projects/ProjectsList";
 import ProjectDetail from "./components/projects/ProjectDetail";
 import ProjectEditForm from "./components/projects/ProjectEditForm";
 import ProjectForm from "./components/projects/ProjectForm";
+import Welcome from "./components/welcome/Welcome";
 
 const ApplicationViews = props => {
   const hasUser = props.hasUser;
@@ -18,6 +19,17 @@ const ApplicationViews = props => {
 
   return (
     <React.Fragment>
+      <Route
+        exact
+        path="/welcome"
+        render={props => {
+          if (hasUser) {
+            return <Welcome {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+      />
       <Route
         exact
         path="/"
