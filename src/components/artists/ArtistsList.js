@@ -29,8 +29,8 @@ const ArtistsList = (props) => {
                 </div>
                 <div className="container-cards">
                     {artists.sort(function (a, b) {
-                        var nameA = a.name.toUpperCase();
-                        var nameB = b.name.toUpperCase();
+                        const nameA = a.name.toUpperCase();
+                        const nameB = b.name.toUpperCase();
                         if (nameA < nameB) {
                             return -1;
                         }
