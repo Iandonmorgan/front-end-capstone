@@ -6,19 +6,29 @@ const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
 const ProjectEditForm = (props) => {
     const [project, setProject] = useState({ name: "", expectedCompletion: "", description: "", streetAddress: "" });
     const [isLoading, setIsLoading] = useState(false);
-
+    
     const getProject = () => {
         APIManager.getById("projects", parseInt(props.match.params.projectId))
-            .then(project => {
-                setProject(project);
-                setIsLoading(false);
-            });
+        .then(project => {
+            setProject(project);
+            setIsLoading(false);
+        });
     };
-
+    
     const handleFieldChange = evt => {
         const stateToChange = { ...project };
         stateToChange[evt.target.id] = evt.target.value;
         setProject(stateToChange);
+    };
+    
+    const getEditStatus = () => {
+        APIManager.getById("projects", props.match.params.projectId).then(project => {
+            if (project[0].userId !== activeUser.id) {
+                props.history.push(`/projects/${props.match.params.projectId}`)
+            } else {
+
+            }
+        });
     };
 
     const updateExistingProject = evt => {
@@ -45,6 +55,7 @@ const ProjectEditForm = (props) => {
 
     useEffect(() => {
         getProject();
+        getEditStatus();
     }, []);
 
     if (project[0] !== undefined) {

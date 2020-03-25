@@ -406,6 +406,9 @@ button:hover{
 #projectEditFormBtn {
     margin-top: 10px;
 }
+.projectDetailsConnectedArtists {
+    margin-top: 50px;
+}
 .subArtistConnectCard {
     display: flex;
     justify-content: space-between;
