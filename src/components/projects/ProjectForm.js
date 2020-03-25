@@ -22,15 +22,15 @@ const ProjectForm = (props) => {
 
         const newProject = {
             name: project.name,
-            estimatedCompletion: project.estimatedCompletion,
+            expectedCompletion: project.expectedCompletion,
             description: project.description,
             streetAddress: project.streetAddress,
-            status: project.statusId,
+            statusId: 1,
             userId: activeUser.id,
             created_timestamp: dateTime
         };
 
-        if (project.name === "" || project.description === "" || project.estimatedCompletion === "") {
+        if (project.name === "" || project.description === "" || project.expectedCompletion === "") {
             window.alert("Please input a name, description, and estimated completion date for your project.");
         } else {
             setIsLoading(true);
@@ -63,7 +63,7 @@ const ProjectForm = (props) => {
                                 </p>
                             </div>
                             <div>
-                                <label htmlFor="estimatedCompletion">Target Deadline: </label>
+                                <label htmlFor="expectedCompletion">Target Deadline: </label>
                                 <p>
                                     <input
                                         type="date"
@@ -71,9 +71,9 @@ const ProjectForm = (props) => {
                                         cols="20"
                                         required
                                         className="form-control"
-                                        defaultValue={project.estimatedCompletion}
+                                        defaultValue={project.expectedCompletion}
                                         onChange={handleFieldChange}
-                                        id="estimatedCompletion"
+                                        id="expectedCompletion"
                                     />
                                 </p>
                             </div>
