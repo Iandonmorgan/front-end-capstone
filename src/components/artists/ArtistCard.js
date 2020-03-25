@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import APIManager from "../../modules/APIManager";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import ArtistCardIcons from './ArtistCardIcons';
 
 const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
 
 const ArtistsCard = (props) => {
     const [userFollows, setUserFollows] = useState([]);
+    const [isFollowing, setIsFollowing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const handleDelete = () => {
         setIsLoading(true);
@@ -38,9 +40,62 @@ const ArtistsCard = (props) => {
             }
         });
     };
+    const getFollowingStatus = () => {
+        return APIManager.getByUserIdAndArtistId("userFollows", activeUser.id, props.artist.id).then(follows => {
+            follows.map(follow => {
+                if (activeUser.id === follow.userId && follow.artistId === props.artist.id) {
+                    setIsFollowing(true);
+                }
+            })
+        });
+    };
+    const followArtist = (userFollowObject) => {
+        setIsLoading(true);
+        confirmAlert({
+            title: 'Confirm to follow',
+            message: 'Are you sure you want to connect with this artist?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => APIManager.post("userFollows", userFollowObject).then(() =>
+                        props.getArtists()
+                    )
+                },
+                {
+                    label: 'No',
+                    onClick: () => ""
+                }
+            ]
+        });
+    }
+    const unfollowArtist = (userId, artistId) => {
+        setIsLoading(true);
+        confirmAlert({
+            title: 'Confirm to follow',
+            message: 'Are you sure you want to connect with this artist?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => APIManager.getByUserIdAndArtistId("userFollows", userId, artistId).then(unfollowTarget => unfollowTarget.map(target => {
+                        if (target.userId === userId && target.artistId === artistId) {
+                            APIManager.delete("userFollows", target.id).then(() =>
+                                props.getArtists()
+                            )
+                        }
+                    })
+                    )
+                },
+                {
+                    label: 'No',
+                    onClick: () => ""
+                }
+            ]
+        });
+    }
 
     useEffect(() => {
         getUserFollows();
+        getFollowingStatus();
     }, []);
 
     return (
@@ -52,17 +107,12 @@ const ArtistsCard = (props) => {
                 <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} width="200px" onClick={() => props.history.push(`/artists/${props.artist.id}`)} />
                 <div className="subArtistCard">
                     <p className="subcardLink"><a href={props.artist.url} target="_new">view website</a></p>
-                    {userFollows.map(userFollow => {
-                        if (userFollow.id === props.artist.id) {
-                            return <div align="right">
-                                <span data-tooltip="DETAILS"><i className="small file alternate icon artistFileIcon" onClick={() => props.history.push(`/artists/${props.artist.id}`)}></i></span>
-                                <span data-tooltip="EDIT"><i className="small edit icon artistDetailIcon" onClick={() => props.history.push(`/artists/${props.artist.id}/edit`)}></i></span>
-                                <span data-tooltip="DELETE"><i className="small trash alternate icon artistTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
-                            </div>
-                        } else {
-
-                        }
-                    })}
+                    <ArtistCardIcons
+                        isFollowing={isFollowing}
+                        followArtist={followArtist}
+                        unfollowArtist={unfollowArtist}
+                        {...props}
+                    />
                 </div>
             </div>
         </div>
