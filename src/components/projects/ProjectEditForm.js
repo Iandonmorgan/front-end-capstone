@@ -36,7 +36,7 @@ const ProjectEditForm = (props) => {
             streetAddress: project.streetAddress,
             lastUpdatedByUserId: activeUser.id,
             statusId: project.statusId,
-            timestamp: dateTime
+            lastUpdatedTimestamp: dateTime
         };
 
         APIManager.update("projects", editedProject)

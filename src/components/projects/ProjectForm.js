@@ -26,8 +26,8 @@ const ProjectForm = (props) => {
             description: project.description,
             streetAddress: project.streetAddress,
             status: project.statusId,
-            createdByUserId: activeUser.id,
-            timestamp: dateTime
+            userId: activeUser.id,
+            created_timestamp: dateTime
         };
 
         if (project.name === "" || project.description === "" || project.estimatedCompletion === "") {
