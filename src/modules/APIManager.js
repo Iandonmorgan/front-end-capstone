@@ -22,7 +22,7 @@ export default {
         );
     },
     getByUserIdAndArtistId(component, userId, artistId) {
-        return fetch(`${remoteURL}/${component}?userId=${userId}&=artistId=${artistId}`).then(result =>
+        return fetch(`${remoteURL}/${component}?userId=${userId}&artistId=${artistId}`).then(result =>
             result.json()
         );
     },

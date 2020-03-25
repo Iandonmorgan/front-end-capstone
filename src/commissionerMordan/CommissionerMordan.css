@@ -214,11 +214,11 @@ button:hover{
 .artists {
     font-size: 5em;
 }
-.icon-container {
+.artist-edit-icon-container {
     display: flex;
     justify-content: flex-end;
 }
-.artistDetail {
+.artistDetail, .artistEdit {
     margin: 50px 100px;
         
 }

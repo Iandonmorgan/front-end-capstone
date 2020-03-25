@@ -11,7 +11,6 @@ const ArtistsDetail = props => {
     const [userFollows, setUserFollows] = useState([]);
     const [isFollowing, setIsFollowing] = useState(false);
     const [artists, setArtists] = useState([]);
-    const [editAbility, setEditAbility] = useState(false);
 
     const handleDelete = () => {
         setIsLoading(true);
@@ -42,7 +41,6 @@ const ArtistsDetail = props => {
     const getUserFollows = () => {
         let userArtists = [];
         return APIManager.getAllWithUserId("userFollows", activeUser.id).then(follows => {
-            console.log(follows);
             for (let i = 0; i < follows.length; i++) {
                 APIManager.getById("artists", follows[i].artistId).then(fArtist => {
                     userArtists.push(fArtist.flat());
@@ -51,15 +49,7 @@ const ArtistsDetail = props => {
             }
 
         }).then(() => {
-            for (let i = 0; i < userFollows.length; i++) {
-                if (userFollows[i].id === artist.id) {
-                    console.log("USERFOLLOWS", userFollows);
-                    console.log(userFollows[i].id, artist.id, "SET TO TRUE")
-                    setIsFollowing(true);
-                } else {
-
-                }
-            }
+            getFollowingStatus();
         })
     };
     const getFollowingStatus = () => {
@@ -67,7 +57,6 @@ const ArtistsDetail = props => {
             follows.map(follow => {
                 if (activeUser.id === follow.userId && follow.artistId === artist.id) {
                     setIsFollowing(true);
-                    setEditAbility(true);
                 }
             })
         });
@@ -130,7 +119,6 @@ const ArtistsDetail = props => {
             })
         }).then(() => {
                 getUserFollows();
-                getFollowingStatus();
                 setIsLoading(false);
                 })
     }, []);
