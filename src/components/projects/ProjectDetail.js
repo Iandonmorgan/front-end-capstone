@@ -39,14 +39,18 @@ const ProjectDetail = props => {
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () =>
+                    onClick: () => {
                         artistProjects.map(artistProject => {
+                            setIsLoading(true);
                             if (artistProject.projectId === project.id) {
-                                APIManager.delete("artistProjects", artistProject.id).then(APIManager.delete("projects", project.id).then(() =>
-                                    props.history.push("/projects")))
+                                APIManager.delete("artistProjects", artistProject.id).then(() =>
+                                    props.history.push("/projects"))
                             }
                         }
-                        )
+                        );
+                        APIManager.delete("projects", project.id).then(() =>
+                            props.history.push("/projects"));
+                    }
                 },
                 {
                     label: 'No',
@@ -54,6 +58,7 @@ const ProjectDetail = props => {
                 }
             ]
         });
+        setIsLoading(false);
     };
 
     const hasEditAbility = () => {
@@ -73,80 +78,102 @@ const ProjectDetail = props => {
     }, []);
 
     let artistConnectHeader = "";
-    if (artistProjects.filter(artistProject => artistProject.projectId === project.id).length > 0) {
-        artistConnectHeader = <div className="projectDetailsConnectedArtistsHeader">This project is connected to:</div>
-    } else {
-        artistConnectHeader = "";
-    }
-    
-    if (project.name !== undefined && project.description !== undefined && project.expectedCompletion !== undefined) {
-        if (editAbility) {
-            return (
-                <div className="projectDetail">
-                    <div className="projectCardHeader">
-                        <h3><span className="projectCardTitle">
-                            {project.name}
-                        </span></h3>
-                        <div className="project-detail-icon-container">
-                            <span data-tooltip="TO PROJECTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/projects')}></i></span>
+    if (artistProjects.length !== undefined) {
+
+        if (artistProjects.filter(artistProject => artistProject.projectId === project.id).length > 0) {
+            artistConnectHeader = <div className="projectDetailsConnectedArtistsHeader">This project is connected to:</div>
+        } else {
+            artistConnectHeader = "";
+        }
+        if (project.name !== undefined && project.description !== undefined && project.expectedCompletion !== undefined) {
+            if (editAbility) {
+                return (
+                    <div className="projectDetail">
+                        <div className="projectCardHeader">
+                            <h3><span className="projectCardTitle">
+                                {project.name}
+                            </span></h3>
+                            <div className="project-detail-icon-container">
+                                <span data-tooltip="TO PROJECTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/projects')}></i></span>
+                            </div>
+                        </div>
+                        <div className="projectDetailsExpectedCompletion">Expected Completion: {project.expectedCompletion}</div>
+                        <div className="projectDetailsAvailability">Description: {project.description}</div>
+                        <div className="projectDetailsAvailability">Status: {project.status}</div>
+                        <div align="right" className="subIcon-container">
+                            <span data-tooltip="EDIT"><i className="big edit icon projectsDetailsEditIcon" onClick={() => props.history.push(`/projects/${project.id}/edit`)}></i></span>
+                            <span data-tooltip="DELETE"><i className="big trash alternate icon projectsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
+                        </div>
+                        <div className="projectDetailsConnectedArtists">
+                            {artistConnectHeader}
+                            {artistProjects.map(connectItem =>
+                                <ArtistConnectCard
+                                    key={connectItem.id}
+                                    projectId={project.id}
+                                    connect={connectItem}
+                                    getArtistProjects={getArtistProjects}
+                                    {...props}
+                                />)}
                         </div>
                     </div>
-                    <div className="projectDetailsExpectedCompletion">Expected Completion: {project.expectedCompletion}</div>
-                    <div className="projectDetailsAvailability">Description: {project.description}</div>
-                    <div className="projectDetailsAvailability">Status: {project.status}</div>
-                    <div align="right" className="subIcon-container">
-                        <span data-tooltip="EDIT"><i className="big edit icon projectsDetailsEditIcon" onClick={() => props.history.push(`/projects/${project.id}/edit`)}></i></span>
-                        <span data-tooltip="DELETE"><i className="big trash alternate icon projectsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
+                );
+            } else {
+                return (
+                    <div className="projectDetail">
+                        <div className="projectCardHeader">
+                            <h3><span className="projectCardTitle">
+                                {project.name}
+                            </span></h3>
+                            <div className="project-detail-icon-container">
+                                <span data-tooltip="TO PROJECTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/projects')}></i></span>
+                            </div>
+                        </div>
+                        <div className="projectDetailsExpectedCompletion">Expected Completion: {project.expectedCompletion}</div>
+                        <div className="projectDetailsAvailability">Description: {project.description}</div>
+                        <div className="projectDetailsAvailability">Status: {project.status}</div>
+                        <div className="projectDetailsConnectedArtists">
+                            {artistConnectHeader}
+                            {artistProjects.map(connectItem =>
+                                <ArtistConnectCard
+                                    key={connectItem.id}
+                                    projectId={project.id}
+                                    connect={connectItem}
+                                    getArtistProjects={getArtistProjects}
+                                    {...props}
+                                />)}
+                        </div>
                     </div>
-                    <div className="projectDetailsConnectedArtists">
-                        {artistConnectHeader}
-                        {artistProjects.map(connectItem =>
-                            <ArtistConnectCard
-                                key={connectItem.id}
-                                projectId={project.id}
-                                connect={connectItem}
-                                getArtistProjects={getArtistProjects}
-                                {...props}
-                            />)}
-                    </div>
-                </div>
-            );
+                );
+            }
         } else {
             return (
-                <div className="projectDetail">
-                    <div className="projectCardHeader">
-                        <h3><span className="projectCardTitle">
-                            {project.name}
-                        </span></h3>
-                        <div className="project-detail-icon-container">
-                            <span data-tooltip="TO PROJECTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/projects')}></i></span>
-                        </div>
-                    </div>
-                    <div className="projectDetailsExpectedCompletion">Expected Completion: {project.expectedCompletion}</div>
-                    <div className="projectDetailsAvailability">Description: {project.description}</div>
-                    <div className="projectDetailsAvailability">Status: {project.status}</div>
-                    <div className="projectDetailsConnectedArtists">
-                        {artistConnectHeader}
-                        {artistProjects.map(connectItem =>
-                            <ArtistConnectCard
-                                key={connectItem.id}
-                                projectId={project.id}
-                                connect={connectItem}
-                                getArtistProjects={getArtistProjects}
-                                {...props}
-                            />)}
+                <div className="projectCard">
+                    <div className="projectCardContent">
+                        <center><h3>PROJECT CARD NOT FOUND</h3></center>
                     </div>
                 </div>
-            );
+            )
         }
     } else {
         return (
-            <div className="projectCard">
-                <div className="projectCardContent">
-                    <center><h3>PROJECT CARD NOT FOUND</h3></center>
+            <div className="projectDetail">
+                <div className="projectCardHeader">
+                    <h3><span className="projectCardTitle">
+                        {project.name}
+                    </span></h3>
+                    <div className="project-detail-icon-container">
+                        <span data-tooltip="TO PROJECTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/projects')}></i></span>
+                    </div>
+                </div>
+                <div className="projectDetailsExpectedCompletion">Expected Completion: {project.expectedCompletion}</div>
+                <div className="projectDetailsAvailability">Description: {project.description}</div>
+                <div className="projectDetailsAvailability">Status: {project.status}</div>
+                <div align="right" className="subIcon-container">
+                    <span data-tooltip="EDIT"><i className="big edit icon projectsDetailsEditIcon" onClick={() => props.history.push(`/projects/${project.id}/edit`)}></i></span>
+                    <span data-tooltip="DELETE"><i className="big trash alternate icon projectsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
                 </div>
             </div>
-        )
+        );
     }
 };
 

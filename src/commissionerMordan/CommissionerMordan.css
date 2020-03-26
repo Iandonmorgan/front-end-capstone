@@ -211,15 +211,21 @@ button:hover{
 
 /* ARTIST PAGES */
 
+.artists-content {
+    width: 90%;
+    margin: auto;
+}
+
 .artists {
-    font-size: 5em;
+    font-size: 4em;
 }
 .artist-edit-icon-container {
     display: flex;
     justify-content: flex-end;
 }
 .artistDetail, .artistEdit {
-    margin: 50px 100px;
+    margin: 50px auto;
+    max-width: 80%;
         
 }
 .artistsCardHeader {
@@ -230,11 +236,20 @@ button:hover{
 .artists-list-icon-header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    margin: 10px 20px 20px;
+    align-items: center;
+    margin: 30px 20px 20px;
 }
-.artistCardTitle {
-
+.artistsCardContent {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: auto;
+}
+.artistDetailsContent {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: auto;
 }
 .subArtistCard {
     display: flex;
@@ -251,12 +266,15 @@ button:hover{
 }
 .artistsCard {
     margin: 0 10px;
-        
+    display: flex;
+    flex-direction: row;
+    
 }
 .artistsCardTitle {
     font-weight: bolder;
     font-size: 2em;
     margin-bottom: 10px;
+    line-height: .9;
 }
 .artistsCardDetailTitle {
     font-weight: bolder;
@@ -291,7 +309,7 @@ button:hover{
 /* PROJECT PAGES */
 
 .projects {
-    font-size: 5em;
+    font-size: 4em;
 }
 .projectDetail {
     margin: 0 100px;
@@ -330,8 +348,8 @@ button:hover{
 .project-icon-header {
     display: flex;
     justify-content: space-between;
-    margin: 10px 20px 20px;
-    align-items: baseline;
+    margin: 30px 20px 20px;
+    align-items: center;
 }
 .artistImage{
     width: 100%;

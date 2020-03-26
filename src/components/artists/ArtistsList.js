@@ -17,7 +17,7 @@ const ArtistsList = (props) => {
 
     return (
         <div>
-            <section className="section-content">
+            <section className="artists-content">
                 <div className="artists-list-icon-header">
                     <div className="artists-header">
                         <h1 className="artists">ARTISTS</h1>
