@@ -64,34 +64,53 @@ const ProjectDetail = props => {
         setIsLoading(false);
     };
 
+    // REFACTOR CODE BELOW TO PULL AND SET THIS INFO SOONER
+
     const getUnattachedArtists = () => {
+        // setUnattachedArtists([{id: 1, name: "Menna", picUrl: "https://i.ibb.co/vck73v1/meredith-200x100.png", url: "https://mennanation.com", availabilityNotes: "Short term availabilities, however given Covid-19 …l need details to confirm availability. All good!"}, {id: 2, name: "Batman", picUrl: "https://i.ibb.co/44VbQfB/batman-200x100.png", url: "https://en.wikipedia.org/wiki/Batman", availabilityNotes: "Batman is always available for crime fighting or r…usic. Few people know about The Bruce Wayne Trio."}, {id: 3, name: "Rory", picUrl: "https://i.ibb.co/F6YKfPw/rory-200x100.png", url: "https://www.instagram.com/eastnashvilleblackdog/", availabilityNotes: "He is very attached to his owner, and since Covid-…to all of the Christmas hits you know and love..."}, {name: "Jazzy Jeff", picUrl: "https://bucket.mn2s.com/wp-content/uploads/2017/05/29135534/DJ-Jazzy-Jeff-MN2S-.png", url: "https://www.djjazzyjeff.com/", availabilityNotes: "Diagnosed with covid-19, please respect Jeff's privacy at this time.", userId: 46}, {name: "Madonna", picUrl: "https://m.media-amazon.com/images/M/MV5BMTA3NDQ3NT…BbWU3MDI1MjQ1OTY@._V1_UX214_CR0,0,214,317_AL_.jpg", url: "ma", availabilityNotes: "asdf", createdByUserId: 1}]);
+
         APIManager.getAll("artists").then(artistsFromAPI => {
-            let attachedArtistIdsArray = [];
-            let allArtistIdsArray = [];
-            let unattachedArtistArray = [];
             APIManager.getAllWithProjectId("artistProjects", props.match.params.projectId).then(attachedArtists => {
-                attachedArtists.map(attachedArtist => {
-                    attachedArtistIdsArray.push(attachedArtist.artistId);
-                })
-            }).then(() => {
-                artistsFromAPI.map(artist => {
-                    allArtistIdsArray.push(artist.id)
-                })
-            }).then(() => {
-                for (let i = 0; i < allArtistIdsArray.length; i++) {
-                    for (let j = 0; j < attachedArtistIdsArray.length; j++)
-                        if (allArtistIdsArray[i] === attachedArtistIdsArray[j]) {
-                            allArtistIdsArray.splice(i, 1);
+                artistsFromAPI.map(artistFromAPI => {
+                    for (let i=0; i < attachedArtists.length; i ++) {
+                        if (attachedArtists[i].artistId === artistFromAPI.id) {
+                            artistsFromAPI.splice(artistsFromAPI.findIndex(artist => artist.id === artistFromAPI.id), 1);
                         }
-                }
-                for (let i = 0; i < allArtistIdsArray.length; i++) {
-                    APIManager.getById("artists", allArtistIdsArray[i]).then(artist => {
-                        unattachedArtistArray.push(artist[0]);
-                        setUnattachedArtists(unattachedArtistArray);
-                        console.log("UNATTACHED ARTIST ARRAY: ", unattachedArtistArray)
-                    })
-                }
+                    }
+                })
+                setUnattachedArtists(artistsFromAPI.sort(function(a, b) {
+                    var nameA = a.name.toUpperCase();
+                    var nameB = b.name.toUpperCase(); 
+                    if (nameA < nameB) {
+                      return -1;
+                    }
+                    if (nameA > nameB) {
+                      return 1;
+                    }
+                    return 0;
+                  }));
             })
+            //         attachedArtistIdsArray.push(attachedArtist.artistId);
+            //     })
+            // }).then(() => {
+            //     artistsFromAPI.map(artist => {
+            //         allArtistIdsArray.push(artist.id)
+            //     })
+            // }).then(() => {
+            //     for (let i = 0; i < allArtistIdsArray.length; i++) {
+            //         for (let j = 0; j < attachedArtistIdsArray.length; j++)
+            //             if (allArtistIdsArray[i] === attachedArtistIdsArray[j]) {
+            //                 allArtistIdsArray.splice(i, 1);
+            //             }
+            //     }
+            //     for (let i = 0; i < allArtistIdsArray.length; i++) {
+            //         APIManager.getById("artists", allArtistIdsArray[i]).then(artist => {
+            //             unattachedArtistArray.push(artist[0]);
+            //             setUnattachedArtists(unattachedArtistArray);
+            //             console.log("UNATTACHED ARTIST ARRAY: ", unattachedArtistArray)
+            //         })
+            //     }
+            // })
         });
     };
 
