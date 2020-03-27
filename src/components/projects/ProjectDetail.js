@@ -7,6 +7,8 @@ import ArtistConnectCard from '../artistProjects/ArtistConnectCard';
 const ProjectDetail = props => {
     const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
     const [project, setProject] = useState({ name: "", picUrl: "", url: "", availabilityNotes: "" });
+    const [artist, setArtist] = useState([]);
+    const [unattachedArtists, setUnattachedArtists] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [artistProjects, setArtistProjects] = useState([]);
     const [editAbility, setEditAbility] = useState(false);
@@ -61,6 +63,39 @@ const ProjectDetail = props => {
         setIsLoading(false);
     };
 
+    const getUnattachedArtists = () => {
+        APIManager.getAll("artists").then(artistsFromAPI => {
+            let attachedArtistIdsArray = [];
+            let allArtistIdsArray = [];
+            let unattachedArtistArray = [];
+            APIManager.getAllWithProjectId("artistProjects", props.match.params.projectId).then(attachedArtists => {
+                attachedArtists.map(attachedArtist => {
+                    attachedArtistIdsArray.push(attachedArtist.artistId);
+                })
+            }).then(() => {
+                artistsFromAPI.map(artist => {
+                    allArtistIdsArray.push(artist.id)
+                })
+            }).then(() => {
+                for (let i = 0; i < allArtistIdsArray.length; i++) {
+                    for (let j = 0; j < attachedArtistIdsArray.length; j++)
+                        if (allArtistIdsArray[i] === attachedArtistIdsArray[j]) {
+                            allArtistIdsArray.splice(i, 1);
+                        }
+                }
+                for (let i = 0; i < allArtistIdsArray.length; i++) {
+                    APIManager.getById("artists", allArtistIdsArray[i]).then(artist => {
+                        unattachedArtistArray.push(artist[0]);
+                        console.log("ARTIST", artist[0])
+                        setUnattachedArtists(unattachedArtistArray);
+                    })
+                }
+            }).then(() => {
+
+            })
+        });
+    };
+
     const hasEditAbility = () => {
         APIManager.getById("projects", props.match.params.projectId).then(project => {
             if (project[0].userId === activeUser.id) {
@@ -71,51 +106,72 @@ const ProjectDetail = props => {
         });
     };
 
+    const getArtist = () => {
+        APIManager.getById("artists", props.UAId).then(artistFromAPI => {
+            setArtist(artistFromAPI);
+        });
+    };
+
     useEffect(() => {
+        getArtist();
         getArtistProjects();
         getProject();
         hasEditAbility();
+        getUnattachedArtists();
     }, []);
 
     let artistConnectHeader = "";
     if (artistProjects.length !== undefined) {
-
-        if (artistProjects.filter(artistProject => artistProject.projectId === project.id).length > 0) {
+        console.log("HEY HEY HEY", unattachedArtists)
+        if (artistProjects.filter(artistProject => artistProject.projectId === project.id).length === 1) {
             artistConnectHeader = <div className="projectDetailsConnectedArtistsHeader">This project is connected to:</div>
+        } else if (artistProjects.filter(artistProject => artistProject.projectId === project.id).length > 1) {
+            artistConnectHeader = <div className="projectDetailsConnectedArtistsHeader">Artists connected to this project:</div>
         } else {
             artistConnectHeader = "";
         }
         if (project.name !== undefined && project.description !== undefined && project.expectedCompletion !== undefined) {
             if (editAbility) {
                 return (
-                    <div className="projectDetail">
-                        <div className="projectCardHeader">
-                            <h3><span className="projectCardTitle">
-                                {project.name}
-                            </span></h3>
-                            <div className="project-detail-icon-container">
-                                <span data-tooltip="TO PROJECTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/projects')}></i></span>
+                    <>
+                        <div className="projectDetail">
+                            <div className="projectCardHeader">
+                                <h3><span className="projectCardTitle">
+                                    {project.name}
+                                </span></h3>
+                                <div className="project-detail-icon-container">
+                                    <span data-tooltip="TO PROJECTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/projects')}></i></span>
+                                </div>
+                            </div>
+                            <div className="projectDetailsExpectedCompletion">Expected Completion: {project.expectedCompletion}</div>
+                            <div className="projectDetailsAvailability">Description: {project.description}</div>
+                            <div className="projectDetailsAvailability">Status: {project.status}</div>
+                            <div align="right" className="subIcon-container">
+                                <span data-tooltip="EDIT"><i className="big edit icon projectsDetailsEditIcon" onClick={() => props.history.push(`/projects/${project.id}/edit`)}></i></span>
+                                <span data-tooltip="DELETE"><i className="big trash alternate icon projectsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
+                            </div>
+                            <div className="projectDetailsConnectedArtists">
+                                {artistConnectHeader}
+                                {artistProjects.map(connectItem =>
+                                    <ArtistConnectCard
+                                        key={connectItem.id}
+                                        projectId={project.id}
+                                        connect={connectItem}
+                                        getArtistProjects={getArtistProjects}
+                                        {...props}
+                                    />)}
+                                {unattachedArtists.map(unattachedArtist => 
+                                    <ArtistConnectCard
+                                        key={unattachedArtist.id}
+                                        projectId={project.id}
+                                        artist={unattachedArtist}
+                                        connect={-1}
+                                        getArtistProjects={getArtistProjects}
+                                        {...props}
+                                    />)}
                             </div>
                         </div>
-                        <div className="projectDetailsExpectedCompletion">Expected Completion: {project.expectedCompletion}</div>
-                        <div className="projectDetailsAvailability">Description: {project.description}</div>
-                        <div className="projectDetailsAvailability">Status: {project.status}</div>
-                        <div align="right" className="subIcon-container">
-                            <span data-tooltip="EDIT"><i className="big edit icon projectsDetailsEditIcon" onClick={() => props.history.push(`/projects/${project.id}/edit`)}></i></span>
-                            <span data-tooltip="DELETE"><i className="big trash alternate icon projectsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
-                        </div>
-                        <div className="projectDetailsConnectedArtists">
-                            {artistConnectHeader}
-                            {artistProjects.map(connectItem =>
-                                <ArtistConnectCard
-                                    key={connectItem.id}
-                                    projectId={project.id}
-                                    connect={connectItem}
-                                    getArtistProjects={getArtistProjects}
-                                    {...props}
-                                />)}
-                        </div>
-                    </div>
+                    </>
                 );
             } else {
                 return (

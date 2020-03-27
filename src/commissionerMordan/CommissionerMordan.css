@@ -11,6 +11,13 @@
     align-self: center;
 }
 
+/* NAV BAR */
+.labelLogo {
+    height: 20px;
+    margin-right: 10px;
+    filter: invert(1);
+}
+
 /* HEADER */
 header {
     display: flex;

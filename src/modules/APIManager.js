@@ -6,6 +6,9 @@ export default {
             result.json()
         );
     },
+    getLabel() {
+        return fetch(`${remoteURL}/labels?id=${1}`).then(result => result.json());
+    },
     getWithExpand(component, id, expand) {
         return fetch(`${remoteURL}/${component}/${id}?_expand=${expand}`).then(result =>
             result.json()
@@ -18,6 +21,11 @@ export default {
     },
     getAllWithUserId(component, userId) {
         return fetch(`${remoteURL}/${component}?userId=${userId}`).then(result =>
+            result.json()
+        );
+    },
+    getAllWithProjectId(component, projectId) {
+        return fetch(`${remoteURL}/${component}?projectId=${projectId}`).then(result =>
             result.json()
         );
     },

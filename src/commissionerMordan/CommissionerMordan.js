@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ApplicationViews from "../ApplicationViews";
 import NavBar from "../navbar/NavBar";
 import "../commissionerMordan/CommissionerMordan.css";
+import APIManager from "../modules/APIManager";
 
 const CommissionerMordan = () => {
     const isAuthenticated = () =>
@@ -20,6 +21,16 @@ const CommissionerMordan = () => {
             setHasUser(isAuthenticated());
         }
     };
+
+    // let userArtists = [];
+    //     return APIManager.getAllWithUserId("userFollows", activeUser.id).then(follows => {
+    //         for (let i = 0; i < follows.length; i++) {
+    //             APIManager.getById("artists", follows[i].artistId).then(fArtist => {
+    //                 userArtists.push(fArtist.flat());
+    //                 setUserFollows(userArtists.flat());
+    //             })
+    //         }
+    //     });
 
     const clearUser = () => {
         sessionStorage.clear();
