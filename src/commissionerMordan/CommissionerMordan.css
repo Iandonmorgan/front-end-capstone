@@ -315,6 +315,10 @@ button:hover{
 
 /* PROJECT PAGES */
 
+.artistConnectImageCard {
+    width: 200px;
+}
+
 .projects {
     font-size: 4em;
 }
