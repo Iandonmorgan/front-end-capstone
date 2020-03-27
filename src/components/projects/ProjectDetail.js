@@ -88,6 +88,7 @@ const ProjectDetail = props => {
                     APIManager.getById("artists", allArtistIdsArray[i]).then(artist => {
                         unattachedArtistArray.push(artist[0]);
                         setUnattachedArtists(unattachedArtistArray);
+                        console.log("UNATTACHED ARTIST ARRAY: ", unattachedArtistArray)
                     })
                 }
             })
@@ -194,6 +195,7 @@ const ProjectDetail = props => {
                                         <Dropdown.Menu>
                                             <Dropdown.Header content='Unattached Artists' />
                                             {unattachedArtists.map((option) => (
+                                                console.log("OPTION NAME -- ", option.name),
                                                 <Dropdown.Item
                                                     key={option.id}
                                                     text={option.name}
@@ -243,12 +245,12 @@ const ProjectDetail = props => {
                                     >
                                         <Dropdown.Menu>
                                             <Dropdown.Header content='Unattached Artists' />
-                                            {unattachedArtists.map((option) => (
+                                            {unattachedArtists.map((ua) => (
                                                 <Dropdown.Item
-                                                    key={option.id}
-                                                    text={option.name}
-                                                    value={option.id}
-                                                    onClick={() => handleConnect(option.id, project.id)}
+                                                    key={ua.id}
+                                                    text={ua.name}
+                                                    value={ua.id}
+                                                    onClick={() => handleConnect(ua.id, project.id)}
                                                 />
                                             ))}
                                         </Dropdown.Menu>
