@@ -30,14 +30,17 @@ const ArtistConnectCard = (props) => {
             "artistId": artistId,
             "projectId": projectId
         }
+        console.log("INFO", artistId, projectId)
         confirmAlert({
             title: 'Confirm to connect',
             message: 'Are you sure you want to connect the project to this artist?',
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => APIManager.post("artistProjects", newArtistProject).then(() =>
+                    onClick: () => APIManager.post("artistProjects", newArtistProject).then(() => {
                         props.getArtistProjects()
+                        props.getRefresh();
+                    }
                     )
                 },
                 {
@@ -58,21 +61,6 @@ const ArtistConnectCard = (props) => {
                         </div>
                         {/* <p className="subcardConnectLink"><a href={props.connect.artist.url} target="_new">view website</a></p> */}
                         <span data-tooltip="REMOVE FROM PROJECT"><i className="small minus square icon red artistRemoveConnectIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
-                    </div>
-                </div>
-            </div>
-        );
-    } else if (props.connect === -1) {
-        return (
-            <div className="artistConnectCard">
-                <div className="artistConnectCardContent">
-                    <img className="artistConnectImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} onClick={() => props.history.push(`/artists/${props.artist.id}`)} />
-                    <div className="subArtistConnectCard">
-                        <div className="artistConnectCardTitle" onClick={() => props.history.push(`/artists/${props.artist.id}`)}>
-                            {props.artist.name}
-                        </div>
-                        {/* <p className="subcardConnectLink"><a href={props.connect.artist.url} target="_new">view website</a></p> */}
-                        <span data-tooltip="ADD ARTIST TO PROJECT"><i className="small plus square icon green artistAddConnectIcon" disabled={isLoading} onClick={() => handleConnect()}></i></span>
                     </div>
                 </div>
             </div>

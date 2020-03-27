@@ -3,6 +3,7 @@ import APIManager from "../../modules/APIManager";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import ArtistConnectCard from '../artistProjects/ArtistConnectCard';
+import { Dropdown } from 'semantic-ui-react';
 
 const ProjectDetail = props => {
     const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
@@ -86,12 +87,9 @@ const ProjectDetail = props => {
                 for (let i = 0; i < allArtistIdsArray.length; i++) {
                     APIManager.getById("artists", allArtistIdsArray[i]).then(artist => {
                         unattachedArtistArray.push(artist[0]);
-                        console.log("ARTIST", artist[0])
                         setUnattachedArtists(unattachedArtistArray);
                     })
                 }
-            }).then(() => {
-
             })
         });
     };
@@ -112,6 +110,31 @@ const ProjectDetail = props => {
         });
     };
 
+    const handleConnect = (artistId, projectId) => {
+        setIsLoading(true);
+        const newArtistProject = {
+            "artistId": artistId,
+            "projectId": projectId
+        }
+        confirmAlert({
+            title: 'Confirm to connect',
+            message: 'Are you sure you want to connect the project to this artist?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => APIManager.post("artistProjects", newArtistProject).then(() => {
+                        getArtistProjects()
+                    }
+                    )
+                },
+                {
+                    label: 'No',
+                    onClick: () => ""
+                }
+            ]
+        });
+    };
+
     useEffect(() => {
         getArtist();
         getArtistProjects();
@@ -122,7 +145,6 @@ const ProjectDetail = props => {
 
     let artistConnectHeader = "";
     if (artistProjects.length !== undefined) {
-        console.log("HEY HEY HEY", unattachedArtists)
         if (artistProjects.filter(artistProject => artistProject.projectId === project.id).length === 1) {
             artistConnectHeader = <div className="projectDetailsConnectedArtistsHeader">This project is connected to:</div>
         } else if (artistProjects.filter(artistProject => artistProject.projectId === project.id).length > 1) {
@@ -160,15 +182,28 @@ const ProjectDetail = props => {
                                         getArtistProjects={getArtistProjects}
                                         {...props}
                                     />)}
-                                {unattachedArtists.map(unattachedArtist => 
-                                    <ArtistConnectCard
-                                        key={unattachedArtist.id}
-                                        projectId={project.id}
-                                        artist={unattachedArtist}
-                                        connect={-1}
-                                        getArtistProjects={getArtistProjects}
-                                        {...props}
-                                    />)}
+                                <div className="artistProjectDropdown">
+                                    <Dropdown
+                                        text='Add Artist'
+                                        icon='plus'
+                                        floating
+                                        labeled
+                                        button
+                                        className='icon'
+                                    >
+                                        <Dropdown.Menu>
+                                            <Dropdown.Header content='Unattached Artists' />
+                                            {unattachedArtists.map((option) => (
+                                                <Dropdown.Item
+                                                    key={option.id}
+                                                    text={option.name}
+                                                    value={option.id}
+                                                    onClick={() => handleConnect(option.id, project.id)}
+                                                />
+                                            ))}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </div>
                             </div>
                         </div>
                     </>
@@ -197,6 +232,28 @@ const ProjectDetail = props => {
                                     getArtistProjects={getArtistProjects}
                                     {...props}
                                 />)}
+                                <div className="artistProjectDropdown">
+                                    <Dropdown
+                                        text='Add Artist'
+                                        icon='plus'
+                                        floating
+                                        labeled
+                                        button
+                                        className='icon'
+                                    >
+                                        <Dropdown.Menu>
+                                            <Dropdown.Header content='Unattached Artists' />
+                                            {unattachedArtists.map((option) => (
+                                                <Dropdown.Item
+                                                    key={option.id}
+                                                    text={option.name}
+                                                    value={option.id}
+                                                    onClick={() => handleConnect(option.id, project.id)}
+                                                />
+                                            ))}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </div>
                         </div>
                     </div>
                 );

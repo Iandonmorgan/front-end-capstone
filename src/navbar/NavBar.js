@@ -22,7 +22,6 @@ const NavBar = props => {
   useEffect(() => {
     getLabel();
   }, []);
-  console.log(label)
   return (
     <Navbar bg="dark" variant="dark" expand="md" sticky="top">
       <Navbar.Brand href="/"><img className="labelLogo" src={label.logoUrl}/>{label.name}</Navbar.Brand>
