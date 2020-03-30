@@ -142,7 +142,7 @@ const ArtistsDetail = props => {
                                 <span data-tooltip="TO ARTISTS"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/artists')}></i></span>
                             </div>
                         </div>
-                        <div className="artistsCardContent">
+                        <div className="artistDetailsContent">
                             <img className="artistDetailsImage" src={(artist.picUrl)} alt={(artist.name)} />
                             <p><a href={artist.url}>{artist.url}</a></p>
                             <div className="artistDetailsAvailability">Availability Notes: {artist.availabilityNotes}</div>

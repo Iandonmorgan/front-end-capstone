@@ -9,8 +9,11 @@ const DashboardProjectList = (props) => {
     const getArtistProjects = (props) => {
         let artistProjects = [];
         APIManager.getAllWithExpand("artistProjects", "project").then(artistProjectz => {
-            artistProjects = artistProjectz.sort(function (a, b) { return new Date(a.project.expectedCompletion) - new Date(b.project.expectedCompletion) }).filter(project => project.artistId === props.artist.id);
-            setArtistProject(artistProjects);
+            if (artistProjectz.length !== undefined) {
+
+                artistProjects = artistProjectz.sort(function (a, b) { return new Date(a.project.expectedCompletion) - new Date(b.project.expectedCompletion) }).filter(project => project.artistId === props.artist.id);
+                setArtistProject(artistProjects);
+            }
         });
     };
 

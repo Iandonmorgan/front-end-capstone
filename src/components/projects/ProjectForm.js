@@ -41,8 +41,8 @@ const ProjectForm = (props) => {
 
     return (
         <>
-            <div className="icon-container">
-                <i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/projects')}></i>
+            <div className="project-editForm-icon-container">
+                <span data-tooltip="BACK"><i className="big arrow circle left icon" id="back-arrow-detail" onClick={() => props.history.push('/projects')}></i></span>
             </div>
             <form>
             <fieldset className="projectsEditForm">
@@ -113,7 +113,6 @@ const ProjectForm = (props) => {
                                 type="button" disabled={isLoading}
                                 onClick={createNewProject}
                                 id="projectEditFormBtn"
-                                className="ui blue basic button"
                             >Submit</button>
                         </div>
                     </fieldset>

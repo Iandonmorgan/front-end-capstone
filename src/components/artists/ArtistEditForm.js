@@ -69,8 +69,8 @@ const ArtistEditForm = (props) => {
             picUrl: artist.picUrl,
             url: artist.url,
             availabilityNotes: artist.availabilityNotes,
-            updatedByUserId: activeUser.id,
-            updated_timestamp: dateTime
+            lastUpdatedByUserId: activeUser.id,
+            last_updated_timestamp: dateTime
         };
 
         APIManager.update("artists", editedArtist)

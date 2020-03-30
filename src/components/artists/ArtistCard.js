@@ -91,7 +91,7 @@ const ArtistsCard = (props) => {
                 <div className="artistsCardTitle" onClick={() => props.history.push(`/artists/${props.artist.id}`)}>
                     {props.artist.name}
                 </div>
-                <img className="artistImageCard" src={(props.artist.picUrl)} alt={(props.artist.name)} width="200px" onClick={() => props.history.push(`/artists/${props.artist.id}`)} />
+                <img className="artistImageCard artistImage" src={(props.artist.picUrl)} alt={(props.artist.name)} onClick={() => props.history.push(`/artists/${props.artist.id}`)} />
                 <div className="subArtistCard">
                     <p className="subcardLink"><a href={props.artist.url} target="_new">view website</a></p>
                     <div className="subcardLinkIcons">

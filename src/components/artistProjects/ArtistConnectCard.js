@@ -24,11 +24,37 @@ const ArtistConnectCard = (props) => {
             ]
         });
     };
+    const handleConnect = (artistId, projectId) => {
+        setIsLoading(true);
+        const newArtistProject = {
+            "artistId": artistId,
+            "projectId": projectId
+        }
+        console.log("INFO", artistId, projectId)
+        confirmAlert({
+            title: 'Confirm to connect',
+            message: 'Are you sure you want to connect the project to this artist?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => APIManager.post("artistProjects", newArtistProject).then(() => {
+                        props.getArtistProjects()
+                        props.getRefresh();
+                    }
+                    )
+                },
+                {
+                    label: 'No',
+                    onClick: () => ""
+                }
+            ]
+        });
+    };
     if (props.connect.projectId === props.projectId) {
         return (
             <div className="artistConnectCard">
                 <div className="artistConnectCardContent">
-                    <img className="artistConnectImageCard" src={(props.connect.artist.picUrl)} alt={(props.connect.artist.name)} width="200px" onClick={() => props.history.push(`/artists/${props.connect.artist.id}`)} />
+                    <img className="artistConnectImageCard" src={(props.connect.artist.picUrl)} alt={(props.connect.artist.name)} onClick={() => props.history.push(`/artists/${props.connect.artist.id}`)} />
                     <div className="subArtistConnectCard">
                         <div className="artistConnectCardTitle" onClick={() => props.history.push(`/artists/${props.connect.artist.id}`)}>
                             {props.connect.artist.name}

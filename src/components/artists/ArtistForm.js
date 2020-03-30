@@ -25,7 +25,7 @@ const ArtistForm = (props) => {
             picUrl: artist.picUrl,
             url: artist.url,
             availabilityNotes: artist.availabilityNotes,
-            createdByUserId: activeUser.id,
+            userId: activeUser.id,
             created_timestamp: dateTime
         };
 
