@@ -14,6 +14,7 @@ const ProjectDetail = props => {
     const [isLoading, setIsLoading] = useState(true);
     const [artistProjects, setArtistProjects] = useState([]);
     const [editAbility, setEditAbility] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
     const getArtistProjects = () => {
         APIManager.getAllWithExpand("artistProjects", "artist").then(artistProjects => {
@@ -150,7 +151,9 @@ const ProjectDetail = props => {
                 {
                     label: 'Yes',
                     onClick: () => APIManager.post("artistProjects", newArtistProject).then(() => {
-                        getArtistProjects()
+                        getArtistProjects();
+                        setRefresh(true);
+                        setRefresh(false);
                     }
                     )
                 },
@@ -185,7 +188,7 @@ const ProjectDetail = props => {
         hasEditAbility();
         getUnattachedArtists();
         getProjectCreator();
-    }, []);
+    }, [refresh]);
 
     let artistConnectHeader = "";
     if (artistProjects.length !== undefined) {
@@ -279,6 +282,7 @@ const ProjectDetail = props => {
                                     projectId={project.id}
                                     connect={connectItem}
                                     getArtistProjects={getArtistProjects}
+                                    setRefresh={setRefresh}
                                     {...props}
                                 />)}
                                 <div className="artistProjectDropdown">
