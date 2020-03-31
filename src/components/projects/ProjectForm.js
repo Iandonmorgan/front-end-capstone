@@ -24,8 +24,9 @@ const ProjectForm = (props) => {
             name: project.name,
             expectedCompletion: project.expectedCompletion,
             description: project.description,
-            streetAddress: project.streetAddress,
+            budget: project.budget,
             statusId: 1,
+            isComplete: false,
             userId: activeUser.id,
             created_timestamp: dateTime
         };
@@ -93,17 +94,17 @@ const ProjectForm = (props) => {
                                 </p>
                             </div>
                             <div>
-                                <label htmlFor="streetAddress">Street Address: </label>
+                                <label htmlFor="budget">Total Budget: </label>
                                 <p>
-                                    <textarea
+                                    <input
                                         type="text"
                                         rows="1"
                                         cols="40"
                                         required
                                         className="form-control"
                                         onChange={handleFieldChange}
-                                        id="streetAddress"
-                                        defaultValue={project.streetAddress}
+                                        id="budget"
+                                        defaultValue={project.budget}
                                     />
                                 </p>
                             </div>
