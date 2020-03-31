@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import APIManager from '../../modules/APIManager';
+import CurrencyManager from '../../modules/CurrencyManager';
 
 const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
 
 const ProjectEditForm = (props) => {
-    const [project, setProject] = useState({ name: "", expectedCompletion: "", description: "", streetAddress: "" });
+    const [project, setProject] = useState({ name: "", expectedCompletion: "", description: "", budget: "" });
     const [isLoading, setIsLoading] = useState(false);
+
+    const [budgetValue, setBudgetValue] = useState(0);
+    const handleValueChange = useCallback(val => {
+      // CURRENCY MANAGER CODE FROM JOHN TUCKER, GAINESVILLE, FL https://github.com/larkintuckerllc/react-currency-input
+      setBudgetValue(val);
+    }, []);
     
     const getProject = () => {
         APIManager.getById("projects", parseInt(props.match.params.projectId))
         .then(project => {
             setProject(project);
+            setBudgetValue(project[0].budget);
             setIsLoading(false);
         });
     };
@@ -43,7 +51,7 @@ const ProjectEditForm = (props) => {
             name: project.name,
             expectedCompletion: project.expectedCompletion,
             description: project.description,
-            streetAddress: project.streetAddress,
+            budget: budgetValue,
             lastUpdatedByUserId: activeUser.id,
             statusId: project.statusId,
             lastUpdatedTimestamp: dateTime
@@ -113,17 +121,15 @@ const ProjectEditForm = (props) => {
                                 </p>
                             </div>
                             <div>
-                                <label htmlFor="streetAddress">Street Address: </label>
+                                <label htmlFor="budget">Budget: </label>
                                 <p>
-                                    <textarea
-                                        type="text"
-                                        rows="1"
-                                        cols="40"
-                                        required
-                                        className="form-control"
-                                        onChange={handleFieldChange}
-                                        id="streetAddress"
-                                        defaultValue={project[0].streetAddress}
+                                    <CurrencyManager
+                                        max={100000000}
+                                        onValueChange={handleValueChange}
+                                        id="budget"
+                                        style={{ textAlign: 'right' }}
+                                        defaultValue={project[0].budget}
+                                        value={budgetValue}
                                     />
                                 </p>
                             </div>

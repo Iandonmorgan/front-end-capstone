@@ -387,23 +387,30 @@ button:hover{
 .projectItemName {
     width: 25%;
     font-weight: bolder;
-    font-size: .5em;
+    font-size: .8em;
     margin-right: 10px;
 }
 .projectItemDescription {
     width: 50%;
-    font-size: .5em;
+    font-size: .75em;
+    padding-right: 10px;
 }
 .projectItemDeadline {
     width: 10%;
     font-size: .8em;
     display: flex;
-    align-self: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 .projectItemStatus {
     width: 20%;
     font-size: .8em;
     padding: 0 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 .projectsCard:nth-child(even):hover {
     background-color: #E5ECFF;

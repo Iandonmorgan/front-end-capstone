@@ -7,7 +7,8 @@ import { Dropdown } from 'semantic-ui-react';
 
 const ProjectDetail = props => {
     const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
-    const [project, setProject] = useState({ name: "", picUrl: "", url: "", availabilityNotes: "" });
+    const [project, setProject] = useState({ name: "", expectedCompletion: "", description: "", budget: "" });
+    const [projectCreator, setProjectCreator] = useState([]);
     const [artist, setArtist] = useState([]);
     const [unattachedArtists, setUnattachedArtists] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -26,9 +27,9 @@ const ProjectDetail = props => {
                 description: project.description,
                 expectedCompletion: project.expectedCompletion,
                 id: project.id,
-                streetAddress: project.streetAddress,
+                budget: project.budget,
                 status: project.status.name,
-                isComplete: project.isComplete
+                isOnTrack: project.isOnTrack
             });
             setIsLoading(false);
         });
@@ -124,6 +125,12 @@ const ProjectDetail = props => {
         });
     };
 
+    const getProjectCreator = () => {
+        APIManager.getByIdWithExpand("projects", props.match.params.projectId, "user").then(project => {
+            setProjectCreator(project[0].user.username);
+        })
+    }
+
     const getArtist = () => {
         APIManager.getById("artists", props.UAId).then(artistFromAPI => {
             setArtist(artistFromAPI);
@@ -155,12 +162,29 @@ const ProjectDetail = props => {
         });
     };
 
+    const formatMoney = (amount, decimalCount = 2, decimal = ".", thousands = ",") => {
+        try {
+          decimalCount = Math.abs(decimalCount);
+          decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+      
+          const negativeSign = amount < 0 ? "-" : "";
+      
+          let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+          let j = (i.length > 3) ? i.length % 3 : 0;
+      
+          return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+        } catch (e) {
+          console.log(e)
+        }
+      };
+
     useEffect(() => {
         getArtist();
         getArtistProjects();
         getProject();
         hasEditAbility();
         getUnattachedArtists();
+        getProjectCreator();
     }, []);
 
     let artistConnectHeader = "";
@@ -186,8 +210,10 @@ const ProjectDetail = props => {
                                 </div>
                             </div>
                             <div className="projectDetailsExpectedCompletion">Expected Completion: {project.expectedCompletion}</div>
-                            <div className="projectDetailsAvailability">Description: {project.description}</div>
-                            <div className="projectDetailsAvailability">Status: {project.status}</div>
+                            <div className="projectDetailsCreator">Project Created By: {projectCreator}</div>
+                            <div className="projectDetailsDescription">Description: {project.description}</div>
+                            <div className="projectDetailsBudget">Budget: ${formatMoney(project.budget/100)}</div>
+                            <div className="projectDetailsStatus">Status: {project.status}</div>
                             <div align="right" className="subIcon-container">
                                 <span data-tooltip="EDIT"><i className="big edit icon projectsDetailsEditIcon" onClick={() => props.history.push(`/projects/${project.id}/edit`)}></i></span>
                                 <span data-tooltip="DELETE"><i className="big trash alternate icon projectsDetailsTrashIcon" disabled={isLoading} onClick={() => handleDelete()}></i></span>
@@ -241,7 +267,9 @@ const ProjectDetail = props => {
                             </div>
                         </div>
                         <div className="projectDetailsExpectedCompletion">Expected Completion: {project.expectedCompletion}</div>
+                        <div className="projectDetailsCreator">Project Created By: {projectCreator}</div>
                         <div className="projectDetailsAvailability">Description: {project.description}</div>
+                        <div className="projectDetailsBudget">Budget: ${formatMoney(project.budget/100)}</div>
                         <div className="projectDetailsAvailability">Status: {project.status}</div>
                         <div className="projectDetailsConnectedArtists">
                             {artistConnectHeader}
@@ -300,7 +328,9 @@ const ProjectDetail = props => {
                     </div>
                 </div>
                 <div className="projectDetailsExpectedCompletion">Expected Completion: {project.expectedCompletion}</div>
+                <div className="projectDetailsCreator">Project Created By: {projectCreator}</div>
                 <div className="projectDetailsAvailability">Description: {project.description}</div>
+                <div className="projectDetailsBudget">Budget: ${formatMoney(project.budget/100)}</div>
                 <div className="projectDetailsAvailability">Status: {project.status}</div>
                 <div align="right" className="subIcon-container">
                     <span data-tooltip="EDIT"><i className="big edit icon projectsDetailsEditIcon" onClick={() => props.history.push(`/projects/${project.id}/edit`)}></i></span>

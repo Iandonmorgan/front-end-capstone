@@ -50,6 +50,7 @@ This project utilizes the following:
 * [React Router](https://reacttraining.com/react-router/) for page routing
 * [React-bootstrap](https://react-bootstrap.github.io/) for menu, flexible formatting
 * [React-PopUp](https://www.npmjs.com/package/reactjs-popup) for form pop-ups
+* [react-currency-input](https://github.com/larkintuckerllc/react-currency-input) for currency input
 
 ## Skills Utilized
 
