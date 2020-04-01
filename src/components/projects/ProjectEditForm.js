@@ -9,7 +9,7 @@ const ProjectEditForm = (props) => {
     const [project, setProject] = useState({ name: "", expectedCompletion: "", description: "", budget: "" });
     const [isLoading, setIsLoading] = useState(false);
     const [budgetValue, setBudgetValue] = useState(0);
-    const [statusId, setStatusId] = useState([project.statusId]);
+    const [statusId, setStatusId] = useState(0);
 
     const handleStatusChange = (e, { value }) => {
         setStatusId(value);
@@ -39,6 +39,7 @@ const ProjectEditForm = (props) => {
             .then(project => {
                 setProject(project);
                 setBudgetValue(project[0].budget);
+                setStatusId(project[0].statusId);
                 setIsLoading(false);
             });
     };
@@ -60,25 +61,29 @@ const ProjectEditForm = (props) => {
     };
 
     const updateExistingProject = evt => {
-        evt.preventDefault()
-        setIsLoading(true);
-
-        let dateTime = new Date().toLocaleString('en-GB', { timeZone: 'UTC' });
-
-
-        const editedProject = {
-            id: project[0].id,
-            name: project.name,
-            expectedCompletion: project.expectedCompletion,
-            description: project.description,
-            budget: budgetValue,
-            lastUpdatedByUserId: activeUser.id,
-            statusId: statusId,
-            lastUpdatedTimestamp: dateTime
-        };
-
-        APIManager.update("projects", editedProject)
+        if (project.name !== "" && project.expectedCompletion !== "" && project.description !== "" && project.budget !== "" && statusId && statusId !== "") {
+            evt.preventDefault()
+            setIsLoading(true);
+            
+            let dateTime = new Date().toLocaleString('en-GB', { timeZone: 'UTC' });
+            
+            
+            const editedProject = {
+                id: project[0].id,
+                name: project.name,
+                expectedCompletion: project.expectedCompletion,
+                description: project.description,
+                budget: budgetValue,
+                lastUpdatedByUserId: activeUser.id,
+                statusId: statusId,
+                lastUpdatedTimestamp: dateTime
+            };
+            
+            APIManager.update("projects", editedProject)
             .then(() => props.history.push(`/projects/${editedProject.id}`))
+        } else {
+            window.alert("PLEASE COMPLETE ALL FIELDS PRIOR TO SUBMITTING")
+        }
     }
 
     useEffect(() => {
@@ -165,7 +170,7 @@ const ProjectEditForm = (props) => {
                                         selection
                                         id="statusId"
                                         onChange={handleStatusChange}
-                                        defaultValue={project[0].statusId}
+                                        defaultValue={parseInt(statusId)}
                                     />
                                     {/* <StatusDropdown
                                         handleFieldChange={handleFieldChange}
