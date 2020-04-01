@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect } from "react";
 import APIManager from '../../modules/APIManager';
 import CurrencyManager from '../../modules/CurrencyManager';
-import StatusDropdown from './StatusDropdown';
+import { Dropdown } from 'semantic-ui-react';
 
 const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
 
@@ -9,6 +9,25 @@ const ProjectEditForm = (props) => {
     const [project, setProject] = useState({ name: "", expectedCompletion: "", description: "", budget: "" });
     const [isLoading, setIsLoading] = useState(false);
     const [budgetValue, setBudgetValue] = useState(0);
+    const [statusId, setStatusId] = useState([project.statusId]);
+
+    const handleStatusChange = (e, { value }) => {
+        setStatusId(value);
+    }
+
+    let statusOptions = [];
+    const getStatusOptions = () => {
+        APIManager.getAll("statuses").then(results => {
+            results.map(result => {
+                let statusOption = {
+                    key: result.id,
+                    text: result.name,
+                    value: result.id
+                }
+                statusOptions.push(statusOption)
+            })
+        })
+    }
 
     const handleValueChange = useCallback(val => {
         // CURRENCY MANAGER CODE FROM JOHN TUCKER, GAINESVILLE, FL https://github.com/larkintuckerllc/react-currency-input
@@ -54,7 +73,7 @@ const ProjectEditForm = (props) => {
             description: project.description,
             budget: budgetValue,
             lastUpdatedByUserId: activeUser.id,
-            statusId: project.statusId,
+            statusId: statusId,
             lastUpdatedTimestamp: dateTime
         };
 
@@ -66,9 +85,9 @@ const ProjectEditForm = (props) => {
         getProject();
         getEditStatus();
     }, []);
-
+    
+    getStatusOptions();
     if (project[0] !== undefined) {
-        console.log("STATUS ID - - - ", project[0].statusId)
         return (
             <>
                 <div className="project-editForm-icon-container">
@@ -138,11 +157,17 @@ const ProjectEditForm = (props) => {
                             <div>
                                 <label htmlFor="status">Status: </label>
                                 <div>
-                                    <StatusDropdown
-                                        onChange={handleFieldChange}
+                                    <Dropdown
+                                        options={statusOptions}
+                                        selection
+                                        id="statusId"
+                                        onChange={handleStatusChange}
+                                    />
+                                    {/* <StatusDropdown
+                                        handleFieldChange={handleFieldChange}
                                         id="statusId"
                                         defaultValue={project[0].statusId}
-                                    />
+                                    /> */}
                                     {/* <textarea
                                         type="text"
                                         rows="1"

@@ -228,6 +228,7 @@ const ProjectDetail = props => {
                                         projectId={project.id}
                                         connect={connectItem}
                                         getArtistProjects={getArtistProjects}
+                                        setRefresh={setRefresh}
                                         {...props}
                                     />)}
                                 <div className="artistProjectDropdown">
