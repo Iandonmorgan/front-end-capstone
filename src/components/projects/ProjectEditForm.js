@@ -29,8 +29,8 @@ const ProjectEditForm = (props) => {
         })
     }
 
+    // CURRENCY MANAGER CODE FROM JOHN TUCKER, GAINESVILLE, FL https://github.com/larkintuckerllc/react-currency-input
     const handleValueChange = useCallback(val => {
-        // CURRENCY MANAGER CODE FROM JOHN TUCKER, GAINESVILLE, FL https://github.com/larkintuckerllc/react-currency-input
         setBudgetValue(val);
     }, []);
 
@@ -158,10 +158,14 @@ const ProjectEditForm = (props) => {
                                 <label htmlFor="status">Status: </label>
                                 <div>
                                     <Dropdown
+                                        search
+                                        scrolling
+                                        searchInput={{ type: 'text' }}
                                         options={statusOptions}
                                         selection
                                         id="statusId"
                                         onChange={handleStatusChange}
+                                        defaultValue={project[0].statusId}
                                     />
                                     {/* <StatusDropdown
                                         handleFieldChange={handleFieldChange}
