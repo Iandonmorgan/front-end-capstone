@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import APIManager from '../../modules/APIManager';
+import CurrencyManager from '../../modules/CurrencyManager';
 
 const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
 
@@ -7,6 +8,11 @@ const ProjectForm = (props) => {
     const [project, setProject] = useState({ name: "", picUrl: "", url: "", availabilityNotes: "" });
     const [isLoading, setIsLoading] = useState(false);
 
+    const [budgetValue, setBudgetValue] = useState(0);
+    const handleValueChange = useCallback(val => {
+      // CURRENCY MANAGER CODE FROM JOHN TUCKER, GAINESVILLE, FL https://github.com/larkintuckerllc/react-currency-input
+      setBudgetValue(val);
+    }, []);
 
     const handleFieldChange = evt => {
         const stateToChange = { ...project };
@@ -24,8 +30,9 @@ const ProjectForm = (props) => {
             name: project.name,
             expectedCompletion: project.expectedCompletion,
             description: project.description,
-            streetAddress: project.streetAddress,
+            budget: budgetValue,
             statusId: 1,
+            isOnTrack: true,
             userId: activeUser.id,
             created_timestamp: dateTime
         };
@@ -93,17 +100,15 @@ const ProjectForm = (props) => {
                                 </p>
                             </div>
                             <div>
-                                <label htmlFor="streetAddress">Street Address: </label>
+                                <label htmlFor="budget">Total Budget: </label>
                                 <p>
-                                    <textarea
-                                        type="text"
-                                        rows="1"
-                                        cols="40"
-                                        required
-                                        className="form-control"
-                                        onChange={handleFieldChange}
-                                        id="streetAddress"
-                                        defaultValue={project.streetAddress}
+                                    <CurrencyManager
+                                        max={100000000}
+                                        onValueChange={handleValueChange}
+                                        id="budget"
+                                        style={{ textAlign: 'right' }}
+                                        defaultValue={project.budget}
+                                        value={budgetValue}
                                     />
                                 </p>
                             </div>

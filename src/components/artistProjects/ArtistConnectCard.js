@@ -13,9 +13,11 @@ const ArtistConnectCard = (props) => {
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => APIManager.delete("artistProjects", props.connect.id).then(() =>
-                        props.getArtistProjects()
-                    )
+                    onClick: () => APIManager.delete("artistProjects", props.connect.id).then(() => {
+                        props.getArtistProjects();
+                        props.setRefresh(true);
+                        props.setRefresh(false);
+                    })
                 },
                 {
                     label: 'No',
