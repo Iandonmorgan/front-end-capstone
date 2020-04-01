@@ -1,34 +1,35 @@
 import React, { useCallback, useState, useEffect } from "react";
 import APIManager from '../../modules/APIManager';
 import CurrencyManager from '../../modules/CurrencyManager';
+import StatusDropdown from './StatusDropdown';
 
 const activeUser = JSON.parse(sessionStorage.getItem('credentials'));
 
 const ProjectEditForm = (props) => {
     const [project, setProject] = useState({ name: "", expectedCompletion: "", description: "", budget: "" });
     const [isLoading, setIsLoading] = useState(false);
-
     const [budgetValue, setBudgetValue] = useState(0);
+
     const handleValueChange = useCallback(val => {
-      // CURRENCY MANAGER CODE FROM JOHN TUCKER, GAINESVILLE, FL https://github.com/larkintuckerllc/react-currency-input
-      setBudgetValue(val);
+        // CURRENCY MANAGER CODE FROM JOHN TUCKER, GAINESVILLE, FL https://github.com/larkintuckerllc/react-currency-input
+        setBudgetValue(val);
     }, []);
-    
+
     const getProject = () => {
         APIManager.getById("projects", parseInt(props.match.params.projectId))
-        .then(project => {
-            setProject(project);
-            setBudgetValue(project[0].budget);
-            setIsLoading(false);
-        });
+            .then(project => {
+                setProject(project);
+                setBudgetValue(project[0].budget);
+                setIsLoading(false);
+            });
     };
-    
+
     const handleFieldChange = evt => {
         const stateToChange = { ...project };
         stateToChange[evt.target.id] = evt.target.value;
         setProject(stateToChange);
     };
-    
+
     const getEditStatus = () => {
         APIManager.getById("projects", props.match.params.projectId).then(project => {
             if (project[0].userId !== activeUser.id) {
@@ -67,6 +68,7 @@ const ProjectEditForm = (props) => {
     }, []);
 
     if (project[0] !== undefined) {
+        console.log("STATUS ID - - - ", project[0].statusId)
         return (
             <>
                 <div className="project-editForm-icon-container">
@@ -135,8 +137,13 @@ const ProjectEditForm = (props) => {
                             </div>
                             <div>
                                 <label htmlFor="status">Status: </label>
-                                <p>
-                                    <textarea
+                                <div>
+                                    <StatusDropdown
+                                        onChange={handleFieldChange}
+                                        id="statusId"
+                                        defaultValue={project[0].statusId}
+                                    />
+                                    {/* <textarea
                                         type="text"
                                         rows="1"
                                         cols="20"
@@ -145,8 +152,8 @@ const ProjectEditForm = (props) => {
                                         onChange={handleFieldChange}
                                         id="statusId"
                                         defaultValue={project[0].statusId}
-                                    />
-                                </p>
+                                    /> */}
+                                </div>
                             </div>
                         </div>
                         <div className="alignRight">

@@ -177,7 +177,6 @@ const ProjectDetail = props => {
       
           return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
         } catch (e) {
-          console.log(e)
         }
       };
 
@@ -243,7 +242,6 @@ const ProjectDetail = props => {
                                         <Dropdown.Menu>
                                             <Dropdown.Header content='Unattached Artists' />
                                             {unattachedArtists.map((option) => (
-                                                console.log("OPTION NAME -- ", option.name),
                                                 <Dropdown.Item
                                                     key={option.id}
                                                     text={option.name}
