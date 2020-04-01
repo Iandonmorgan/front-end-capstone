@@ -35,8 +35,7 @@ const DashboardList = (props) => {
     if (props.hasUser) {
         return (
             <>
-                <section className="artist-section">
-                    <div className="artist-name">
+                <section className="dashboard-artist-section">
                         {artists.sort().map(artist => (
                             <DashboardCard
                                 key={artist.id}
@@ -45,7 +44,6 @@ const DashboardList = (props) => {
                                 {...props}
                             />
                         ))}
-                    </div>
                 </section >
             </>
         )
