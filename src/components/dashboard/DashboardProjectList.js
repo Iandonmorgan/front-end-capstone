@@ -38,17 +38,19 @@ const DashboardProjectList = (props) => {
             {artistProject.map(artistProject => (
                 <div className="dashboardProjectLine" key={artistProject.id.toString()} >
                     <div className="dashboardProjectItem" onClick={() => props.history.push(`/projects/${artistProject.projectId}`)} >
-                        <div className="projectItemName">
+                        <div className="dashboardProjectItemName">
                             {(artistProject.project.name.toUpperCase())}
                         </div>
-                        <div className="projectItemDescription">
+                        <div className="dashboardProjectItemDescription">
                             {(artistProject.project.description)}
                         </div>
-                        <div className="projectItemDeadline">
-                            {(DateManager.monthDayYear(artistProject.project.expectedCompletion))}
-                        </div>
-                        <div className="projectItemStatus">
-                            {(statusArray[artistProject.project.statusId - 1])}
+                        <div className="dashboardProjectDeadlineAndStatus">
+                            <div className="dashboardProjectItemDeadline">
+                                {(DateManager.monthDayYear(artistProject.project.expectedCompletion))}
+                            </div>
+                            <div className="dashboardProjectItemStatus">
+                                {(statusArray[artistProject.project.statusId - 1])}
+                            </div>
                         </div>
                     </div>
                 </div>

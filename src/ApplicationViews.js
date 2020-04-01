@@ -48,7 +48,11 @@ const ApplicationViews = props => {
       <Route
         path="/dashboard"
         render={props => {
-          return <DashboardList {...props} hasUser={hasUser} />;
+          return (
+            <>
+              <DashboardList {...props} hasUser={hasUser} />
+            </>
+          );
         }}
       />
       <Route
