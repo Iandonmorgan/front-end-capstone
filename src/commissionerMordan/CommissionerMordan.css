@@ -331,17 +331,77 @@ button:hover{
 }
 
 /* PROJECT PAGES */
-
+.budgetContainer {
+    display: flex;
+}
+.referenceUrlCard {
+    display: flex;
+}
+.projectDetailsReferenceUrls {
+    margin-top: 40px;
+}
+.artistConnectCards {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.artistConnectCard {
+    margin: 10px;
+}
+.addReferenceUrl {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+.addReferenceUrlIconContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.urlInput {
+    margin-left: 5px;
+}
+.subDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 100px;
+}
+.projectDetailsBottomRow, .projectDetailsTopRow {
+    display: flex;
+    justify-content: space-between;
+}
+.projectDetailsDescription {
+    white-space: pre-wrap;
+    font-size: 2em;
+    line-height: 1.2em;
+    border:1px solid #999;
+    border-radius:8px;
+    box-shadow:0 0 8px #999;
+    padding:6px;
+}
+/* .projectDetailsAvailability {
+    white-space: pre-wrap;
+    font-size: 2em;
+    line-height: 1.2em;
+    border:1px solid #999;
+    border-radius:8px;
+    box-shadow:0 0 8px #999;
+    padding:6px;
+} */
+.deleteReferenceUrlIcon {
+    margin-left: 3px;
+    display: flex;
+    align-items: center;
+}
 .artistConnectImageCard {
     width: 200px;
 }
-
 .projects {
     font-size: 4em;
 }
 .projectDetail {
-    margin: 0 100px;
-        
+    margin: 0 100px;       
 }
 .project-editForm-icon-container {
     display: flex;
@@ -364,8 +424,7 @@ button:hover{
 }
 .projectsCardContent {
     width: 100%;
-    display: flex;
-    
+    display: flex; 
 }
 .projectCardSubIcons {
     display: flex;
@@ -461,7 +520,7 @@ button:hover{
     margin-top: 10px;
 }
 .projectDetailsConnectedArtists {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 .subArtistConnectCard {
     display: flex;

@@ -10,22 +10,28 @@ const ProjectEditForm = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [budgetValue, setBudgetValue] = useState(0);
     const [statusId, setStatusId] = useState(0);
+    const [statusOptions, setStatusOptions] = useState([]);
+
+    const handleClear = () => {
+        setBudgetValue(0);
+    }
 
     const handleStatusChange = (e, { value }) => {
         setStatusId(value);
     }
 
-    let statusOptions = [];
     const getStatusOptions = () => {
-        APIManager.getAll("statuses").then(results => {
+        return APIManager.getAll("statuses").then(results => {
+            let statusOptionsArray = [];
             results.map(result => {
                 let statusOption = {
                     key: result.id,
                     text: result.name,
                     value: result.id
                 }
-                statusOptions.push(statusOption)
+                statusOptionsArray.push(statusOption)
             })
+            setStatusOptions(statusOptionsArray);
         })
     }
 
@@ -35,7 +41,7 @@ const ProjectEditForm = (props) => {
     }, []);
 
     const getProject = () => {
-        APIManager.getById("projects", parseInt(props.match.params.projectId))
+        return APIManager.getById("projects", parseInt(props.match.params.projectId))
             .then(project => {
                 setProject(project);
                 setBudgetValue(project[0].budget);
@@ -64,10 +70,10 @@ const ProjectEditForm = (props) => {
         if (project.name !== "" && project.expectedCompletion !== "" && project.description !== "" && project.budget !== "" && statusId && statusId !== "") {
             evt.preventDefault()
             setIsLoading(true);
-            
+
             let dateTime = new Date().toLocaleString('en-GB', { timeZone: 'UTC' });
-            
-            
+
+
             const editedProject = {
                 id: project[0].id,
                 name: project.name,
@@ -78,20 +84,20 @@ const ProjectEditForm = (props) => {
                 statusId: statusId,
                 lastUpdatedTimestamp: dateTime
             };
-            
+
             APIManager.update("projects", editedProject)
-            .then(() => props.history.push(`/projects/${editedProject.id}`))
+                .then(() => props.history.push(`/projects/${editedProject.id}`))
         } else {
             window.alert("PLEASE COMPLETE ALL FIELDS PRIOR TO SUBMITTING")
         }
     }
 
     useEffect(() => {
-        getProject();
-        getEditStatus();
+        getStatusOptions()
+            .then(() => getProject()
+                .then(() => getEditStatus()))
     }, []);
-    
-    getStatusOptions();
+
     if (project[0] !== undefined) {
         return (
             <>
@@ -146,8 +152,8 @@ const ProjectEditForm = (props) => {
                                     />
                                 </p>
                             </div>
-                            <div>
-                                <label htmlFor="budget">Budget: </label>
+                            <label htmlFor="budget">Budget: </label>
+                            <div className="budgetContainer">
                                 <p>
                                     <CurrencyManager
                                         max={100000000}
@@ -158,35 +164,27 @@ const ProjectEditForm = (props) => {
                                         value={budgetValue}
                                     />
                                 </p>
+                                <span data-tooltip="CLEAR BUDGET" className="clearBudgetIcon">
+                                    <i
+                                        type="button"
+                                        onClick={handleClear}
+                                        id="clearBudgetBtn"
+                                        className="small redo green icon clearBudgetBtn"
+                                    ></i>
+                                </span>
                             </div>
                             <div>
                                 <label htmlFor="status">Status: </label>
                                 <div>
                                     <Dropdown
                                         search
-                                        scrolling
                                         searchInput={{ type: 'text' }}
                                         options={statusOptions}
                                         selection
                                         id="statusId"
                                         onChange={handleStatusChange}
-                                        defaultValue={parseInt(statusId)}
+                                        value={parseInt(statusId)}
                                     />
-                                    {/* <StatusDropdown
-                                        handleFieldChange={handleFieldChange}
-                                        id="statusId"
-                                        defaultValue={project[0].statusId}
-                                    /> */}
-                                    {/* <textarea
-                                        type="text"
-                                        rows="1"
-                                        cols="20"
-                                        required
-                                        className="form-control"
-                                        onChange={handleFieldChange}
-                                        id="statusId"
-                                        defaultValue={project[0].statusId}
-                                    /> */}
                                 </div>
                             </div>
                         </div>
@@ -195,7 +193,7 @@ const ProjectEditForm = (props) => {
                                 type="button" disabled={isLoading}
                                 onClick={updateExistingProject}
                                 id="projectEditFormBtn"
-                            >Submit</button>
+                            >SAVE</button>
                         </div>
                     </fieldset>
                 </form>

@@ -32,7 +32,6 @@ const ArtistConnectCard = (props) => {
             "artistId": artistId,
             "projectId": projectId
         }
-        console.log("INFO", artistId, projectId)
         confirmAlert({
             title: 'Confirm to connect',
             message: 'Are you sure you want to connect the project to this artist?',
