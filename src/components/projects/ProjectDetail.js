@@ -111,14 +111,9 @@ const ProjectDetail = props => {
     const getUnattachedArtists = () => {
         APIManager.getAll("artists").then(artistsFromAPI => {
             APIManager.getAllWithProjectId("artistProjects", props.match.params.projectId).then(attachedArtists => {
-                artistsFromAPI.map(artistFromAPI => {
-                    for (let i = 0; i < attachedArtists.length; i++) {
-                        if (attachedArtists[i].artistId === artistFromAPI.id) {
-                            artistsFromAPI.splice(artistsFromAPI.findIndex(artist => artist.id === artistFromAPI.id), 1);
-                        }
-                    }
-                })
-                setUnattachedArtists(artistsFromAPI.sort(function (a, b) {
+                let filteredArtistArray = artistsFromAPI.filter(artist => 
+                    !attachedArtists.some(attachedArtist => (attachedArtist.artistId === artist.id)))
+                setUnattachedArtists(filteredArtistArray.sort(function (a, b) {
                     var nameA = a.name.toUpperCase();
                     var nameB = b.name.toUpperCase();
                     if (nameA < nameB) {

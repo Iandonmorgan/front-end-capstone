@@ -10,6 +10,7 @@ const ProjectEditForm = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [budgetValue, setBudgetValue] = useState(0);
     const [statusId, setStatusId] = useState(0);
+    const [statusOptions, setStatusOptions] = useState([]);
 
     const handleClear = () => {
         setBudgetValue(0);
@@ -19,17 +20,18 @@ const ProjectEditForm = (props) => {
         setStatusId(value);
     }
 
-    let statusOptions = [];
     const getStatusOptions = () => {
-        APIManager.getAll("statuses").then(results => {
+        return APIManager.getAll("statuses").then(results => {
+            let statusOptionsArray = [];
             results.map(result => {
                 let statusOption = {
                     key: result.id,
                     text: result.name,
                     value: result.id
                 }
-                statusOptions.push(statusOption)
+                statusOptionsArray.push(statusOption)
             })
+            setStatusOptions(statusOptionsArray);
         })
     }
 
@@ -39,7 +41,7 @@ const ProjectEditForm = (props) => {
     }, []);
 
     const getProject = () => {
-        APIManager.getById("projects", parseInt(props.match.params.projectId))
+        return APIManager.getById("projects", parseInt(props.match.params.projectId))
             .then(project => {
                 setProject(project);
                 setBudgetValue(project[0].budget);
@@ -91,11 +93,11 @@ const ProjectEditForm = (props) => {
     }
 
     useEffect(() => {
-        getProject();
-        getEditStatus();
+        getStatusOptions()
+            .then(() => getProject()
+                .then(() => getEditStatus()))
     }, []);
 
-    getStatusOptions();
     if (project[0] !== undefined) {
         return (
             <>
@@ -176,29 +178,13 @@ const ProjectEditForm = (props) => {
                                 <div>
                                     <Dropdown
                                         search
-                                        scrolling
                                         searchInput={{ type: 'text' }}
                                         options={statusOptions}
                                         selection
                                         id="statusId"
                                         onChange={handleStatusChange}
-                                        defaultValue={parseInt(statusId)}
+                                        value={parseInt(statusId)}
                                     />
-                                    {/* <StatusDropdown
-                                        handleFieldChange={handleFieldChange}
-                                        id="statusId"
-                                        defaultValue={project[0].statusId}
-                                    /> */}
-                                    {/* <textarea
-                                        type="text"
-                                        rows="1"
-                                        cols="20"
-                                        required
-                                        className="form-control"
-                                        onChange={handleFieldChange}
-                                        id="statusId"
-                                        defaultValue={project[0].statusId}
-                                    /> */}
                                 </div>
                             </div>
                         </div>
@@ -207,7 +193,7 @@ const ProjectEditForm = (props) => {
                                 type="button" disabled={isLoading}
                                 onClick={updateExistingProject}
                                 id="projectEditFormBtn"
-                            >Submit</button>
+                            >SAVE</button>
                         </div>
                     </fieldset>
                 </form>
