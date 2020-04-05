@@ -24,6 +24,11 @@ export default {
             result.json()
         );
     },
+    getAllWithArtistId(component, artistId) {
+        return fetch(`${remoteURL}/${component}?artistId=${artistId}`).then(result =>
+            result.json()
+        );
+    },
     getAllWithProjectId(component, projectId) {
         return fetch(`${remoteURL}/${component}?projectId=${projectId}`).then(result =>
             result.json()

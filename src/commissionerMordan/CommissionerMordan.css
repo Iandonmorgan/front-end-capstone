@@ -171,7 +171,7 @@ button:hover{
 .artistImage{
     width: 100%;
     position: top;
-    border-radius: 15px;
+    /* border-radius: 15px; */
     /* margin: 5%; */
 }
 .artistImage:hover {
@@ -180,7 +180,7 @@ button:hover{
 }
 .dashboardProjectItem {
     display: flex;
-    margin: 0 25px;
+    margin: 0 10px;
     justify-content: space-around;
     flex-direction: column;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -210,12 +210,12 @@ button:hover{
     cursor: pointer;
 }
 .dashboardProjectLine:nth-child(even) {
-    background: #FFFFFF;
-    border-radius: 15px;
+    background: rgb(238, 239, 241);
+    /* border-radius: 15px; */
 }
 .dashboardProjectLine:nth-child(odd) {
-    background: #D3D4D9;
-    border-radius: 15px;
+    background: #FFFFFF;
+    /* border-radius: 15px; */
 }
 .dashboardCardTitle {
     /* transform: rotate(-90deg); */
@@ -441,7 +441,7 @@ button:hover{
 .artistImageCard{
     width: 100%;
     position: top;
-    border-radius: 25px;
+    border-radius: 5px;
     /* margin: 5%; */
 }
 .artistImageCard:hover, .icon:hover {

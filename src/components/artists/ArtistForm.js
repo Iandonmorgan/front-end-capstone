@@ -31,6 +31,7 @@ const ArtistForm = (props) => {
 
         if (artist.name === "" || artist.picUrl === "" || artist.url === "") {
             window.alert("Please input a name, picUrl, and URL for your Artist.");
+            setIsLoading(false);
         } else {
             setIsLoading(true);
             APIManager.post("artists", newArtist)
