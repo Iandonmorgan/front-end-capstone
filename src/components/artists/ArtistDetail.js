@@ -11,6 +11,13 @@ const ArtistsDetail = props => {
     const [userFollows, setUserFollows] = useState([]);
     const [isFollowing, setIsFollowing] = useState(false);
     const [artists, setArtists] = useState([]);
+    const [artistProjects, setArtistProjects] = useState([]);
+
+    const getArtistProjects = () => {
+        APIManager.getAllWithExpand("artistProjects", "artist").then(artistProjects => {
+            setArtistProjects(artistProjects);
+        });
+    };
 
     const handleDelete = () => {
         setIsLoading(true);
@@ -20,9 +27,18 @@ const ArtistsDetail = props => {
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => APIManager.delete("artists", props.artistId).then(() =>
-                        props.history.push("/artists")
-                    )
+                    onClick: () => {
+                        setIsLoading(true);
+                        artistProjects.map(artistProject => {
+                            if (artistProject.artistId === artist.id) {
+                                APIManager.delete("artistProjects", artistProject.id);
+                            }
+                        }
+                        );
+                        APIManager.delete("artists", artist.id).then(() =>
+                            props.history.push("/artists")
+                        )
+                    }
                 },
                 {
                     label: 'No',
@@ -118,9 +134,10 @@ const ArtistsDetail = props => {
                 availabilityNotes: artist.availabilityNotes
             })
         }).then(() => {
-                getUserFollows();
-                setIsLoading(false);
-                })
+            getUserFollows();
+            getArtistProjects();
+            setIsLoading(false);
+        })
     }, []);
 
     let followArtisty = {

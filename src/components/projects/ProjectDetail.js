@@ -89,9 +89,14 @@ const ProjectDetail = props => {
                     onClick: () => {
                         artistProjects.map(artistProject => {
                             setIsLoading(true);
+                            referenceUrls.map(referenceUrl => {
+                                if (artistProject.projectId === referenceUrl.projectId) {
+                                    APIManager.delete("referenceUrls", referenceUrl.id)
+                                }
+                            })
                             if (artistProject.projectId === project.id) {
                                 APIManager.delete("artistProjects", artistProject.id).then(() =>
-                                    props.history.push("/projects"))
+                                props.history.push("/projects"))
                             }
                         }
                         );
@@ -215,7 +220,7 @@ const ProjectDetail = props => {
         } else if (artistProjects.filter(artistProject => artistProject.projectId === project.id).length > 1) {
             artistConnectHeader = <div className="projectDetailsConnectedArtistsHeader">Artists connected to this project:</div>
         } else {
-            artistConnectHeader = "HI";
+            artistConnectHeader = "";
         }
         if (referenceUrls.length !== undefined) {
             if (referenceUrls.length === 1) {
