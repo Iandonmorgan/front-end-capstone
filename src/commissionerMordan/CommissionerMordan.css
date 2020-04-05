@@ -235,11 +235,27 @@ button:hover{
 
 /* ARTIST PAGES */
 
+.artistDetailsSocialUrls {
+    margin-top: 40px;
+}
 .artists-content {
     width: 90%;
     margin: auto;
 }
-
+.socialUrlCard {
+    display: flex;
+}
+.deleteSocialUrlIcon {
+    margin-left: 3px;
+    display: flex;
+    align-items: center;
+}
+.addSocialUrl {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
 .artists {
     font-size: 4em;
 }
@@ -247,8 +263,8 @@ button:hover{
     display: flex;
     justify-content: flex-end;
 }
-.artistDetail, .artistEdit {
-    margin: 50px auto;
+.artistDetail, .subArtistDetailsContainer, .artistEdit {
+    margin: 50px 100px;
     max-width: 80%;
         
 }
