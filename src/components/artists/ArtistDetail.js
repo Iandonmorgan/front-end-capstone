@@ -302,7 +302,7 @@ const ArtistsDetail = props => {
                         </div>
                     </div >
                     <hr />
-                    <div className="subDetailsContainer">
+                    <div className="subArtistDetailsContainer">
                         <div className="artistDetailsSocialUrls">
                             {socialUrlHeader}
                             {socialUrls.map(socialUrl =>
