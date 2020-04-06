@@ -25,9 +25,9 @@ const DashboardCard = (props) => {
     const getFollowingStatus = () => {
         return APIManager.getByUserIdAndArtistId("userFollows", activeUser.id, props.artist.id).then(follows => {
             if (follows.length > 0) {
-                setIsEmpty(false);
                 follows.map(follow => {
                     if (activeUser.id === follow.userId && follow.artistId === props.artist.id) {
+                        setIsEmpty(false);
                         setIsFollowing(true);
                     }
                 })

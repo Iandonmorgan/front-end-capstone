@@ -6,21 +6,12 @@ A front-end capstone project from [Landon Morgan](https://github.com/Iandonmorga
 
 Clients need video projects and provide certain details. A user logs into Commissioner Mordan, a helpful app designed to track information related to the commissioning of video projects. A user can create, read, update and delete video projects.
 
-## MVP Definition
+## Project Definition
 
 * Written in React.
 * Users can create account, login via Session Storage, and logout
 * Ability to create, read, update, delete “Artists”
 * Ability to create, read, update, delete “Projects”
-
-## Dream Stretch Goals
-* Ability to create, read, update, delete “Contacts”
-* Ability to create, read, update, delete “Shoots”
-* Ability to create, read, update, delete “Edits”
-* Ability to create, read, update, delete “Tasks”
-* Styling with Bootstrap
-* 1-2 easter egg features
-
 
 ## Setup
 
@@ -28,7 +19,8 @@ Steps to get started:
 1. `git clone git@github.com:Iandonmorgan/front-end-capstone.git`
 1. `cd` into the directory it creates
 1. `mkdir api`
-1. `touch api/database.json` or replace with test database file (contact Landon)
+1. `touch api/`
+1. Download file: [database.json](https://drive.google.com/open?id=1RC4Nys7nZWJbD-viWxyAq8fhKiIRShoC) and put it into your api folder.
 1. [Install yarn for dependencies](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
 1. `yarn install` to build dependencies
 1. `yarn start` to run the app in the development mode
@@ -66,8 +58,5 @@ We utilized all skills and concepts learned up to this point in our time here at
 1. Semantic HTML
 1. [Valid HTML5](https://validator.w3.org/)
 
-## Database Diagram (MVP)
+## Database Diagram
 ![Commissioner Mordan database](./CommissionerMordan_mvp.png)
-
-## Database Diagram (including stretch goals)
-![Commissioner Mordan database](./CommissionerMordan.png)
