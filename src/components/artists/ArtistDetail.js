@@ -70,6 +70,9 @@ const ArtistsDetail = props => {
                     label: 'Yes',
                     onClick: () => {
                         setIsLoading(true);
+                        socialUrls.map(socialUrl => {
+                            APIManager.delete("socialUrls", socialUrl.id);
+                        })
                         artistProjects.map(artistProject => {
                             if (artistProject.artistId === artist.id) {
                                 APIManager.delete("artistProjects", artistProject.id);
