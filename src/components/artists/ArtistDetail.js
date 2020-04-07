@@ -29,13 +29,15 @@ const ArtistsDetail = props => {
             newSocialUrl = {
                 "projectId": props.match.params.projectId,
                 "name": socialUrlz.name,
-                "url": "https://" + socialUrlz.url.split("://")[1]
+                "url": "https://" + socialUrlz.url.split("://")[1],
+                "artistId": artist.id
             }
         } else if (socialUrlz.url.split("://").length === 1) {
             newSocialUrl = {
                 "projectId": props.match.params.projectId,
                 "name": socialUrlz.name,
-                "url": "https://" + socialUrlz.url.split("://")[0]
+                "url": "https://" + socialUrlz.url.split("://")[0],
+                "artistId": artist.id
             }
         }
         if (socialUrlz.name !== "" && socialUrlz.url !== "") {
@@ -169,6 +171,7 @@ const ArtistsDetail = props => {
     }
 
     const getSocialUrls = () => {
+        console.log("ARTIST ID - - - ", props.match.params.artistId);
         APIManager.getAllWithArtistId("socialUrls", props.match.params.artistId).then(socialUrls => {
             setSocialUrls(socialUrls);
         });
