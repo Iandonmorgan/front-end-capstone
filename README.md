@@ -20,7 +20,10 @@ Steps to get started:
 1. `cd` into the directory it creates
 1. `mkdir api`
 1. `touch api/`
-1. Download file: [database.json](https://drive.google.com/open?id=1RC4Nys7nZWJbD-viWxyAq8fhKiIRShoC) and put it into your api folder.
+1. Download one of the database files:
+    [EMPTY: database.json](https://drive.google.com/open?id=1RC4Nys7nZWJbD-viWxyAq8fhKiIRShoC)
+    [SONY RCA FICTIONAL PROJECTS: database.json](https://drive.google.com/open?id=1c_9pSyWN31U105JFxNwvp7fCJs3fzO2_)
+1. Move your database.json file into the /api/ directory.
 1. [Install yarn for dependencies](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
 1. `yarn install` to build dependencies
 1. `yarn start` to run the app in the development mode
