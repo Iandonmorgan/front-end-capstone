@@ -21,8 +21,8 @@ Steps to get started:
 1. `mkdir api`
 1. `touch api/`
 1. Download one of the database files:
-    [EMPTY: database.json](https://drive.google.com/open?id=1RC4Nys7nZWJbD-viWxyAq8fhKiIRShoC)
-    [SONY RCA FICTIONAL PROJECTS: database.json](https://drive.google.com/open?id=1c_9pSyWN31U105JFxNwvp7fCJs3fzO2_)
+    1. [EMPTY: database.json](https://drive.google.com/open?id=1RC4Nys7nZWJbD-viWxyAq8fhKiIRShoC)
+    1. [SONY RCA FICTIONAL PROJECTS: database.json](https://drive.google.com/open?id=1c_9pSyWN31U105JFxNwvp7fCJs3fzO2_)
 1. Move your database.json file into the /api/ directory.
 1. [Install yarn for dependencies](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
 1. `yarn install` to build dependencies
